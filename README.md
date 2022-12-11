@@ -8,6 +8,10 @@ npm install
 ## Run API
 First we need to build the bundle into a js version using
 ```
+npm run collections
+```
+First we need to build the bundle into a js version using
+```
 npm run build
 ```
 Then we can start it with the next command
