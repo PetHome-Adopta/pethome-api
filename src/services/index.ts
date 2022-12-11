@@ -3,12 +3,12 @@ import { PetsServices } from "./pets";
 
 export class Services {
 
-    private services: services = {
-       pets: null
-    }
+    private services: services;
 
     constructor () {
-        this.services.pets = new PetsServices();
+        this.services = {
+            pets: new PetsServices()
+        }
     }
 
     public getServices(){

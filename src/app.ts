@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import { Controllers } from "./controllers";
+import { Helpers } from "./helpers";
 import { Infrastructure } from "./infrastructure";
 import { Services } from "./services";
 
@@ -8,18 +9,31 @@ require('dotenv').config();
 
 const App: Express = express();
 
-// Init infrastructure and globalize it
-export let infrastructure = (new Infrastructure()).getInfrastructure();
+export let infrastructure;
+export let services;
+export let helpers;
 
-// Init controllers
-new Controllers(App);
+(async () => {
 
-// Init services and globalize it
-export const services = (new Services()).getServices();
+    // Init infrastructure and globalize it
+    infrastructure = (new Infrastructure()).getInfrastructure();
 
-App.listen(process.env.LISTEN_PORT);
+    // Init controllers
+    new Controllers(App);
 
-console.log(`Listening port ${process.env.LISTEN_PORT}`);
+    // Init services and globalize it
+    services = (new Services()).getServices();
+
+    // Init helpers and globalize it
+    helpers = (new Helpers(infrastructure.databases)).getHelpers();
+
+    App.listen(process.env.LISTEN_PORT);
+
+    console.log(`Listening port ${process.env.LISTEN_PORT}`);
+
+})().catch((e) => {
+    console.log(e);
+})
 
 
 

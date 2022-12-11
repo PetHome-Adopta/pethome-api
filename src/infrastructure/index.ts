@@ -4,14 +4,14 @@ import { infrastructure } from '../entities/infrastructure';
 
 export class Infrastructure {
 
-    private infrastructure:infrastructure = {
-        databases: null
-    }
+    private infrastructure:infrastructure;
 
     constructor() {
         (async () => {
             console.log("Initializing Infrastructure...");
-            this.infrastructure.databases = new Databases();
+            this.infrastructure = {
+                databases: new Databases()
+            }
             console.log("Initialized Infrastructure.")
         })().catch((e) => {
             console.log("Error initializing infrastructure");
