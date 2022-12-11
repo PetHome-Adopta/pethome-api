@@ -16,16 +16,21 @@ export interface GetPetsHelper extends generalOptions {
         breed?: string;
         shelterKey?: string;
         gender?: gender;
+        behaviour?: string;
+        sterilized?: boolean;
     }
 }
 
 export interface CreatePetHelper {
     name: string;
+    description?: string;
     color?: string;
     age?: string;
     breed?: string;
     shelterKey: string;
     gender?: gender;
+    behaviour?: string;
+    sterilized?: boolean;
 }
 
 export interface UpdatePetHelper {
