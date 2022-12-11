@@ -1,6 +1,7 @@
 import { Express, Request, Response, Router } from "express";
 import { servicesVersion } from "typescript";
 import { services } from "../app";
+import { RequestGetPets } from "../entities/pets";
 
 export class PetsController {
     #router: Router;
