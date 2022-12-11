@@ -16,8 +16,9 @@ const connection = await mongo.MongoClient.connect(`mongodb://${process.env.MONG
         // Create all the collections
 
         db.createCollection("pets");
-
-        return "Ok";
+        console.log("Pets collection created successfully");
+        
+        return process.exit(1);
 
     })().catch((e) => {
         console.log(e);
