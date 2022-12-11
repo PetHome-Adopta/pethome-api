@@ -1,4 +1,4 @@
-import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../entities/pets';
+import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../entities/models/pets';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid"; 
 

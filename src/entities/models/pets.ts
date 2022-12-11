@@ -1,4 +1,5 @@
-import { generalOptions } from "./mongodb";
+import { baseModel } from "./baseModel";
+import { generalOptions } from "../mongodb";
 
 type gender = "male" | "female";
 
@@ -21,6 +22,23 @@ export interface GetPetsHelper extends generalOptions {
     }
 }
 
+export interface Pet extends baseModel{
+    key: string;
+    name: string;
+    description?: string;
+    color?: string;
+    age?: string;
+    breed?: string;
+    gender?: gender;
+    behaviour?: string;
+    sterilized?: boolean;
+    adopted: boolean;
+    adoptedBy?: string;
+
+    shelterKey: string;
+    type: string;
+}
+
 export interface CreatePetHelper {
     name: string;
     description?: string;
@@ -31,6 +49,7 @@ export interface CreatePetHelper {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    type: string;
 }
 
 export interface UpdatePetHelper {

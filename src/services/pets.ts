@@ -1,4 +1,4 @@
-import { RequestGetPets } from "../entities/pets";
+import { RequestGetPets } from "../entities/models/pets";
 
 export class PetsServices {
     async getPets(data: RequestGetPets) {
