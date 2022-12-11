@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import { Controllers } from "./controllers";
 import { Helpers } from "./helpers";
 import { Infrastructure } from "./infrastructure";
+import { Deserializer } from "./middlewares/deserializer";
 import { Services } from "./services";
 
 // Init env
@@ -14,6 +15,10 @@ export let services;
 export let helpers;
 
 (async () => {
+
+    // Init middlewares
+
+    App.use(Deserializer);
 
     // Init infrastructure and globalize it
     infrastructure = (new Infrastructure()).getInfrastructure();
