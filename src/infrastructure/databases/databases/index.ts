@@ -11,6 +11,7 @@ export class Databases {
 
     constructor() {
         (async () => {
+
             console.log("Initializing Databases...");
             this.clients.mongo = (await new MongoDB().startDB()) as Db;
             console.log("Initialized databases.")
@@ -18,6 +19,7 @@ export class Databases {
             console.log("Error initializing databases");
             console.log(e);
         });
+        
     }
 
     getClients() {
