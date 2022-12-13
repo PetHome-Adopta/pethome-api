@@ -26,6 +26,7 @@ export class PetsHelper {
             key: v1(),
             ...options,
             createdAt: new Date(),
+            updatedAt: new Date(),
             adopted: false,
         }
 
@@ -37,7 +38,10 @@ export class PetsHelper {
 
     async updatePet(options: UpdatePetHelper) {
 
-        const updated = await this.databases.getClients().mongo.collection("pets").updateOne(options.filters, options.data);
+        const updated = await this.databases.getClients().mongo.collection("pets").updateOne(options.filters, {
+            data: options.data,
+            updatedAt: new Date(),
+        });
 
         return updated.upsertedId;
 
@@ -46,7 +50,7 @@ export class PetsHelper {
     async deletePet(options: DeletePetHelper) {
         
         const deleted = await this.databases.getClients().mongo.collection("pets").updateOne(options, {
-            deletedAt: new Date()
+            deletedAt: new Date(),
         });
 
         return deleted.upsertedId;
