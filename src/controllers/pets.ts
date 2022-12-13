@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestGetPets } from "../entities/models/pets";
+import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../entities/models/pets";
 
 export class PetsController {
     #router: Router;
@@ -32,10 +32,10 @@ export class PetsController {
 
     async handleCreatePet(req: Request, res: Response){
         try{
-            const body: RequestGetPets = req.body;
+            const body: RequestCreatePet = req.body;
             const data = await services.pets.createPet(body);
             
-            res.json({
+            res.sendStatus(201).json({
                 data,
                 OK: true
             })
@@ -48,10 +48,10 @@ export class PetsController {
 
     async handleUpdatePet(req: Request, res: Response){
         try{
-            const body: RequestGetPets = req.body;
+            const body: RequestUpdatePet = req.body;
             const data = await services.pets.updatePet(body);
             
-            res.json({
+            res.sendStatus(200).json({
                 data,
                 OK: true
             })
@@ -64,10 +64,10 @@ export class PetsController {
 
     async handleDeletePet(req: Request, res: Response){
         try{
-            const body: RequestGetPets = req.body;
+            const body: RequestDeletePet = req.body;
             const data = await services.pets.deletePet(body);
             
-            res.json({
+            res.sendStatus(204).json({
                 data,
                 OK: true
             })

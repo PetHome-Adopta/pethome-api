@@ -3,25 +3,6 @@ import { generalOptions } from "../mongodb";
 
 type gender = "male" | "female";
 
-export interface RequestGetPets {
-    key?: string;
-    name?: string;
-}
-
-export interface GetPetsHelper extends generalOptions {
-    filters: {
-        key?: string;
-        name?: string;
-        color?: string;
-        age?: string;
-        breed?: string;
-        shelterKey?: string;
-        gender?: gender;
-        behaviour?: string;
-        sterilized?: boolean;
-    }
-}
-
 export interface Pet extends baseModel{
     key: string;
     name: string;
@@ -33,10 +14,65 @@ export interface Pet extends baseModel{
     behaviour?: string;
     sterilized?: boolean;
     adopted: boolean;
+    urgentAdoption: boolean;
     adoptedBy?: string;
 
     shelterKey: string;
-    type: string;
+    petTypeKey: string;
+}
+
+export interface RequestGetPets {
+    key?: string;
+    name?: string;
+}
+
+export interface RequestCreatePet {
+    name: string;
+    description: string;
+    color?: string;
+    age?: string;
+    breed?: string;
+    gender?: gender;
+    behaviour?: string;
+    sterilized?: boolean;
+
+    shelterKey: string;
+    petTypeKey?: string;
+}
+
+export interface RequestUpdatePet {
+    key: string;
+    name?: string;
+    description?: string;
+    color?: string;
+    age?: string;
+    breed?: string;
+    gender?: gender;
+    behaviour?: string;
+    sterilized?: boolean;
+
+    shelterKey?: string;
+    petTypeKey?: string;
+}
+
+export interface RequestDeletePet {
+    key: string;
+}
+
+export interface GetPetsHelper extends generalOptions {
+    filters: {
+        key?: string;
+        name?: string;
+        color?: string;
+        age?: string;
+        breed?: string;
+        gender?: gender;
+        behaviour?: string;
+        sterilized?: boolean;
+
+        shelterKey?: string;
+        petTypeKey?: string;
+    }
 }
 
 export interface CreatePetHelper {
@@ -45,11 +81,12 @@ export interface CreatePetHelper {
     color?: string;
     age?: string;
     breed?: string;
-    shelterKey: string;
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
-    type: string;
+
+    shelterKey: string;
+    petTypeKey: string;
 }
 
 export interface UpdatePetHelper {
