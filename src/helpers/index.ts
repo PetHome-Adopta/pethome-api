@@ -1,6 +1,7 @@
 import { helpers } from "../entities/helpers";
 import { Databases } from "../infrastructure/databases/databases";
 import { PetsHelper } from "./pets";
+import { PetsTypesHelper } from "./petsTypes";
 
 export class Helpers {
 
@@ -8,7 +9,8 @@ export class Helpers {
 
     constructor (databases: Databases) {
         this.helpers = {
-            pets: new PetsHelper(databases)
+            pets: new PetsHelper(databases),
+            petsTypes: new PetsTypesHelper(databases),
         };
     }
 
