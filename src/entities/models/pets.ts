@@ -15,7 +15,11 @@ export interface Pet extends baseModel{
     sterilized?: boolean;
     adopted: boolean;
     urgentAdoption: boolean;
-    adoptedBy?: string;
+    contactedBy?: [{
+        name: string;
+        email: string;
+        phoneNumber?: string;
+    }];
 
     shelterKey: string;
     petTypeKey: string;
