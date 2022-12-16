@@ -6,6 +6,7 @@ npm install
 ```
 
 ## Run API
+### Production
 First we need to build the bundle into a js version using
 ```
 npm run collections
@@ -18,6 +19,16 @@ Then we can start it with the next command
 ```
 npm start
 ```
+
+### Development
+
+For run the development version we need to use the next command
+
+```
+npm run dev
+```
+
+It will watch all the changes that you do
 
 ## What you will need
 * An IDE or text editor (VS Code)
