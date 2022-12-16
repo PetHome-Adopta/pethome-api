@@ -1,5 +1,6 @@
 import { services } from "../entities/services";
 import { PetsServices } from "./pets";
+import { PetsTypesServices } from "./petsTypes";
 
 export class Services {
 
@@ -7,7 +8,8 @@ export class Services {
 
     constructor () {
         this.services = {
-            pets: new PetsServices()
+            pets: new PetsServices(),
+            petsTypes: new PetsTypesServices(),
         }
     }
 

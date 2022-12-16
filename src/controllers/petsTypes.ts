@@ -1,23 +1,24 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../entities/models/pets";
+import { RequesCreatePetsTypes, RequestDeletePetsTypes, RequestGetPetsTypes, RequestUpdatePetsTypes } from "../entities/models/petsTypes";
+import { PetsServices } from '../services/pets';
 
-export class PetsController {
+export class PetTypesController {
     #router: Router;
 
     constructor (app : Express){
         this.#router = Router();
-        this.#router.get('/pets', this.handleGetPets.bind(this));
-        this.#router.post('/pets', this.handleCreatePet.bind(this));
-        this.#router.put('/pets', this.handleUpdatePet.bind(this));
-        this.#router.delete('/pets', this.handleDeletePet.bind(this));
+        this.#router.get('/pets/types', this.handleGetPets.bind(this));
+        this.#router.post('/pets/types', this.handleCreatePet.bind(this));
+        this.#router.put('/pets/types', this.handleUpdatePet.bind(this));
+        this.#router.delete('/pets/types', this.handleDeletePet.bind(this));
         app.use(this.#router);
     }
 
     async handleGetPets(req: Request, res: Response){
         try{
-            const body: RequestGetPets = req.body;
-            const data = await services.pets.getPets(body);
+            const body: RequestGetPetsTypes = req.body;
+            const data = await services.petsTypes.getPetsType(body);
             
             res.json({
                 data,
@@ -32,10 +33,10 @@ export class PetsController {
 
     async handleCreatePet(req: Request, res: Response){
         try{
-            const body: RequestCreatePet = req.body;
-            const data = await services.pets.createPet(body);
+            const body: RequesCreatePetsTypes = req.body;
+            const data = await services.petsTypes.createPetType(body);
             
-            res.status(201).json({
+            res.json({
                 data,
                 OK: true
             })
@@ -48,10 +49,10 @@ export class PetsController {
 
     async handleUpdatePet(req: Request, res: Response){
         try{
-            const body: RequestUpdatePet = req.body;
-            const data = await services.pets.updatePet(body);
+            const body: RequestUpdatePetsTypes = req.body;
+            const data = await services.petsTypes.updatePetType(body);
             
-            res.status(200).json({
+            res.json({
                 data,
                 OK: true
             })
@@ -64,10 +65,10 @@ export class PetsController {
 
     async handleDeletePet(req: Request, res: Response){
         try{
-            const body: RequestDeletePet = req.body;
-            const data = await services.pets.deletePet(body);
+            const body: RequestDeletePetsTypes = req.body;
+            const data = await services.petsTypes.deletePetType(body);
             
-            res.status(204).json({
+            res.json({
                 data,
                 OK: true
             })

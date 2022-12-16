@@ -15,7 +15,7 @@ export async function Deserializer(req: Request, res: Response, next: NextFuncti
     if (header?.indexOf("application/json") > -1 || header?.indexOf("application/x-www-form-urlencoded") > -1) {
         // Deserialize JSON Body and next it
         const body = await getStream(req);
-        req.body = body;
+        req.body = JSON.parse(body as any);
         next();
         return;
     }
@@ -26,7 +26,7 @@ export async function Deserializer(req: Request, res: Response, next: NextFuncti
 
         // TODO: Upload files and S3 connections. Meanwhile i will trat it as the others.
         const body = await getStream(req);
-        req.body = body;
+        req.body = JSON.parse(body as any);
         next();
         return;
     }

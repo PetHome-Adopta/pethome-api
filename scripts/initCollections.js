@@ -11,13 +11,16 @@ const connection = await mongo.MongoClient.connect(`mongodb://${process.env.MONG
             promoteLongs: false
         });
 
-        const db = connection.db(process.env.MONGO_DATABASE);
+        const db = await connection.db(process.env.MONGO_DATABASE);
 
         // Create all the collections
 
         db.createCollection("pets");
-
-        return "Ok";
+        console.log("Pets collection created successfully");
+        db.createCollection("petsTypes");
+        console.log("PetsTypes collection created successfully");
+        
+        return process.exit(1);
 
     })().catch((e) => {
         console.log(e);
