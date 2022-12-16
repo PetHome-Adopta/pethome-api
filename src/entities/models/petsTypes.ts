@@ -6,10 +6,24 @@ export interface RequestGetPetsTypes {
     name?: string;
 }
 
+export interface RequestUpdatePetsTypes {
+    name?: string;
+    key?: string;
+}
+
+export interface RequestDeletePetsTypes {
+    key?: string;
+}
+
+export interface RequesCreatePetsTypes {
+    name?: string;
+}
+
 export interface GetPetsTypesHelper extends generalOptions {
     filters: {
         key?: string;
         name?: string;
+        deletedAt?: Date;
     }
 }
 
@@ -23,6 +37,7 @@ export interface PetType extends baseModel{
 export interface CreatePetTypeHelper {
     name: string;
 }
+
 
 export interface UpdatePetTypeHelper {
     data: CreatePetTypeHelper,

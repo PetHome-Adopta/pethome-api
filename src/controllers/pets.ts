@@ -35,7 +35,7 @@ export class PetsController {
             const body: RequestCreatePet = req.body;
             const data = await services.pets.createPet(body);
             
-            res.sendStatus(201).json({
+            res.status(201).json({
                 data,
                 OK: true
             })
@@ -51,7 +51,7 @@ export class PetsController {
             const body: RequestUpdatePet = req.body;
             const data = await services.pets.updatePet(body);
             
-            res.sendStatus(200).json({
+            res.status(200).json({
                 data,
                 OK: true
             })
@@ -67,7 +67,7 @@ export class PetsController {
             const body: RequestDeletePet = req.body;
             const data = await services.pets.deletePet(body);
             
-            res.sendStatus(204).json({
+            res.status(204).json({
                 data,
                 OK: true
             })

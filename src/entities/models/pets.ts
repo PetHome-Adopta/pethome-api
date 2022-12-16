@@ -76,6 +76,7 @@ export interface GetPetsHelper extends generalOptions {
 
         shelterKey?: string;
         petTypeKey?: string;
+        deletedAt?: Date;
     }
 }
 
@@ -88,6 +89,7 @@ export interface CreatePetHelper {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    adopted?: boolean;
 
     shelterKey: string;
     petTypeKey: string;

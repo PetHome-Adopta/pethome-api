@@ -1,6 +1,7 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestGetPetsTypes } from "../entities/models/petsTypes";
+import { RequesCreatePetsTypes, RequestDeletePetsTypes, RequestGetPetsTypes, RequestUpdatePetsTypes } from "../entities/models/petsTypes";
+import { PetsServices } from '../services/pets';
 
 export class PetTypesController {
     #router: Router;
@@ -17,7 +18,7 @@ export class PetTypesController {
     async handleGetPets(req: Request, res: Response){
         try{
             const body: RequestGetPetsTypes = req.body;
-            const data = await services.pets.getPets(body);
+            const data = await services.petsTypes.getPetsType(body);
             
             res.json({
                 data,
@@ -32,8 +33,8 @@ export class PetTypesController {
 
     async handleCreatePet(req: Request, res: Response){
         try{
-            const body: RequestGetPets = req.body;
-            const data = await services.pets.createPet(body);
+            const body: RequesCreatePetsTypes = req.body;
+            const data = await services.petsTypes.createPetType(body);
             
             res.json({
                 data,
@@ -48,8 +49,8 @@ export class PetTypesController {
 
     async handleUpdatePet(req: Request, res: Response){
         try{
-            const body: RequestGetPets = req.body;
-            const data = await services.pets.updatePet(body);
+            const body: RequestUpdatePetsTypes = req.body;
+            const data = await services.petsTypes.updatePetType(body);
             
             res.json({
                 data,
@@ -64,8 +65,8 @@ export class PetTypesController {
 
     async handleDeletePet(req: Request, res: Response){
         try{
-            const body: RequestGetPets = req.body;
-            const data = await services.pets.deletePet(body);
+            const body: RequestDeletePetsTypes = req.body;
+            const data = await services.petsTypes.deletePetType(body);
             
             res.json({
                 data,

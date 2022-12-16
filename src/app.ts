@@ -2,8 +2,10 @@ import express, { Express } from "express";
 import { Controllers } from "./controllers";
 import { Helpers } from "./helpers";
 import { Infrastructure } from "./infrastructure";
+import { services as S } from "./entities/services";
+import { Services } from "./services"
+import { helpers as H } from "./entities/helpers";
 import { Deserializer } from "./middlewares/deserializer";
-import { Services } from "./services";
 
 // Init env
 require('dotenv').config();
@@ -11,8 +13,8 @@ require('dotenv').config();
 const App: Express = express();
 
 export let infrastructure;
-export let services;
-export let helpers;
+export let services : S;
+export let helpers: H;
 
 (async () => {
 
@@ -21,7 +23,7 @@ export let helpers;
     App.use(Deserializer);
 
     // Init infrastructure and globalize it
-    infrastructure = (new Infrastructure()).getInfrastructure();
+    infrastructure = await (new Infrastructure()).getInfrastructure();
 
     // Init controllers
     new Controllers(App);
