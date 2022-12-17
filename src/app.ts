@@ -6,13 +6,14 @@ import { services as S } from "./entities/services";
 import { Services } from "./services"
 import { helpers as H } from "./entities/helpers";
 import { Deserializer } from "./middlewares/deserializer";
+import { infrastructure as I } from "./entities/infrastructure";
 
 // Init env
 require('dotenv').config();
 
 const App: Express = express();
 
-export let infrastructure;
+export let infrastructure: I;
 export let services : S;
 export let helpers: H;
 

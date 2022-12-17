@@ -1,40 +1,43 @@
 import { baseModel } from "./baseModel";
 import { generalOptions } from "../mongodb";
 
-type roles = "USER" | "ADMIN";
+type roles = "USER" | "ADMIN"; // Differences?
 
 export interface RequestGetShelters {
     key?: string;
-    username?: string;
+    phoneNumber?: string;
     email?: string;
+    address?: string;
 }
 
 export interface GetSheltersHelper extends generalOptions {
     filters: {
         key?: string;
-        username?: string;
+        phoneNumber?: string;
         email?: string;
+        address?: string;
     }
 }
 
 export interface Shelter extends baseModel{
     key: string;
-    username: string;
+    phoneNumber: string;
     email: string;
-    password: string;
+    password?: string;
     address: string;
-    description: string;
-
-    pets?: string;
+    description?: string;
+    imageURL?: string;
     role: roles;
 }
 
 export interface CreateShelterHelper {
-    username: string;
+    phoneNumber: string;
     email: string;
     password: string;
     address: string;
-    description: string;
+    description?: string;
+    imageURL?: string;
+    role?: roles;
 }
 
 export interface UpdateShelterHelper {
@@ -44,7 +47,5 @@ export interface UpdateShelterHelper {
 
 export interface DeleteShelterHelper {
     key?: string;
-    username?: string;
-    email?: string;
     _id?: string;
 }
