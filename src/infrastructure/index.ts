@@ -1,5 +1,6 @@
 import { Databases } from './databases/databases';
 import { infrastructure } from '../entities/infrastructure';
+import { JWTInfrastructure } from './JWT';
 
 
 export class Infrastructure {
@@ -10,7 +11,8 @@ export class Infrastructure {
         (async () => {
             console.log("Initializing Infrastructure...");
             this.infrastructure = {
-                databases: new Databases()
+                databases: new Databases(),
+                jwt: new JWTInfrastructure()
             }
             console.log("Initialized Infrastructure.")
         })().catch((e) => {

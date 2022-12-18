@@ -1,13 +1,12 @@
 import { Express } from "express";
 import { PetsController } from "./pets";
 import { PetTypesController } from "./petsTypes";
+import { AuthController } from './auth';
 export class Controllers {
 
-    private app: Express;
-
     constructor (app: Express) {
-        this.app = app;
         new PetsController(app);
         new PetTypesController(app);
+        new AuthController(app);
     }
 }
