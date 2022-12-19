@@ -1,8 +1,8 @@
 import express, { Express } from "express";
 import { Controllers } from "./controllers/index";
-import { Helpers } from "./helpers";
+import { Helpers } from "./helpers/index";
 import { Infrastructure } from "./infrastructure";
-import { Services } from "./services"
+import { Services } from "./services/index"
 import { Deserializer } from "./middlewares/deserializer";
 import { services as S } from "./entities/services";
 import { helpers as H } from "./entities/helpers";
