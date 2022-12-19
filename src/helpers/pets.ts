@@ -15,7 +15,7 @@ export class PetsHelper {
 
     async getPets(options: GetPetsHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
-        //TODO: this.databases.getClients().mongo.collection("pets") -> deberia declararse aqui como variable global de la classe
+        
         const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
         const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
@@ -40,7 +40,7 @@ export class PetsHelper {
 
     async updatePet(options: UpdatePetHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
-        const updated = await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
+        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
             $set: {
                 ...options.data,
                 updatedAt: new Date(),
@@ -53,7 +53,7 @@ export class PetsHelper {
 
     async deletePet(options: DeletePetHelper) {
 
-        const deleted = await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
+        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
             $set: {
                 deletedAt: new Date(),
             }
