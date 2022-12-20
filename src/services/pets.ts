@@ -18,6 +18,39 @@ export class PetsServices {
     }
 
     async createPet(data: RequestCreatePet) {
+
+        if(data.name == null || data.petTypeKey == null || data.shelterKey == null) {
+            throw {
+                ok: false,
+                status: 403,
+                message: "There are required values that don't have a valid value"
+            }
+        }
+
+        if(typeof(data.name) !== "string") {
+            throw {
+                ok: false,
+                status: 403,
+                message: "name must be a string"
+            }
+        }
+
+        if(typeof(data.petTypeKey) !== "string") {
+            throw {
+                ok: false,
+                status: 403,
+                message: "petTypeKey must be a string"
+            }
+        }
+
+        if(typeof(data.shelterKey) !== "string"){
+            throw {
+                ok: false,
+                status: 403,
+                message: "shelterKey must be a string"
+            }
+        }
+
         return await helpers.pets.createPet({
             name: data.name,
             description: data.description,

@@ -6,25 +6,26 @@ import { Services } from "./services/index"
 import { Deserializer } from "./middlewares/deserializer";
 import { services as S } from "./entities/services";
 import { helpers as H } from "./entities/helpers";
-import { infrastructure as I } from "./entities/infrastructure";
+import { infrastructure as I } from "./entities/infrastructure"
 
 // Init env
 require('dotenv').config();
 
-const App: Express = express();
-
 export let infrastructure: I;
-export let services : S;
+export let services: S;
 export let helpers: H;
 
-(async () => {
+export default (async () => {
 
+    const App: Express = express();
     // Init middlewares
 
     App.use(Deserializer);
 
     // Init infrastructure and globalize it
-    infrastructure = await (new Infrastructure()).getInfrastructure();
+    const toInitInfra = new Infrastructure() as any;
+    await toInitInfra.initInfrastructure();
+    infrastructure = toInitInfra.getInfrastructure();
 
     // Init controllers
     new Controllers(App);
@@ -35,9 +36,14 @@ export let helpers: H;
     // Init helpers and globalize it
     helpers = (new Helpers(infrastructure.databases)).getHelpers();
 
-    App.listen(process.env.LISTEN_PORT);
+    if (!process.env.TEST) {
 
-    console.log(`Listening port ${process.env.LISTEN_PORT}`);
+        console.log(`Listening port ${process.env.LISTEN_PORT}`);
+
+        App.listen(process.env.LISTEN_PORT);
+
+    }
+
 
 })().catch((e) => {
     console.log(e);
