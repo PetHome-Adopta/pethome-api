@@ -1,6 +1,6 @@
 import { helpers, infrastructure } from "../app";
 import { RequestLogin, RequestRegister } from '../entities/models/auth';
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export class AuthServices {
     async Login(data: RequestLogin) {
