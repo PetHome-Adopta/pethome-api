@@ -8,6 +8,7 @@ export class PetsServices {
             filters: {
                 key: data.key,
                 name: data.name,
+                shelterKey: data.shelterKey,
                 deletedAt: null
             },
             options: {

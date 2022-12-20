@@ -5,6 +5,18 @@
 npm install
 ```
 
+## MongoDB
+
+### Check status
+```
+sudo systemctl status mongod
+```
+
+### Run database
+```
+sudo systemctl status mongod
+```
+
 ## Run API
 ### Production
 First we need to build the bundle into a js version using
@@ -34,3 +46,4 @@ It will watch all the changes that you do
 * An IDE or text editor (VS Code)
 * A package manager such as NPM or Yarn
 * Node.js installed
+* MongoDB server installed

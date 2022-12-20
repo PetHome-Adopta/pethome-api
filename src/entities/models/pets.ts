@@ -28,6 +28,7 @@ export interface Pet extends baseModel{
 export interface RequestGetPets {
     key?: string;
     name?: string;
+    shelterKey?: string
 }
 
 export interface RequestCreatePet {

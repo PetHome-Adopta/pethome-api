@@ -1,7 +1,7 @@
 import { Express } from "express";
-import { PetsController } from "./pets";
-import { PetTypesController } from "./petsTypes";
-import { AuthController } from './auth';
+import { PetsController } from "../pets";
+import { PetTypesController } from "../petsTypes";
+import { AuthController } from '../auth';
 export class Controllers {
 
     constructor (app: Express) {

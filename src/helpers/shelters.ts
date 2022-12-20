@@ -1,22 +1,21 @@
-import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../entities/models/pets';
+import { CreateShelterHelper, DeleteShelterHelper, GetSheltersHelper, UpdateShelterHelper } from '../entities/models/shelters';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
-import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../entities/models/petsTypes';
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 
 
-export class PetsTypesHelper {
+export class SheltersHelper {
 
     private databases: Databases;
-    private collectionName: string = "petsTypes";
+    private collectionName: string = "shelters";
 
     constructor(databases: Databases) {
         this.databases = databases;
     }
 
-    async getPetsTypes(options: GetPetsTypesHelper) {
+    async getShelters(options: GetSheltersHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
-        
+
         const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
         const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
@@ -24,13 +23,13 @@ export class PetsTypesHelper {
 
     }
 
-    async createPetType(options: CreatePetTypeHelper) {
+    async createShelter(options: CreateShelterHelper) {
 
         const toAdd = {
             key: v1(),
             ...options,
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
         }
 
         await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
@@ -39,7 +38,7 @@ export class PetsTypesHelper {
 
     }
 
-    async updatePetType(options: UpdatePetTypeHelper) {
+    async updateShelter(options: UpdateShelterHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
         await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
             $set: {
@@ -52,7 +51,7 @@ export class PetsTypesHelper {
 
     }
 
-    async deletePetType(options: DeletePetTypeHelper) {
+    async deleteShelter(options: DeleteShelterHelper) {
 
         await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
             $set: {
