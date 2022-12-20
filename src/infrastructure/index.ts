@@ -7,18 +7,23 @@ export class Infrastructure {
 
     private infrastructure:infrastructure;
 
-    constructor() {
-        (async () => {
+    async initInfrastructure() {
+        try {
             console.log("Initializing Infrastructure...");
+
+            const databases = new Databases();
+
+            await databases.initDatabases();
+
             this.infrastructure = {
-                databases: new Databases(),
+                databases: databases,
                 jwt: new JWTInfrastructure()
             }
             console.log("Initialized Infrastructure.")
-        })().catch((e) => {
+        }catch(e) {
             console.log("Error initializing infrastructure");
             console.log(e);
-        });
+        }
     }
 
     getInfrastructure() {
