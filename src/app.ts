@@ -36,13 +36,11 @@ export default (async () => {
     // Init helpers and globalize it
     helpers = (new Helpers(infrastructure.databases)).getHelpers();
 
-    if (!process.env.TEST) {
+    console.log(`Listening port ${process.env.LISTEN_PORT}`);
 
-        console.log(`Listening port ${process.env.LISTEN_PORT}`);
+    App.listen(process.env.LISTEN_PORT);
 
-        App.listen(process.env.LISTEN_PORT);
 
-    }
 
 
 })().catch((e) => {
