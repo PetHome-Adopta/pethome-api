@@ -13,12 +13,11 @@ describe('pets', () => {
             try {
 
                 await services.pets.createPet({} as any);
-                fail();
             
             }catch(e) {
                 expect(e).toEqual({
                     ok: false,
-                    status: 403,
+                    status: 400,
                     message: "There are required values that don't have a valid value"
                 });
             }
@@ -32,12 +31,11 @@ describe('pets', () => {
                     shalterKey: "",
                     petTypeKey: ""
                 } as any);
-                fail();
             
             }catch(e) {
                 expect(e).toEqual({
                     ok: false,
-                    status: 403,
+                    status: 400,
                     message: "There are required values that don't have a valid value"
                 });
             }

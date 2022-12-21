@@ -4,8 +4,8 @@ import App, { services } from "../app";
 let server;
 
 beforeAll(async () => {
-    server = await App;
-  })
+    server = await App
+  });
 
 describe('shelters', () => {
     describe('Create shelters', () => {
@@ -13,12 +13,11 @@ describe('shelters', () => {
             try {
 
                 await services.shelters.createShelter({} as any);
-                fail();
             
             }catch(e) {
                 expect(e).toEqual({
                     ok: false,
-                    status: 403,
+                    status: 400,
                     message: "There are required values that don't have a valid value"
                 });
             }
@@ -35,12 +34,11 @@ describe('shelters', () => {
                     description: "test",
                     imageURL: "test",
                 } as any);
-                fail();
             
             }catch(e) {
                 expect(e).toEqual({
                     ok: false,
-                    status: 403,
+                    status: 400,
                     message: "There are required values that don't have a valid value"
                 });
             }

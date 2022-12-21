@@ -12,12 +12,11 @@ describe('petsTypes', () => {
             try {
 
                 await services.petsTypes.createPetType({} as any);
-                fail();
             
             }catch(e) {
                 expect(e).toEqual({
                     ok: false,
-                    status: 403,
+                    status: 400,
                     message: "There are required values that don't have a valid value"
                 });
             }
@@ -29,12 +28,11 @@ describe('petsTypes', () => {
                 await services.petsTypes.createPetType({
                     name: "Test name",
                 } as any);
-                fail();
             
             }catch(e) {
                 expect(e).toEqual({
                     ok: false,
-                    status: 403,
+                    status: 400,
                     message: "There are required values that don't have a valid value"
                 });
             }
