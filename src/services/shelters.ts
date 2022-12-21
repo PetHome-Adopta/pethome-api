@@ -17,6 +17,15 @@ export class SheltersServices {
     }
 
     async createShelter(data: RequestCreateShelter) {
+
+        if (data.email == null || data.address == null) {
+            throw {
+                ok: false,
+                status: 400,
+                message: "There are required values that don't have a valid value"
+            }
+        }
+
         return await helpers.shelters.createShelter({
             phoneNumber: data.phoneNumber,
             email: data.email,
