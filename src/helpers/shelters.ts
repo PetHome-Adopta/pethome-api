@@ -1,4 +1,4 @@
-import { CreateShelterHelper, DeleteShelterHelper, GetSheltersHelper, UpdateShelterHelper } from '../entities/models/shelters';
+import { CreateShelterHelper, DeleteShelterHelper, GetSheltersHelper, Shelter, UpdateShelterHelper } from '../entities/models/shelters';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
@@ -13,13 +13,13 @@ export class SheltersHelper {
         this.databases = databases;
     }
 
-    async getShelters(options: GetSheltersHelper) {
+    async getShelters(options: GetSheltersHelper): Promise<[Shelter[], number]> {
         options.filters = await DeserializerForMongoOptions(options.filters);
 
         const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
         const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
-        return [data, rCount];
+        return [data as any, rCount];
 
     }
 

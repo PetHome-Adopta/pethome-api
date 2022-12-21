@@ -1,7 +1,7 @@
 import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../entities/models/pets';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
-import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../entities/models/petsTypes';
+import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, PetType, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../entities/models/petsTypes';
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 
 
@@ -14,13 +14,13 @@ export class PetsTypesHelper {
         this.databases = databases;
     }
 
-    async getPetsTypes(options: GetPetsTypesHelper) {
+    async getPetsTypes(options: GetPetsTypesHelper): Promise<[PetType[], number]> {
         options.filters = await DeserializerForMongoOptions(options.filters);
         
         const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
         const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
-        return [data, rCount];
+        return [data as any, rCount];
 
     }
 

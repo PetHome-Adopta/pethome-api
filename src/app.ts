@@ -38,8 +38,9 @@ export default (async () => {
 
     console.log(`Listening port ${process.env.LISTEN_PORT}`);
 
-    App.listen(process.env.LISTEN_PORT);
-
+    App.listen(process.env.LISTEN_PORT).on("error", () => {
+        console.log("Application in test mode");
+    })
 
 
 
