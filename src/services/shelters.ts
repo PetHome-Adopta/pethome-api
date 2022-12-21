@@ -30,7 +30,11 @@ export class SheltersServices {
 
     async updateShelter(data: RequestUpdateShelter) {
         if (typeof (data.key) !== 'string')
-            throw Error('Key type invalid');
+        throw {
+            ok: false,
+            status: 400,
+            message: 'Key type invalid'
+        };
 
         return await helpers.shelters.updateShelter({
             filters: {
@@ -51,7 +55,11 @@ export class SheltersServices {
 
     async deleteShelter(data: RequestDeleteShelter) {
         if (typeof (data.key) !== 'string')
-            throw Error('Key type invalid');
+        throw {
+            ok: false,
+            status: 400,
+            message: 'Key type invalid'
+        };
 
         return await helpers.shelters.deleteShelter({
             key: data.key

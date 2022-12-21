@@ -23,7 +23,11 @@ export class PetsTypesServices {
 
     async updatePetType(data: RequestUpdatePetsTypes) {
         if(typeof(data.key) !== 'string')
-            throw Error('Key type invalid');
+        throw {
+            ok: false,
+            status: 400,
+            message: 'Key type invalid'
+        };
 
         return await helpers.petsTypes.updatePetType({
             data: {
@@ -37,7 +41,11 @@ export class PetsTypesServices {
 
     async deletePetType(data: RequestDeletePetsTypes) {
         if(typeof(data.key) !== 'string')
-            throw Error('Key type invalid');
+        throw {
+            ok: false,
+            status: 400,
+            message: 'Key type invalid'
+        };
 
         return await helpers.petsTypes.deletePetType({
             key: data.key,

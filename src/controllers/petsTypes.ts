@@ -25,9 +25,9 @@ export class PetTypesController {
                 OK: true
             })
         }
-        catch(err){
+        catch (err: any) {
             console.log(err);
-            res.sendStatus(500);
+            res.sendStatus(err?.status || 500);
         }
     }
 
@@ -41,9 +41,9 @@ export class PetTypesController {
                 OK: true
             })
         }
-        catch(err){
+        catch (err: any) {
             console.log(err);
-            res.sendStatus(500);
+            res.sendStatus(err?.status || 500);
         }
     }
 
@@ -57,9 +57,9 @@ export class PetTypesController {
                 OK: true
             })
         }
-        catch(err){
+        catch (err: any) {
             console.log(err);
-            res.sendStatus(500);
+            res.sendStatus(err?.status || 500);
         }
     }
 
@@ -73,9 +73,9 @@ export class PetTypesController {
                 OK: true
             })
         }
-        catch(err){
+        catch (err: any) {
             console.log(err);
-            res.sendStatus(500);
+            res.sendStatus(err?.status || 500);
         }
     }
 }
