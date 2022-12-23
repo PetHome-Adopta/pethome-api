@@ -3,14 +3,15 @@ import { services } from "../app";
 import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../entities/models/pets";
 import { RequestRegister, RequestLogin } from '../entities/models/auth';
 import { JSONParser } from "../utils/Parser";
+import { PATHS } from "../utils/Constants";
 
 export class AuthController {
     #router: Router;
 
     constructor(app: Express) {
         this.#router = Router();
-        this.#router.post('/register', this.handleRegisterUser.bind(this));
-        this.#router.post('/login', this.handleLoginUser.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.REGISTER, this.handleRegisterUser.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.LOGIN, this.handleLoginUser.bind(this));
         app.use(this.#router);
     }
 

@@ -2,16 +2,17 @@ import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
 import { RequesCreatePetsTypes, RequestDeletePetsTypes, RequestGetPetsTypes, RequestUpdatePetsTypes } from "../entities/models/petsTypes";
 import { PetsServices } from '../services/pets';
+import { PATHS } from "../utils/Constants";
 
 export class PetTypesController {
     #router: Router;
 
     constructor (app : Express){
         this.#router = Router();
-        this.#router.get('/pets/types', this.handleGetPets.bind(this));
-        this.#router.post('/pets/types', this.handleCreatePet.bind(this));
-        this.#router.put('/pets/types', this.handleUpdatePet.bind(this));
-        this.#router.delete('/pets/types', this.handleDeletePet.bind(this));
+        this.#router.get(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleGetPets.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleCreatePet.bind(this));
+        this.#router.put(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleUpdatePet.bind(this));
+        this.#router.delete(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleDeletePet.bind(this));
         app.use(this.#router);
     }
 

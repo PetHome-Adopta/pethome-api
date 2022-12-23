@@ -1,16 +1,17 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
 import { RequestCreateShelter, RequestDeleteShelter, RequestGetShelters, RequestUpdateShelter } from "../entities/models/shelters";
+import { PATHS } from "../utils/Constants";
 
 export class SheltersController {
     #router: Router;
 
     constructor (app : Express){
         this.#router = Router();
-        this.#router.get('/shelters', this.handleGetShelters.bind(this));
-        this.#router.post('/shelters', this.handleCreateShelter.bind(this));
-        this.#router.put('/shelters', this.handleUpdateShelter.bind(this));
-        this.#router.delete('/shelters', this.handleDeleteShelter.bind(this));
+        this.#router.get(PATHS.V1 + PATHS.SHELTERS, this.handleGetShelters.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.SHELTERS, this.handleCreateShelter.bind(this));
+        this.#router.put(PATHS.V1 + PATHS.SHELTERS, this.handleUpdateShelter.bind(this));
+        this.#router.delete(PATHS.V1 + PATHS.SHELTERS, this.handleDeleteShelter.bind(this));
         app.use(this.#router);
     }
 
