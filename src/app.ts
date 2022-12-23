@@ -8,6 +8,8 @@ import { services as S } from "./entities/services";
 import { helpers as H } from "./entities/helpers";
 import { infrastructure as I } from "./entities/infrastructure"
 
+const { swaggerDocs: V1SwaggerDocs } = require("./v1/swagger");
+
 // Init env
 require('dotenv').config();
 
