@@ -6,9 +6,8 @@ import { Services } from "./services/index"
 import { Deserializer } from "./middlewares/deserializer";
 import { services as S } from "./entities/services";
 import { helpers as H } from "./entities/helpers";
-import { infrastructure as I } from "./entities/infrastructure"
-
-const { swaggerDocs: V1SwaggerDocs } = require("./v1/swagger");
+import { infrastructure as I } from "./entities/infrastructure";
+import swaggerDocs from "./utils/swagger";
 
 // Init env
 require('dotenv').config();
@@ -38,13 +37,14 @@ export default (async () => {
     // Init helpers and globalize it
     helpers = (new Helpers(infrastructure.databases)).getHelpers();
 
+    //Init swagger 
+    swaggerDocs(App, Number('process.env.LISTEN_PORT'));
+
     console.log(`Listening port ${process.env.LISTEN_PORT}`);
 
     App.listen(process.env.LISTEN_PORT).on("error", () => {
         console.log("Application in test mode");
     })
-
-
 
 })().catch((e) => {
     console.log(e);
