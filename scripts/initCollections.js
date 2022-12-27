@@ -14,6 +14,7 @@ const connection = await mongo.MongoClient.connect(`mongodb://${process.env.MONG
 
         //TODO: check if do not delete the collection when reexecuting the script
         //TODO: cehck what happens on windows
+            //https://stackoverflow.com/questions/38536633/mongodb-is-not-showing-collections-when-creating-through-node-js
         //console.log("Collections: " , db.listCollections("pets"));
 
         // Create all the collections

@@ -27,7 +27,7 @@ const options: swaggerJsdoc.Options = {
   },
   //TODO: check estas rutas (routes definitions, models definitions)
   //creo que estamos limitados porque ha de tener formato open api
-  apis: ["./src/controllers/*.ts", "./src/entities/models/*.ts"],
+  apis: ["./src/controllers/index/index.ts", "./src/entities/models/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
