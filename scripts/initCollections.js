@@ -10,12 +10,13 @@ const connection = await mongo.MongoClient.connect(`mongodb://${process.env.MONG
             retryWrites: false,
             promoteLongs: false
         });
-
         const db = await connection.db(process.env.MONGO_DATABASE);
 
-        // Create all the collections
-
+        //TODO: check if do not delete the collection when reexecuting the script
+        //TODO: cehck what happens on windows
         //console.log("Collections: " , db.listCollections("pets"));
+
+        // Create all the collections
         db.createCollection("pets");
         console.log("Pets collection created successfully");
         db.createCollection("petsTypes");
