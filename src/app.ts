@@ -38,7 +38,7 @@ export default (async () => {
     helpers = (new Helpers(infrastructure.databases)).getHelpers();
 
     //Init swagger 
-    swaggerDocs(App, Number('process.env.LISTEN_PORT'));
+    swaggerDocs(App, Number(process.env.LISTEN_PORT));
 
     console.log(`Listening port ${process.env.LISTEN_PORT}`);
 
