@@ -58,7 +58,23 @@ export class AuthServices {
 
             }
 
-            // TODO: Check if already exists. For it i need to finish shelters helpers
+            const shelter = await helpers.shelters.getShelters({
+                filters: {
+                    phoneNumber: data.phoneNumber,
+                    email: data.email,
+                },
+                options: {
+                    sort: {_id: -1}
+                }
+            });
+
+            if (shelter){
+                throw {
+                    status: 403,
+                    ok: false,
+                    message: "User alredy created"
+                }; 
+            }
 
             const register = await helpers.auth.Register({
                 phoneNumber: data.phoneNumber,
@@ -74,7 +90,7 @@ export class AuthServices {
 
         } catch (e) {
             console.log(e);
-            throw new e;
+            throw e;
         }
 
     }
