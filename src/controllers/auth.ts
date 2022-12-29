@@ -42,7 +42,7 @@ export class AuthController {
             })
         }
         catch (err: any) {
-            console.log(err);
+            console.log("Controller: " + err);
             res.sendStatus(err?.status || 500);
         }
     }

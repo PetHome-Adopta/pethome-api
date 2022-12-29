@@ -15,10 +15,17 @@ export class AuthHelper {
 
     async Login(options: LoginHelper) {
 
-        const data = await this.databases.getClients().mongo.collection(this.collectionName).findOne(options.filters, options.options);
-
-        return data;
-
+        try {
+            const data = await this.databases.getClients().mongo.collection(this.collectionName).findOne(options.filters, options.options);
+            return data;
+        } 
+        catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Error on database"),
+            }));
+        }
     }
 
     async Register(options: RegisterHelper) {

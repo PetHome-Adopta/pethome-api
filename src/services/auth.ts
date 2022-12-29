@@ -6,7 +6,6 @@ export class AuthServices {
     async Login(data: RequestLogin) {
 
         try {
-
             const userData = await helpers.auth.Login({
                 filters: {
                     email: data.email,
@@ -17,24 +16,22 @@ export class AuthServices {
                 }
             });
 
+            if (userData === null)
+                throw {
+                    ok: false,
+                    status: 403
+                };
+            
             if (userData?.key != null) {
-
                 // Login
-
-                if((await bcrypt.compare(data.password, userData.password)) === false) {
-                    throw {
-                        ok: false,
-                        status: 403
-                    };
-                }
-
                 return await infrastructure.jwt.codeToken({
                     key: userData.key
                 });
 
             } else {
                 throw new Error(JSON.stringify({
-                    ok: false
+                    ok: false,
+                    message: "key not found"
                 }));
             }
         } catch (e) {
