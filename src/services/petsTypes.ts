@@ -16,22 +16,13 @@ export class PetsTypesServices {
     }
 
     async createPetType(data: RequesCreatePetsTypes) {
-
-        if (data.name == null) {
-            throw {
-                ok: false,
-                status: 400,
-                message: "There are required values that don't have a valid value"
-            }
-        }
-
         return await helpers.petsTypes.createPetType({
             name: data.name
         });
     }
 
     async updatePetType(data: RequestUpdatePetsTypes) {
-        if (typeof (data.key) !== 'string')
+        if (data.key == null)
             throw {
                 ok: false,
                 status: 400,
@@ -49,7 +40,7 @@ export class PetsTypesServices {
     }
 
     async deletePetType(data: RequestDeletePetsTypes) {
-        if (typeof (data.key) !== 'string')
+        if (data.key == null)
             throw {
                 ok: false,
                 status: 400,

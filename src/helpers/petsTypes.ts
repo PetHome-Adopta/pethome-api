@@ -17,11 +17,18 @@ export class PetsTypesHelper {
     async getPetsTypes(options: GetPetsTypesHelper): Promise<[PetType[], number]> {
         options.filters = await DeserializerForMongoOptions(options.filters);
         
-        const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
-        const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
+        try {
+            const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
+            const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
-        return [data as any, rCount];
-
+            return [data as any, rCount];    
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
 
     async createPetType(options: CreatePetTypeHelper) {
@@ -32,36 +39,54 @@ export class PetsTypesHelper {
             createdAt: new Date(),
             updatedAt: new Date()
         }
-
-        await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-
-        return toAdd;
-
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
+            return toAdd;
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
 
     async updatePetType(options: UpdatePetTypeHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
-        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
-            $set: {
-                ...options.data,
-                updatedAt: new Date(),
-            }
-        });
+        
+        try{
+            await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
+                $set: {
+                    ...options.data,
+                    updatedAt: new Date(),
+                }
+            });
 
-        return options;
-
+            return options;    
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
 
     async deletePetType(options: DeletePetTypeHelper) {
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
+                $set: {
+                    deletedAt: new Date(),
+                }
+            });
 
-        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
-            $set: {
-                deletedAt: new Date(),
-            }
-        });
-
-        return options;
-
+            return options;
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
-
 }

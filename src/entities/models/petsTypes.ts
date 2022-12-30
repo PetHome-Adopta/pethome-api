@@ -7,16 +7,16 @@ export interface RequestGetPetsTypes {
 }
 
 export interface RequestUpdatePetsTypes {
-    name?: string;
-    key?: string;
+    name: string;
+    key: string;
 }
 
 export interface RequestDeletePetsTypes {
-    key?: string;
+    key: string;
 }
 
 export interface RequesCreatePetsTypes {
-    name?: string;
+    name: string;
 }
 
 export interface GetPetsTypesHelper extends generalOptions {
@@ -45,7 +45,5 @@ export interface UpdatePetTypeHelper {
 }
 
 export interface DeletePetTypeHelper {
-    key?: string;
-    name?: string;
-    _id?: string;
+    key: string;
 }
