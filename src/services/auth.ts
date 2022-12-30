@@ -16,6 +16,7 @@ export class AuthServices {
                 }
             });
 
+            //TODO: "if (!userData) or if (userData == null)" -> como esta mejor?
             if (userData === null)
                 throw {
                     ok: false,

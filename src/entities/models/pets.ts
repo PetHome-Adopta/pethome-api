@@ -51,7 +51,7 @@ export interface RequestCreatePet {
     sterilized?: boolean;
 
     shelterKey: string;
-    petTypeKey?: string;
+    petTypeKey: string;
 }
 
 export interface RequestUpdatePet {
@@ -93,14 +93,14 @@ export interface GetPetsHelper extends generalOptions {
 
 export interface CreatePetHelper {
     name: string;
-    description?: string;
+    description: string;
     color?: string;
     age?: string;
     breed?: string;
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
-    adopted?: boolean;
+    adopted: boolean;
 
     shelterKey: string;
     petTypeKey: string;

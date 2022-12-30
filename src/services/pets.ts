@@ -27,36 +27,15 @@ export class PetsServices {
     }
 
     async createPet(data: RequestCreatePet) {
-
-        if (data.name == null || data.petTypeKey == null || data.shelterKey == null) {
+        //TODO: check if pet is alredy created? how can we check?
+        if (data.name == null || 
+            data.petTypeKey == null || 
+            data.shelterKey == null ||
+            data.description == null) {
             throw {
                 ok: false,
                 status: 400,
                 message: "There are required values that don't have a valid value"
-            }
-        }
-
-        if (typeof (data.name) !== "string") {
-            throw {
-                ok: false,
-                status: 400,
-                message: "name must be a string"
-            }
-        }
-
-        if (typeof (data.petTypeKey) !== "string") {
-            throw {
-                ok: false,
-                status: 400,
-                message: "petTypeKey must be a string"
-            }
-        }
-
-        if (typeof (data.shelterKey) !== "string") {
-            throw {
-                ok: false,
-                status: 400,
-                message: "shelterKey must be a string"
             }
         }
 
@@ -69,9 +48,10 @@ export class PetsServices {
             gender: data.gender,
             behaviour: data.behaviour,
             sterilized: data.sterilized,
+            adopted: false,
+            
             shelterKey: data.shelterKey,
             petTypeKey: data.petTypeKey,
-            adopted: false,
         });
     }
 

@@ -39,8 +39,15 @@ export class PetsHelper {
             updatedAt: new Date(),
         }
 
-        await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
         return toAdd;
 
     }
