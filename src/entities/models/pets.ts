@@ -28,7 +28,16 @@ export interface Pet extends baseModel{
 export interface RequestGetPets {
     key?: string;
     name?: string;
-    shelterKey?: string
+    color?: string;
+    age?: string;
+    breed?: string;
+    gender?: gender;
+    behaviour?: string;
+    sterilized?: boolean;
+    adopted?: boolean;
+
+    shelterKey?: string;
+    petTypeKey?: string;
 }
 
 export interface RequestCreatePet {
@@ -74,6 +83,7 @@ export interface GetPetsHelper extends generalOptions {
         gender?: gender;
         behaviour?: string;
         sterilized?: boolean;
+        adopted?: boolean;
 
         shelterKey?: string;
         petTypeKey?: string;

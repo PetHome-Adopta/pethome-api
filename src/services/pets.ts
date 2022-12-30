@@ -8,7 +8,16 @@ export class PetsServices {
             filters: {
                 key: data.key,
                 name: data.name,
+                color: data.color,
+                age: data.age,
+                breed: data.breed,
+                gender: data.gender,
+                behaviour: data.behaviour,
+                sterilized: data.sterilized,
+                adopted: data.adopted,
+
                 shelterKey: data.shelterKey,
+                petTypeKey: data.petTypeKey,
                 deletedAt: null
             },
             options: {
