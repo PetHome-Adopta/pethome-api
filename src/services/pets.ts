@@ -86,7 +86,7 @@ export class PetsServices {
     }
 
     async deletePet(data: RequestDeletePet) {
-        if (typeof (data.key) !== 'string')
+        if (data.key == null)
             throw {
                 ok: false,
                 status: 400,
