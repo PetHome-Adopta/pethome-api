@@ -56,13 +56,13 @@ export class PetsServices {
     }
 
     async updatePet(data: RequestUpdatePet) {
-        if (data.key == null) {
+        if (data.key == null) 
             throw {
                 ok: false,
                 status: 400,
                 message: "There are required values that don't have a valid value"
             }
-        }
+        
 
         return await helpers.pets.updatePet({
             filters: {

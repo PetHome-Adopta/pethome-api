@@ -31,7 +31,6 @@ export class SheltersHelper {
     }
 
     async createShelter(options: CreateShelterHelper) {
-
         const toAdd = {
             key: v1(),
             ...options,
@@ -39,35 +38,53 @@ export class SheltersHelper {
             updatedAt: new Date(),
         }
 
-        await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-
-        return toAdd;
-
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
+            return toAdd;
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
 
     async updateShelter(options: UpdateShelterHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
-        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
-            $set: {
-                ...options.data,
-                updatedAt: new Date(),
-            }
-        });
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
+                $set: {
+                    ...options.data,
+                    updatedAt: new Date(),
+                }
+            });
 
-        return options;
-
+            return options;
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
 
     async deleteShelter(options: DeleteShelterHelper) {
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
+                $set: {
+                    deletedAt: new Date(),
+                }
+            });
 
-        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
-            $set: {
-                deletedAt: new Date(),
-            }
-        });
-
-        return options;
-
+            return options;
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
-
 }

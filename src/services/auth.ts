@@ -80,7 +80,8 @@ export class AuthServices {
                 email: data.email,
                 password: data.password,
                 address: data.address,
-                description: data.description
+                description: data.description,
+                role: "USER"
             });
 
             return await infrastructure.jwt.codeToken({

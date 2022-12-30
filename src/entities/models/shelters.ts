@@ -11,9 +11,9 @@ export interface RequestGetShelters {
 }
 
 export interface RequestCreateShelter {
-    phoneNumber?: string;
+    phoneNumber: string;
     email: string;
-    password?: string;
+    password: string;
     address: string;
     description?: string;
     imageURL?: string;
@@ -21,7 +21,7 @@ export interface RequestCreateShelter {
 }
 
 export interface RequestUpdateShelter {
-    key?: string;
+    key: string;
     password?: string;
     phoneNumber?: string;
     email?: string;
@@ -48,7 +48,7 @@ export interface Shelter extends baseModel{
     key: string;
     phoneNumber: string;
     email: string;
-    password?: string;
+    password: string;
     address: string;
     description?: string;
     imageURL?: string;
@@ -62,7 +62,7 @@ export interface CreateShelterHelper {
     address: string;
     description?: string;
     imageURL?: string;
-    role?: roles;
+    role: roles;
 }
 
 export interface UpdateShelterHelper {
@@ -71,6 +71,5 @@ export interface UpdateShelterHelper {
 }
 
 export interface DeleteShelterHelper {
-    key?: string;
-    _id?: string;
+    key: string;
 }
