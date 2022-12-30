@@ -16,6 +16,22 @@ export class PetsTypesServices {
     }
 
     async createPetType(data: RequesCreatePetsTypes) {
+        //TODO: check if pet is alredy created? which field can we check?
+        const petType = await helpers.petsTypes.getPetsTypes({
+            filters: {
+                name: data.name
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if (petType)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet type alredy created"
+            }
+            
         return await helpers.petsTypes.createPetType({
             name: data.name
         });
