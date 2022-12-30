@@ -27,7 +27,7 @@ export class PetsServices {
     }
 
     async createPet(data: RequestCreatePet) {
-        //TODO: check if pet is alredy created? how can we check?
+        //TODO: check if pet is alredy created? which field can we check?
         if (data.name == null || 
             data.petTypeKey == null || 
             data.shelterKey == null ||
@@ -56,18 +56,17 @@ export class PetsServices {
     }
 
     async updatePet(data: RequestUpdatePet) {
-        if (typeof (data.key) !== 'string')
+        if (data.key == null) {
             throw {
                 ok: false,
                 status: 400,
-                message: 'Key type invalid'
-            };
+                message: "There are required values that don't have a valid value"
+            }
+        }
 
         return await helpers.pets.updatePet({
             filters: {
                 key: data.key,
-                shelterKey: data.shelterKey,
-                petTypeKey: data.petTypeKey
             },
             data: {
                 name: data.name,
@@ -78,6 +77,8 @@ export class PetsServices {
                 gender: data.gender,
                 behaviour: data.behaviour,
                 sterilized: data.sterilized,
+                adopted: data.adopted,
+
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey
             }

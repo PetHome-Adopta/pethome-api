@@ -54,15 +54,22 @@ export class PetsHelper {
 
     async updatePet(options: UpdatePetHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
-        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
-            $set: {
-                ...options.data,
-                updatedAt: new Date(),
-            }
-        });
-
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
+                $set: {
+                    ...options.data,
+                    updatedAt: new Date(),
+                }
+            });
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
+        
         return options;
-
     }
 
     async deletePet(options: DeletePetHelper) {

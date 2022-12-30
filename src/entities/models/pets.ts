@@ -64,6 +64,7 @@ export interface RequestUpdatePet {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    adopted?: boolean;
 
     shelterKey?: string;
     petTypeKey?: string;
