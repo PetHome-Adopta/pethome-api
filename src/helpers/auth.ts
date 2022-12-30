@@ -1,6 +1,5 @@
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
-import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 import { LoginHelper, RegisterHelper } from "../entities/models/auth";
 
 
@@ -23,7 +22,7 @@ export class AuthHelper {
             console.log(e);
             throw new Error(JSON.stringify({
                 ok: false,
-                message: (e.message || "Error on database"),
+                message: (e.message || "Database error"),
             }));
         }
     }
@@ -37,10 +36,15 @@ export class AuthHelper {
             updatedAt: new Date(),
         }
 
-        await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-
-        return toAdd;
-
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
+            return toAdd;
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
-
 }

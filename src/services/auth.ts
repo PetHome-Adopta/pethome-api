@@ -45,17 +45,15 @@ export class AuthServices {
         try {
 
             const salt = await bcrypt.genSalt(10);
-
             data.password = await bcrypt.hash(data.password, salt);
 
+            //TODO: is this necessary? those are mandatory params on interface, is any way to auto check on interfaces and send a generic error?
             if (data.email == null || data.password == null || data.phoneNumber == null || data.address == null) {
-
                 throw {
                     status: 403,
                     ok: false,
                     message: "There are some required parameters that aren't complete"
                 };
-
             }
 
             const shelter = await helpers.shelters.getShelters({

@@ -1,8 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../entities/models/pets";
 import { RequestRegister, RequestLogin } from '../entities/models/auth';
-import { JSONParser } from "../utils/Parser";
 import { PATHS } from "../utils/Constants";
 
 export class AuthController {
@@ -28,6 +26,7 @@ export class AuthController {
         catch (err) {
             console.log(err);
             res.sendStatus(err?.status || 500);
+            //TODO: send body "if (err.message) res.send(err?.message)" -> en todos
         }
     }
 
@@ -42,7 +41,7 @@ export class AuthController {
             })
         }
         catch (err: any) {
-            console.log("Controller: " + err);
+            console.log(err);
             res.sendStatus(err?.status || 500);
         }
     }

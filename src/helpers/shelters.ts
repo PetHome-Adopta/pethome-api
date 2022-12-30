@@ -16,11 +16,18 @@ export class SheltersHelper {
     async getShelters(options: GetSheltersHelper): Promise<[Shelter[], number]> {
         options.filters = await DeserializerForMongoOptions(options.filters);
 
-        const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
-        const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
+        try {
+            const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
+            const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
-        return [data as any, rCount];
-
+            return [data as any, rCount];
+        } catch (e) {
+            console.log(e);
+            throw new Error(JSON.stringify({
+                ok: false,
+                message: (e.message || "Database error"),
+            }));
+        }
     }
 
     async createShelter(options: CreateShelterHelper) {
