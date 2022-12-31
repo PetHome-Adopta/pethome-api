@@ -6,7 +6,7 @@ type gender = "male" | "female";
 export interface Pet extends baseModel{
     key: string;
     name: string;
-    description?: string;
+    description: string;
     color?: string;
     age?: string;
     breed?: string;
