@@ -3,7 +3,6 @@ import { RequestGetPetsTypes, RequesCreatePetsTypes, RequestUpdatePetsTypes, Req
 
 export class PetsTypesServices {
     async getPetsType(data: RequestGetPetsTypes) {
-
         return await helpers.petsTypes.getPetsTypes({
             filters: {
                 key: data.key,
@@ -16,6 +15,13 @@ export class PetsTypesServices {
     }
 
     async createPetType(data: RequesCreatePetsTypes) {
+        if (data.name == null)
+            throw {
+                ok: false,
+                status: 400,
+                message: "There are required values that don't have a valid value"
+            };
+
         //TODO: check if pet is alredy created? which field can we check?
         const petType = await helpers.petsTypes.getPetsTypes({
             filters: {
@@ -38,11 +44,11 @@ export class PetsTypesServices {
     }
 
     async updatePetType(data: RequestUpdatePetsTypes) {
-        if (data.key == null)
+        if (data.key == null || data.name == null)
             throw {
                 ok: false,
                 status: 400,
-                message: 'Key type invalid'
+                message: "There are required values that don't have a valid value"
             };
 
         return await helpers.petsTypes.updatePetType({
@@ -60,7 +66,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: 'Key type invalid'
+                message: "There are required values that don't have a valid value"
             };
 
         return await helpers.petsTypes.deletePetType({
