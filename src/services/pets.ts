@@ -31,13 +31,13 @@ export class PetsServices {
         if (data.name == null || 
             data.petTypeKey == null || 
             data.shelterKey == null ||
-            data.description == null) {
+            data.description == null) 
             throw {
                 ok: false,
                 status: 400,
                 message: "There are required values that don't have a valid value"
             }
-        }
+        
 
         return await helpers.pets.createPet({
             name: data.name,
