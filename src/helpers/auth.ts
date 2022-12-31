@@ -28,7 +28,6 @@ export class AuthHelper {
     }
 
     async Register(options: RegisterHelper) {
-
         const toAdd = {
             key: v1(),
             ...options,

@@ -4,6 +4,12 @@ import bcrypt from "bcryptjs";
 
 export class AuthServices {
     async Login(data: RequestLogin) {
+        if (data.email == null || data.password) 
+            throw {
+                ok: false,
+                status: 400,
+                message: "There are required values that don't have a valid value"
+            }
 
         try {
             const userData = await helpers.auth.Login({
@@ -42,20 +48,18 @@ export class AuthServices {
     }
 
     async Register(data: RequestRegister) {
-
         try {
-
             const salt = await bcrypt.genSalt(10);
             data.password = await bcrypt.hash(data.password, salt);
 
             //TODO: is this necessary? those are mandatory params on interface, is any way to auto check on interfaces and send a generic error?
-            if (data.email == null || data.password == null || data.phoneNumber == null || data.address == null) {
+            if (data.email == null || data.password == null || data.phoneNumber == null || data.address == null || data.role == null)
                 throw {
                     status: 403,
                     ok: false,
                     message: "There are some required parameters that aren't complete"
                 };
-            }
+            
 
             const shelter = await helpers.shelters.getShelters({
                 filters: {
