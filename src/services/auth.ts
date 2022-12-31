@@ -12,6 +12,13 @@ export class AuthServices {
             }
 
         try {
+            if((await bcrypt.compare(data.password, data.password)) === false) {
+                throw {
+                    ok: false,
+                    status: 403
+                };
+            }
+
             const userData = await helpers.auth.Login({
                 filters: {
                     email: data.email,
