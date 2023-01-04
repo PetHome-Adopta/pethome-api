@@ -15,15 +15,13 @@ export class AuthHelper {
     async Login(options: LoginHelper) {
 
         try {
-            const data = await this.databases.getClients().mongo.collection(this.collectionName).findOne(options.filters, options.options);
-            return data;
+            return await this.databases.getClients().mongo.collection(this.collectionName).findOne(options.filters, options.options);
         } 
         catch (e) {
-            console.log(e);
-            throw new Error(JSON.stringify({
+            throw {
                 ok: false,
                 message: (e.message || "Database error"),
-            }));
+            };
         }
     }
 
