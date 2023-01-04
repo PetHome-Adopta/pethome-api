@@ -10,7 +10,14 @@ export class AuthController {
 
     constructor(app: Express) {
         this.#router = Router();
+        /*
+
+        */
         this.#router.post(PATHS.V1 + PATHS.REGISTER, this.handleRegisterUser.bind(this));
+        
+        /*
+
+        */
         this.#router.post(PATHS.V1 + PATHS.LOGIN, this.handleLoginUser.bind(this));
         app.use(this.#router);
     }
