@@ -1,4 +1,4 @@
-import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../entities/models/shelters';
+import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../models/shelters';
 import { helpers } from "../app";
 
 export class SheltersServices {

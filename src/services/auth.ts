@@ -1,5 +1,5 @@
 import { helpers, infrastructure } from "../app";
-import { RequestLogin, RequestRegister } from '../entities/models/auth';
+import { RequestLogin, RequestRegister } from '../models/auth';
 import bcrypt from "bcryptjs";
 
 export class AuthServices {

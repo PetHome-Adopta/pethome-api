@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../entities/models/pets";
+import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../models/pets";
 import { PATHS } from "../utils/Constants";
 
 export class PetsController {

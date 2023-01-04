@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequesCreatePetsTypes, RequestDeletePetsTypes, RequestGetPetsTypes, RequestUpdatePetsTypes } from "../entities/models/petsTypes";
+import { RequesCreatePetsTypes, RequestDeletePetsTypes, RequestGetPetsTypes, RequestUpdatePetsTypes } from "../models/petsTypes";
 import { PetsServices } from '../services/pets';
 import { PATHS } from "../utils/Constants";
 

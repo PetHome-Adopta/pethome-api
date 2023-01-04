@@ -1,4 +1,4 @@
-import { RequestGetPets, RequestCreatePet, RequestUpdatePet, RequestDeletePet } from '../entities/models/pets';
+import { RequestGetPets, RequestCreatePet, RequestUpdatePet, RequestDeletePet } from '../models/pets';
 import { helpers } from "../app";
 
 export class PetsServices {

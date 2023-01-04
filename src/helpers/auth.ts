@@ -1,7 +1,7 @@
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
-import { LoginHelper, RegisterHelper } from "../entities/models/auth";
+import { LoginHelper, RegisterHelper } from "../models/auth";
 
 
 export class AuthHelper {

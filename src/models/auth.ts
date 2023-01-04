@@ -1,4 +1,4 @@
-import { generalOptions } from "../mongodb";
+import { generalOptions } from "../entities/mongodb";
 import { CreateShelterHelper } from "./shelters";
 
 

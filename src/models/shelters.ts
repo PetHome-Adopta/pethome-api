@@ -1,5 +1,5 @@
 import { baseModel } from "./baseModel";
-import { generalOptions } from "../mongodb";
+import { generalOptions } from "../entities/mongodb";
 
 type roles = "USER" | "ADMIN"; // TODO: Differences?
 
