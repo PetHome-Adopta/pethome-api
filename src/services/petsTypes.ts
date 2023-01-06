@@ -21,6 +21,14 @@ export class PetsTypesServices {
                 status: 400,
                 message: "There are required values that don't have a valid value"
             };
+            
+        //TODO: es necesario comprobar al crear la entidad?
+        if (typeof (data.name) !== 'string')
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid key type"
+            }
 
         //TODO: check if pet is alredy created? which field can we check?
         const petType = await helpers.petsTypes.getPetsTypes({
@@ -51,6 +59,13 @@ export class PetsTypesServices {
                 message: "There are required values that don't have a valid value"
             };
 
+        if (typeof (data.key) !== 'string' || typeof (data.name) !== 'string')
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid key type"
+            }
+
         return await helpers.petsTypes.updatePetType({
             data: {
                 name: data.name
@@ -68,6 +83,13 @@ export class PetsTypesServices {
                 status: 400,
                 message: "There are required values that don't have a valid value"
             };
+
+        if (typeof (data.key) !== 'string')
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid key type"
+            }
 
         return await helpers.petsTypes.deletePetType({
             key: data.key,

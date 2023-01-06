@@ -27,6 +27,19 @@ export class SheltersServices {
                 message: "There are required values that don't have a valid value"
             }
 
+        //TODO: es necesario comprobar al crear la entidad?
+        if (typeof (data.phoneNumber) !== "string" ||
+            typeof (data.email) !== "string" ||
+            typeof (data.password) !== "string" ||
+            typeof (data.address) !== "string" 
+            ) {
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid data type"
+            }
+        }
+
         const shelter = await helpers.shelters.getShelters({
             filters: {
                 phoneNumber: data.phoneNumber,
@@ -62,6 +75,13 @@ export class SheltersServices {
                 message: "There are required values that don't have a valid value"
             }
         
+        if (typeof (data.key) !== 'string')
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid key type"
+            };
+
         return await helpers.shelters.updateShelter({
             filters: {
                 key: data.key,
@@ -87,6 +107,13 @@ export class SheltersServices {
                 message: "There are required values that don't have a valid value"
             }
             
+        if (typeof (data.key) !== 'string')
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid key type"
+            }
+
         return await helpers.shelters.deleteShelter({
             key: data.key
         });

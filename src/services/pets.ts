@@ -38,6 +38,18 @@ export class PetsServices {
                 message: "There are required values that don't have a valid value"
             }
         
+        //TODO: es necesario comprobar al crear la entidad?
+        if (typeof (data.name) !== "string" ||
+            typeof (data.petTypeKey) !== "string" ||
+            typeof (data.shelterKey) !== "string" ||
+            typeof (data.description) !== "string"
+            ) {
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid data type"
+            }
+        }
 
         return await helpers.pets.createPet({
             name: data.name,
@@ -63,6 +75,12 @@ export class PetsServices {
                 message: "There are required values that don't have a valid value"
             }
         
+        if (typeof (data.key) !== 'string')
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid key type"
+            }
 
         return await helpers.pets.updatePet({
             filters: {
@@ -92,6 +110,13 @@ export class PetsServices {
                 status: 400,
                 message: 'Key type invalid'
             };
+
+        if (typeof (data.key) !== 'string')
+            throw {
+                ok: false,
+                status: 400,
+                message: "Invalid key type"
+            }
 
         return await helpers.pets.deletePet({
             key: data.key
