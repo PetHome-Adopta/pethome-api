@@ -99,9 +99,7 @@ export class AuthServices {
             });
 
         } catch (e) {
-            console.log(e);
             throw e;
         }
-
     }
 }

@@ -22,11 +22,10 @@ export class PetsHelper {
             return [data as any, rCount];
 
         } catch (e) {
-            console.log(e);
-            throw new Error(JSON.stringify({
+            throw {
                 ok: false,
                 message: (e.message || "Database error"),
-            }));
+            };
         }
     }
 
@@ -43,11 +42,10 @@ export class PetsHelper {
             await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
             return toAdd;
         } catch (e) {
-            console.log(e);
-            throw new Error(JSON.stringify({
+            throw {
                 ok: false,
                 message: (e.message || "Database error"),
-            }));
+            };
         }
     }
 
@@ -63,11 +61,10 @@ export class PetsHelper {
 
             return options;
         } catch (e) {
-            console.log(e);
-            throw new Error(JSON.stringify({
+            throw {
                 ok: false,
                 message: (e.message || "Database error"),
-            }));
+            };
         }
     }
 
@@ -79,13 +76,12 @@ export class PetsHelper {
                 }
             });
 
-            return `Pet ${options.key} deleted`;
+            return options;
         } catch (e) {
-            console.log(e);
-            throw new Error(JSON.stringify({
+            throw {
                 ok: false,
                 message: (e.message || "Database error"),
-            }));
+            };
         }
     }
 }
