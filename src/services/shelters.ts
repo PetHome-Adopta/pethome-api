@@ -11,18 +11,18 @@ export class SheltersServices {
                 email: data.email,
             },
             options: {
-                sort: {_id: -1}
+                sort: { _id: -1 }
             }
         });
     }
 
     async createShelter(data: RequestCreateShelter) {
         if (
-            data.name == null ||    
-            data.phoneNumber == null || 
-            data.email == null || 
+            data.name == null ||
+            data.phoneNumber == null ||
+            data.email == null ||
             data.password == null ||
-            data.address == null) 
+            data.address == null)
             throw {
                 ok: false,
                 status: 400,
@@ -33,8 +33,8 @@ export class SheltersServices {
         if (typeof (data.phoneNumber) !== "string" ||
             typeof (data.email) !== "string" ||
             typeof (data.password) !== "string" ||
-            typeof (data.address) !== "string" 
-            ) {
+            typeof (data.address) !== "string"
+        ) {
             throw {
                 ok: false,
                 status: 400,
@@ -48,7 +48,7 @@ export class SheltersServices {
                 email: data.email,
             },
             options: {
-                sort: {_id: -1}
+                sort: { _id: -1 }
             }
         });
         if (shelter[1] > 0)
@@ -60,7 +60,7 @@ export class SheltersServices {
 
         const salt = await bcrypt.genSalt(10);
         data.password = await bcrypt.hash(data.password, salt);
-        
+
         return await helpers.shelters.createShelter({
             phoneNumber: data.phoneNumber,
             email: data.email,
@@ -73,19 +73,34 @@ export class SheltersServices {
     }
 
     async updateShelter(data: RequestUpdateShelter) {
-        if (data.key == null) 
+        if (data.key == null)
             throw {
                 ok: false,
                 status: 400,
                 message: "There are required values that don't have a valid value"
             }
-        
+
         if (typeof (data.key) !== 'string')
             throw {
                 ok: false,
                 status: 400,
                 message: "Invalid key type"
             };
+
+        const shelter = await helpers.shelters.getShelters({
+            filters: {
+                key: data.key
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if (shelter[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Shelter doesn't exist"
+            }
 
         return await helpers.shelters.updateShelter({
             filters: {
@@ -105,18 +120,33 @@ export class SheltersServices {
     }
 
     async deleteShelter(data: RequestDeleteShelter) {
-        if (data.key == null) 
+        if (data.key == null)
             throw {
                 ok: false,
                 status: 400,
                 message: "There are required values that don't have a valid value"
             }
-            
+
         if (typeof (data.key) !== 'string')
             throw {
                 ok: false,
                 status: 400,
                 message: "Invalid key type"
+            }
+
+        const shelter = await helpers.shelters.getShelters({
+            filters: {
+                key: data.key
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if (shelter[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Shelter doesn't exist"
             }
 
         return await helpers.shelters.deleteShelter({

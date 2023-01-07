@@ -28,22 +28,22 @@ export class PetsServices {
 
     async createPet(data: RequestCreatePet) {
         //TODO: check if pet is alredy created? which field can we check?
-        if (data.name == null || 
-            data.petTypeKey == null || 
+        if (data.name == null ||
+            data.petTypeKey == null ||
             data.shelterKey == null ||
-            data.description == null) 
+            data.description == null)
             throw {
                 ok: false,
                 status: 400,
                 message: "There are required values that don't have a valid value"
             }
-        
+
         //TODO: es necesario comprobar al crear la entidad?
         if (typeof (data.name) !== "string" ||
             typeof (data.petTypeKey) !== "string" ||
             typeof (data.shelterKey) !== "string" ||
             typeof (data.description) !== "string"
-            ) {
+        ) {
             throw {
                 ok: false,
                 status: 400,
@@ -61,25 +61,40 @@ export class PetsServices {
             behaviour: data.behaviour,
             sterilized: data.sterilized,
             adopted: false,
-            
+
             shelterKey: data.shelterKey,
             petTypeKey: data.petTypeKey,
         });
     }
 
     async updatePet(data: RequestUpdatePet) {
-        if (data.key == null) 
+        if (data.key == null)
             throw {
                 ok: false,
                 status: 400,
                 message: "There are required values that don't have a valid value"
             }
-        
+
         if (typeof (data.key) !== 'string')
             throw {
                 ok: false,
                 status: 400,
                 message: "Invalid key type"
+            }
+
+        const pet = await helpers.pets.getPets({
+            filters: {
+                key: data.key
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if (pet[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet doesn't exist"
             }
 
         return await helpers.pets.updatePet({
@@ -116,6 +131,21 @@ export class PetsServices {
                 ok: false,
                 status: 400,
                 message: "Invalid key type"
+            }
+
+        const pet = await helpers.pets.getPets({
+            filters: {
+                key: data.key
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if (pet[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet doesn't exist"
             }
 
         return await helpers.pets.deletePet({

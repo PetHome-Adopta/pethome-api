@@ -21,7 +21,7 @@ export class PetsTypesServices {
                 status: 400,
                 message: "There are required values that don't have a valid value"
             };
-            
+
         //TODO: es necesario comprobar al crear la entidad?
         if (typeof (data.name) !== 'string')
             throw {
@@ -39,13 +39,13 @@ export class PetsTypesServices {
                 sort: { _id: -1 }
             }
         });
-        if (petType)
+        if (petType[1] > 0)
             throw {
                 ok: false,
                 status: 400,
                 message: "Pet type alredy created"
             }
-            
+
         return await helpers.petsTypes.createPetType({
             name: data.name
         });
@@ -64,6 +64,21 @@ export class PetsTypesServices {
                 ok: false,
                 status: 400,
                 message: "Invalid key type"
+            }
+
+        const petType = await helpers.petsTypes.getPetsTypes({
+            filters: {
+                key: data.key
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if (petType[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet type doesn't exist"
             }
 
         return await helpers.petsTypes.updatePetType({
@@ -89,6 +104,21 @@ export class PetsTypesServices {
                 ok: false,
                 status: 400,
                 message: "Invalid key type"
+            }
+
+        const petType = await helpers.petsTypes.getPetsTypes({
+            filters: {
+                key: data.key
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if (petType[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet type doesn't exist"
             }
 
         return await helpers.petsTypes.deletePetType({
