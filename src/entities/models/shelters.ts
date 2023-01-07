@@ -11,7 +11,8 @@ export interface RequestGetShelters {
 }
 
 export interface RequestCreateShelter {
-    phoneNumber: string;
+    name: string;
+    phoneNumber?: string;
     email: string;
     password: string;
     address: string;
