@@ -31,11 +31,8 @@ export class AuthServices {
                     status: 403
                 };
             }
-
             
-
-            //TODO: "if (!userData) or if (userData == null)" -> como esta mejor?
-            if (userData === null)
+            if (userData == null)
                 throw {
                     ok: false,
                     status: 403

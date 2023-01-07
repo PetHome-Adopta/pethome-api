@@ -27,7 +27,6 @@ export class PetsServices {
     }
 
     async createPet(data: RequestCreatePet) {
-        //TODO: check if pet is alredy created? which field can we check?
         if (data.name == null ||
             data.petTypeKey == null ||
             data.shelterKey == null ||
@@ -38,7 +37,6 @@ export class PetsServices {
                 message: "There are required values that don't have a valid value"
             }
 
-        //TODO: es necesario comprobar al crear la entidad?
         if (typeof (data.name) !== "string" ||
             typeof (data.petTypeKey) !== "string" ||
             typeof (data.shelterKey) !== "string" ||

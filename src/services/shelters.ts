@@ -29,7 +29,6 @@ export class SheltersServices {
                 message: "There are required values that don't have a valid value"
             }
 
-        //TODO: es necesario comprobar al crear la entidad?
         if (typeof (data.phoneNumber) !== "string" ||
             typeof (data.email) !== "string" ||
             typeof (data.password) !== "string" ||
@@ -68,7 +67,7 @@ export class SheltersServices {
             address: data.address,
             description: data.description,
             imageURL: data.imageURL,
-            role: data.role || roles.user,
+            role: data.role || roles.admin,
         });
     }
 
@@ -107,7 +106,6 @@ export class SheltersServices {
                 key: data.key,
             },
             data: {
-                //TODO: data.name ? data.name : legacyData.name -> at all ./services update method
                 phoneNumber: data.phoneNumber,
                 email: data.email,
                 password: data.password,

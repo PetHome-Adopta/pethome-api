@@ -17,7 +17,7 @@ export class PetsController {
 
     async handleGetPets(req: Request, res: Response) {
         try {
-            //TODO: On the filters when cant send the param on header, only path params, if we want to search using the "key" is it ok to be shown on the path param? thanks in advance
+            
             const body: RequestGetPets = req.body;
             const data = await services.pets.getPets(body);
 

@@ -1,7 +1,7 @@
 import { baseModel } from "./baseModel";
 import { generalOptions } from "../entities/mongodb";
 
-export const roles = {user: "USER", admin: "ADMIN"}; // TODO: Differences?
+export const roles = {user: "USER", admin: "ADMIN"};
 
 export interface RequestGetShelters {
     key?: string;
