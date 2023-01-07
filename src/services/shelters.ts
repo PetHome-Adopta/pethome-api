@@ -1,5 +1,6 @@
-import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../entities/models/shelters';
+import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter, roles } from '../entities/models/shelters';
 import { helpers } from "../app";
+import bcrypt from "bcryptjs";
 
 export class SheltersServices {
     async getShelters(data: RequestGetShelters) {
@@ -16,11 +17,12 @@ export class SheltersServices {
     }
 
     async createShelter(data: RequestCreateShelter) {
-        if (data.phoneNumber == null || 
+        if (
+            data.name == null ||    
+            data.phoneNumber == null || 
             data.email == null || 
             data.password == null ||
-            data.address == null ||
-            data.role == null) 
+            data.address == null) 
             throw {
                 ok: false,
                 status: 400,
@@ -49,12 +51,15 @@ export class SheltersServices {
                 sort: {_id: -1}
             }
         });
-        if (shelter)
+        if (shelter[1] > 0)
             throw {
                 ok: false,
                 status: 400,
                 message: "SHelter alredy created"
             }
+
+        const salt = await bcrypt.genSalt(10);
+        data.password = await bcrypt.hash(data.password, salt);
         
         return await helpers.shelters.createShelter({
             phoneNumber: data.phoneNumber,
@@ -63,7 +68,7 @@ export class SheltersServices {
             address: data.address,
             description: data.description,
             imageURL: data.imageURL,
-            role: data.role,
+            role: data.role || roles.user,
         });
     }
 
