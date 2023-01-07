@@ -1,7 +1,7 @@
-import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../entities/models/pets';
+import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../models/pets';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
-import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, PetType, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../entities/models/petsTypes';
+import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, PetType, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../models/petsTypes';
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 
 

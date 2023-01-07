@@ -1,4 +1,4 @@
-import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter, roles } from '../entities/models/shelters';
+import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter, roles } from '../models/shelters';
 import { helpers } from "../app";
 import bcrypt from "bcryptjs";
 

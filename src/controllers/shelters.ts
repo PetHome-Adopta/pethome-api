@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreateShelter, RequestDeleteShelter, RequestGetShelters, RequestUpdateShelter } from "../entities/models/shelters";
+import { RequestCreateShelter, RequestDeleteShelter, RequestGetShelters, RequestUpdateShelter } from "../models/shelters";
 import { PATHS } from "../utils/Constants";
 
 export class SheltersController {

@@ -1,4 +1,4 @@
-import { CreateShelterHelper, DeleteShelterHelper, GetSheltersHelper, Shelter, UpdateShelterHelper } from '../entities/models/shelters';
+import { CreateShelterHelper, DeleteShelterHelper, GetSheltersHelper, Shelter, UpdateShelterHelper } from '../models/shelters';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';

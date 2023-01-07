@@ -1,5 +1,5 @@
 import { baseModel } from "./baseModel";
-import { generalOptions } from "../mongodb";
+import { generalOptions } from "../entities/mongodb";
 
 export const roles = {user: "USER", admin: "ADMIN"}; // TODO: Differences?
 

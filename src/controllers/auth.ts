@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestLogin } from '../entities/models/auth';
+import { RequestLogin } from '../models/auth';
 import { PATHS } from "../utils/Constants";
 
 export class AuthController {

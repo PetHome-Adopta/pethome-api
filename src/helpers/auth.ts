@@ -1,6 +1,6 @@
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
-import { LoginHelper } from "../entities/models/auth";
+import { LoginHelper } from "../models/auth";
 
 
 export class AuthHelper {

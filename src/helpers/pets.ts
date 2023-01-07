@@ -1,4 +1,4 @@
-import { CreatePetHelper, DeletePetHelper, GetPetsHelper, Pet, UpdatePetHelper } from '../entities/models/pets';
+import { CreatePetHelper, DeletePetHelper, GetPetsHelper, Pet, UpdatePetHelper } from '../models/pets';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';

@@ -1,5 +1,5 @@
 import { helpers } from "../app";
-import { RequestGetPetsTypes, RequesCreatePetsTypes, RequestUpdatePetsTypes, RequestDeletePetsTypes } from "../entities/models/petsTypes";
+import { RequestGetPetsTypes, RequesCreatePetsTypes, RequestUpdatePetsTypes, RequestDeletePetsTypes } from "../models/petsTypes";
 
 export class PetsTypesServices {
     async getPetsType(data: RequestGetPetsTypes) {
