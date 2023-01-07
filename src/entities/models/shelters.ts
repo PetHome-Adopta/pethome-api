@@ -1,7 +1,7 @@
 import { baseModel } from "./baseModel";
 import { generalOptions } from "../mongodb";
 
-type roles = "USER" | "ADMIN"; // TODO: Differences?
+export const roles = {user: "USER", admin: "ADMIN"}; // TODO: Differences?
 
 export interface RequestGetShelters {
     key?: string;
@@ -11,24 +11,25 @@ export interface RequestGetShelters {
 }
 
 export interface RequestCreateShelter {
+    name: string;
     phoneNumber?: string;
     email: string;
-    password?: string;
+    password: string;
     address: string;
     description?: string;
     imageURL?: string;
-    role: roles;
+    role: string; // roles
 }
 
 export interface RequestUpdateShelter {
-    key?: string;
+    key: string;
     password?: string;
     phoneNumber?: string;
     email?: string;
     address?: string;
     description?: string;
     imageURL?: string;
-    role?: roles;
+    role?: string;
 }
 
 export interface RequestDeleteShelter {
@@ -48,11 +49,11 @@ export interface Shelter extends baseModel{
     key: string;
     phoneNumber: string;
     email: string;
-    password?: string;
+    password: string;
     address: string;
     description?: string;
     imageURL?: string;
-    role: roles;
+    role: string;
 }
 
 export interface CreateShelterHelper {
@@ -62,7 +63,7 @@ export interface CreateShelterHelper {
     address: string;
     description?: string;
     imageURL?: string;
-    role?: roles;
+    role: string;
 }
 
 export interface UpdateShelterHelper {
@@ -71,6 +72,5 @@ export interface UpdateShelterHelper {
 }
 
 export interface DeleteShelterHelper {
-    key?: string;
-    _id?: string;
+    key: string;
 }
