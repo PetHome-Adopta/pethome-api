@@ -44,7 +44,7 @@ export class AuthServices {
             if (userData?.key != null) {
                 // Login
                 return await infrastructure.jwt.codeToken({
-                    key: userData.key
+                    sub: userData.key
                 });
 
             } else {

@@ -7,6 +7,7 @@ import { Deserializer } from "./middlewares/deserializer";
 import { services as S } from "./entities/services";
 import { helpers as H } from "./entities/helpers";
 import { infrastructure as I } from "./entities/infrastructure"
+import { Authorized } from "./middlewares/authorized";
 
 // Init env
 require('dotenv').config();
@@ -21,6 +22,8 @@ export default (async () => {
     // Init middlewares
 
     App.use(Deserializer);
+
+    App.use("*/admin/*", Authorized);
 
     // Init infrastructure and globalize it
     const toInitInfra = new Infrastructure() as any;
