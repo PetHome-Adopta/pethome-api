@@ -10,9 +10,9 @@ export class PetTypesController {
     constructor (app : Express){
         this.#router = Router();
         this.#router.get(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleGetPets.bind(this));
-        this.#router.post(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleCreatePet.bind(this));
-        this.#router.put(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleUpdatePet.bind(this));
-        this.#router.delete(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleDeletePet.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleCreatePet.bind(this));
+        this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleUpdatePet.bind(this));
+        this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleDeletePet.bind(this));
         app.use(this.#router);
     }
 
