@@ -34,7 +34,7 @@ npm start
 
 ### Development
 
-For run the development version we need to use the next command
+For run the development with hot reload version we need to use the next command
 
 ```
 npm run dev
