@@ -20,6 +20,13 @@ export default (async () => {
 
     const App: Express = express();
     // Init middlewares
+ 
+    App.use((req, res, next) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Origin, Accept, X-Requested-With");
+        res.setHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET");
+        next();
+    });
 
     App.use(Deserializer);
 
