@@ -49,6 +49,39 @@ export class PetsServices {
             }
         }
 
+        //TODO: refactor into utils.ts static method
+        const petType = await helpers.petsTypes.getPetsTypes({
+            filters: {
+                key: data.petTypeKey,
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+
+        if(petType[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet type doesn't exist"
+            }
+
+        const shelter = await helpers.shelters.getShelters({
+            filters: {
+                key: data.shelterKey,
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+
+        if(shelter[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Shelter doesn't exist"
+            }
+
         return await helpers.pets.createPet({
             name: data.name,
             description: data.description,
@@ -95,6 +128,43 @@ export class PetsServices {
                 message: "Pet doesn't exist"
             }
 
+        //TODO: refactor into utils.ts static method
+        if(data.petTypeKey){
+            const petType = await helpers.petsTypes.getPetsTypes({
+                filters: {
+                    key: data.petTypeKey,
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+
+            if(petType[1] === 0)
+                throw {
+                    ok: false,
+                    status: 400,
+                    message: "Pet type doesn't exist"
+                }    
+        }
+        
+        if(data.shelterKey){
+            const shelter = await helpers.shelters.getShelters({
+                filters: {
+                    key: data.shelterKey,
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+
+            if(shelter[1] === 0)
+                throw {
+                    ok: false,
+                    status: 400,
+                    message: "Shelter doesn't exist"
+                }    
+        }
+        
         return await helpers.pets.updatePet({
             filters: {
                 key: data.key,
