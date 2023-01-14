@@ -19,7 +19,7 @@ export class PetsHelper {
             const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
             const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
     
-            return [data as any, rCount];
+            return data as any || rCount;
 
         } catch (e) {
             throw {
