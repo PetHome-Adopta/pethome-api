@@ -49,6 +49,7 @@ export interface RequestCreatePet {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    urgentAdoption: boolean;
 
     shelterKey: string;
     petTypeKey: string;
@@ -65,6 +66,7 @@ export interface RequestUpdatePet {
     behaviour?: string;
     sterilized?: boolean;
     adopted?: boolean;
+    urgentAdoption?: boolean;
 
     shelterKey?: string;
     petTypeKey?: string;
@@ -102,6 +104,7 @@ export interface CreatePetHelper {
     behaviour?: string;
     sterilized?: boolean;
     adopted: boolean;
+    urgentAdoption: boolean;
 
     shelterKey: string;
     petTypeKey: string;

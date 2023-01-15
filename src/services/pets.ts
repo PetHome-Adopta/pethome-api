@@ -92,6 +92,7 @@ export class PetsServices {
             behaviour: data.behaviour,
             sterilized: data.sterilized,
             adopted: false,
+            urgentAdoption: data.urgentAdoption,
 
             shelterKey: data.shelterKey,
             petTypeKey: data.petTypeKey,
@@ -179,6 +180,7 @@ export class PetsServices {
                 behaviour: data.behaviour,
                 sterilized: data.sterilized,
                 adopted: data.adopted,
+                urgentAdoption: data.urgentAdoption,
 
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey
