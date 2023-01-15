@@ -23,7 +23,8 @@ export class AuthServices {
                 }
             });
 
-            console.log(data.password)
+            console.log(data.password);
+            console.log(userData);
 
             if((await bcrypt.compare(data.password, userData.password)) === false) {
                 throw {
