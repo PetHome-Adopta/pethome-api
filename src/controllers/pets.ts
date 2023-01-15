@@ -22,7 +22,8 @@ export class PetsController {
             const data = await services.pets.getPets(body);
 
             res.json({
-                data,
+                data: data[0],
+                count: data[1],
                 OK: true
             })
         }
