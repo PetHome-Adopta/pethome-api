@@ -42,6 +42,7 @@ export interface GetSheltersHelper extends generalOptions {
         phoneNumber?: string;
         email?: string;
         address?: string;
+        deletedAt?: Date;
     }
 }
 

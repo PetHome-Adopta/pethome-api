@@ -53,6 +53,7 @@ export class PetsServices {
         const petType = await helpers.petsTypes.getPetsTypes({
             filters: {
                 key: data.petTypeKey,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -63,12 +64,13 @@ export class PetsServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type doesn't exist"
+                message: "Pet type doesn't exist or it's deleted"
             }
 
         const shelter = await helpers.shelters.getShelters({
             filters: {
                 key: data.shelterKey,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -79,7 +81,7 @@ export class PetsServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist"
+                message: "Shelter doesn't exist or it's deleted"
             }
 
         return await helpers.pets.createPet({
@@ -134,6 +136,7 @@ export class PetsServices {
             const petType = await helpers.petsTypes.getPetsTypes({
                 filters: {
                     key: data.petTypeKey,
+                    deletedAt: null
                 },
                 options: {
                     sort: { _id: -1 }
@@ -144,7 +147,7 @@ export class PetsServices {
                 throw {
                     ok: false,
                     status: 400,
-                    message: "Pet type doesn't exist"
+                    message: "Pet type doesn't exist or it's deleted"
                 }    
         }
         
@@ -152,6 +155,7 @@ export class PetsServices {
             const shelter = await helpers.shelters.getShelters({
                 filters: {
                     key: data.shelterKey,
+                    deletedAt: null
                 },
                 options: {
                     sort: { _id: -1 }
@@ -162,7 +166,7 @@ export class PetsServices {
                 throw {
                     ok: false,
                     status: 400,
-                    message: "Shelter doesn't exist"
+                    message: "Shelter doesn't exist or it's deleted"
                 }    
         }
         
@@ -205,7 +209,8 @@ export class PetsServices {
 
         const pet = await helpers.pets.getPets({
             filters: {
-                key: data.key
+                key: data.key,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -215,7 +220,7 @@ export class PetsServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet doesn't exist"
+                message: "Pet doesn't exist or it's deleted"
             }
 
         return await helpers.pets.deletePet({
