@@ -3,16 +3,22 @@ import { RequestGetPetsTypes, RequesCreatePetsTypes, RequestUpdatePetsTypes, Req
 
 export class PetsTypesServices {
     async getPetsType(data: RequestGetPetsTypes) {
-        return await helpers.petsTypes.getPetsTypes({
-            filters: {
-                key: data.key,
-                name: data.name,
-                deletedAt: null
-            },
-            options: {
-                sort: { _id: -1 }
-            }
-        });
+        const response = await helpers.petsTypes.getPetsTypes({
+                filters: {
+                    key: data.key,
+                    name: data.name,
+                    deletedAt: null
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+
+        //TODO: refactor into utils static method?
+        for(let element of response[0])
+            delete element._id;
+            
+        return response;
     }
 
     async createPetType(data: RequesCreatePetsTypes) {

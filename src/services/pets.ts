@@ -3,8 +3,7 @@ import { helpers } from "../app";
 
 export class PetsServices {
     async getPets(data: RequestGetPets) {
-
-        return await helpers.pets.getPets({
+        const response = await helpers.pets.getPets({
             filters: {
                 key: data.key,
                 name: data.name,
@@ -24,6 +23,12 @@ export class PetsServices {
                 sort: { _id: -1 }
             }
         });
+
+        //TODO: refactor into utils static method?
+        for(let element of response[0])
+            delete element._id;
+            
+        return response;
     }
 
     async createPet(data: RequestCreatePet) {

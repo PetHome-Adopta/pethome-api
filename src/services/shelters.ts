@@ -4,17 +4,22 @@ import bcrypt from "bcryptjs";
 
 export class SheltersServices {
     async getShelters(data: RequestGetShelters) {
-        return await helpers.shelters.getShelters({
-            filters: {
-                key: data.key,
-                phoneNumber: data.phoneNumber,
-                email: data.email,
-                deletedAt: null
-            },
-            options: {
-                sort: { _id: -1 }
-            }
-        });
+        const response = await helpers.shelters.getShelters({
+                filters: {
+                    key: data.key,
+                    phoneNumber: data.phoneNumber,
+                    email: data.email,
+                    deletedAt: null
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+        //TODO: refactor into utils static method?
+        for(let element of response[0])
+            delete element._id;
+            
+        return response;
     }
 
     async createShelter(data: RequestCreateShelter) {
