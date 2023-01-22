@@ -21,6 +21,10 @@ export class PetsTypesHelper {
             const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
             const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
+            //TODO: refactor into utils static method?
+            for(let element of data)
+                delete element._id;
+                
             return [data as any, rCount];    
         } catch (e) {
             throw {
