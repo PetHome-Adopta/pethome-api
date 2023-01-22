@@ -28,6 +28,7 @@ export interface GetPetsTypesHelper extends generalOptions {
 }
 
 export interface PetType extends baseModel{
+    _id: any;
     key: string;
     name: string;
 

@@ -4,6 +4,7 @@ import { generalOptions } from "../entities/mongodb";
 type gender = "male" | "female";
 
 export interface Pet extends baseModel{
+    _id: any;
     key: string;
     name: string;
     description: string;

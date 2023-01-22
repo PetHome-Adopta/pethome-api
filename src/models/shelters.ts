@@ -47,6 +47,7 @@ export interface GetSheltersHelper extends generalOptions {
 }
 
 export interface Shelter extends baseModel{
+    _id: any;
     key: string;
     phoneNumber: string;
     email: string;
