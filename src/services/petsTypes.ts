@@ -6,7 +6,8 @@ export class PetsTypesServices {
         return await helpers.petsTypes.getPetsTypes({
             filters: {
                 key: data.key,
-                name: data.name
+                name: data.name,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -31,7 +32,8 @@ export class PetsTypesServices {
 
         const petType = await helpers.petsTypes.getPetsTypes({
             filters: {
-                name: data.name
+                name: data.name,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -41,7 +43,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type alredy created"
+                message: "Pet type alredy created or it's deleted"
             }
 
         return await helpers.petsTypes.createPetType({
@@ -106,7 +108,8 @@ export class PetsTypesServices {
 
         const petType = await helpers.petsTypes.getPetsTypes({
             filters: {
-                key: data.key
+                key: data.key,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -116,7 +119,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type doesn't exist"
+                message: "Pet type doesn't exist or it's deleted"
             }
 
         return await helpers.petsTypes.deletePetType({

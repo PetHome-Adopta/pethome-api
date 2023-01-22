@@ -9,6 +9,7 @@ export class SheltersServices {
                 key: data.key,
                 phoneNumber: data.phoneNumber,
                 email: data.email,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -45,6 +46,7 @@ export class SheltersServices {
             filters: {
                 phoneNumber: data.phoneNumber,
                 email: data.email,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -54,7 +56,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "SHelter alredy created"
+                message: "SHelter alredy created or it's deleted"
             }
 
         const salt = await bcrypt.genSalt(10);
@@ -88,7 +90,7 @@ export class SheltersServices {
 
         const shelter = await helpers.shelters.getShelters({
             filters: {
-                key: data.key
+                key: data.key,
             },
             options: {
                 sort: { _id: -1 }
@@ -98,7 +100,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist"
+                message: "Shelter doesn't exist or it's deleted"
             }
 
         return await helpers.shelters.updateShelter({
@@ -134,7 +136,8 @@ export class SheltersServices {
 
         const shelter = await helpers.shelters.getShelters({
             filters: {
-                key: data.key
+                key: data.key,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -147,8 +150,26 @@ export class SheltersServices {
                 message: "Shelter doesn't exist"
             }
 
+        const pets = await helpers.pets.getPets({
+            filters: {
+                shelterKey: data.key,
+                deletedAt: null
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+
+        for (let pet of pets[0]) {
+            console.log('Deleting pet: ', pet.key);
+            await helpers.pets.deletePet({
+                key: pet.key
+            });
+        }
+
         return await helpers.shelters.deleteShelter({
             key: data.key
         });
+    
     }
 }
