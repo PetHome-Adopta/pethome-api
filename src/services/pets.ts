@@ -13,8 +13,16 @@ export class PetsServices {
                 gender: data.gender,
                 behaviour: data.behaviour,
                 sterilized: data.sterilized,
-                adopted: data.adopted,
+                vaccinated: data.vaccinated,
+                dewormed: data.dewormed,
+                healthy: data.healthy,
+                identified: data.identified,
+                microchipped: data.microchipped,
 
+                adopted: data.adopted,
+                urgentAdoption: data.urgentAdoption,
+
+                statusOnShelter: data.statusOnShelter,
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey,
                 deletedAt: null
@@ -27,7 +35,7 @@ export class PetsServices {
         //TODO: refactor into utils static method?
         for(let element of response[0])
             delete element._id;
-            
+
         return response;
     }
 
@@ -98,9 +106,16 @@ export class PetsServices {
             gender: data.gender,
             behaviour: data.behaviour,
             sterilized: data.sterilized,
+            vaccinated: data.vaccinated,
+            dewormed: data.dewormed,
+            healthy: data.healthy,
+            identified: data.identified,
+            microchipped: data.microchipped,
+
             adopted: false,
             urgentAdoption: data.urgentAdoption,
 
+            statusOnShelter: data.statusOnShelter,
             shelterKey: data.shelterKey,
             petTypeKey: data.petTypeKey,
         });
@@ -188,9 +203,16 @@ export class PetsServices {
                 gender: data.gender,
                 behaviour: data.behaviour,
                 sterilized: data.sterilized,
+                vaccinated: data.vaccinated,
+                dewormed: data.dewormed,
+                healthy: data.healthy,
+                identified: data.identified,
+                microchipped: data.microchipped,
+
                 adopted: data.adopted,
                 urgentAdoption: data.urgentAdoption,
 
+                statusOnShelter: data.statusOnShelter,
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey
             }

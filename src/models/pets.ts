@@ -8,20 +8,29 @@ export interface Pet extends baseModel{
     key: string;
     name: string;
     description: string;
-    color?: string;
-    age?: string;
-    breed?: string;
-    gender?: gender;
-    behaviour?: string;
-    sterilized?: boolean;
+    color: string;
+    age: string;
+    breed: string;
+    gender: gender;
+    behaviour: string;
+
+    sterilized: boolean;
+    vaccinated: boolean;
+    dewormed: boolean;
+    healthy: boolean;
+    identified: boolean;
+    microchipped: boolean;
+
     adopted: boolean;
     urgentAdoption: boolean;
+
     contactedBy?: [{
         name: string;
         email: string;
-        phoneNumber?: string;
+        phoneNumber: string;
     }];
 
+    statusOnShelter: string;
     shelterKey: string;
     petTypeKey: string;
 }
@@ -35,8 +44,21 @@ export interface RequestGetPets {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
     adopted?: boolean;
+    urgentAdoption?: boolean;
+    
+    contactedBy?: [{
+        name: string;
+        email: string;
+        phoneNumber: string;
+    }];
 
+    statusOnShelter?: string;
     shelterKey?: string;
     petTypeKey?: string;
 }
@@ -50,8 +72,14 @@ export interface RequestCreatePet {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
     urgentAdoption: boolean;
 
+    statusOnShelter: string;
     shelterKey: string;
     petTypeKey: string;
 }
@@ -66,9 +94,21 @@ export interface RequestUpdatePet {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
     adopted?: boolean;
     urgentAdoption?: boolean;
+    
+    contactedBy?: [{
+        name: string;
+        email: string;
+        phoneNumber: string;
+    }];
 
+    statusOnShelter?: string;
     shelterKey?: string;
     petTypeKey?: string;
 }
@@ -87,8 +127,22 @@ export interface GetPetsHelper extends generalOptions {
         gender?: gender;
         behaviour?: string;
         sterilized?: boolean;
-        adopted?: boolean;
+        vaccinated?: boolean;
+        dewormed?: boolean;
+        healthy?: boolean;
+        identified?: boolean;
+        microchipped?: boolean;
 
+        adopted?: boolean;
+        urgentAdoption?: boolean;
+
+        contactedBy?: [{
+            name: string;
+            email: string;
+            phoneNumber: string;
+        }];
+
+        statusOnShelter?: string;
         shelterKey?: string;
         petTypeKey?: string;
         deletedAt?: Date;
@@ -104,9 +158,16 @@ export interface CreatePetHelper {
     gender?: gender;
     behaviour?: string;
     sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
+    
     adopted: boolean;
     urgentAdoption: boolean;
 
+    statusOnShelter: string;
     shelterKey: string;
     petTypeKey: string;
 }
