@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "d3cb1d93-cf01-4797-ad5a-2168826a1038",
+		"name": "PetHome",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6318298"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"tet@test.com\",\r\n    \"password\": \"testtest\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"tet2@test.com\",\r\n    \"password\": \"testtest\",\r\n    \"address\": \"test\",\r\n    \"phoneNumber\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get pet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY1ODM1MjExOSwiZXhwIjoxNjU4NDM4NTE5fQ.gbCCMp71GuebPkVqOjxc6hsipX2AfwY1NuYOepJpnw_U5GHrlWIy8p6prXQY_gI9T5hkwurtB4YqMPyOJZK1cg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "name",
+						"value": "Pet4",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/pets?name=Pet4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pets"
+					],
+					"query": [
+						{
+							"key": "petTypeKey",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Pet4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create pet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY2OTczODYzMywiZXhwIjoxNjY5ODI1MDMzfQ.0TEE9hk0wbvsLqdJCB1_Vm-kpTcQridJj_iVc9dZ-z6-0Y-V7ZvqU2hmHmnis5HmdPgfW8_52kl6Xef9_WSU6w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pet5\",\n    \"description\": \"description\",\n    \"color\": \"test\",\n    \"behaviour\": \"good\",\n    \"sex\": \"M\",\n    \"petTypeKey\": \"1\",\n    \"age\": 1,\n    \"adopted\": false,\n    \"urgentAdoption\": false,\n    \"sterilized\": true,\n    \"shelterKey\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/pets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update pet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY1OTI4MjM0MCwiZXhwIjoxNjU5MzY4NzQwfQ.Nyl6AByTNaRrDD7k52HpWeDNyYuQtBJKG7v8YF99NkDi0sxqGMhl_Hy4xAQML6aoHa_Zs80mS9GI7Sb8tIxnLw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\": \"852cafe0-8846-11ed-a6bc-e9440b8be20d\",\n    \"name\": \"Pet5Updated\",\n    \"description\": \"description\",\n    \"color\": \"test\",\n    \"behaviour\": \"good\",\n    \"sex\": \"M\",\n    \"age\": 1,\n    \"adopted\": false,\n    \"urgentAdoption\": false,\n    \"sterilized\": true,\n    \"petTypeKey\": \"1\",\n    \"shelterKey\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/pets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete pet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY1ODM1MjExOSwiZXhwIjoxNjU4NDM4NTE5fQ.gbCCMp71GuebPkVqOjxc6hsipX2AfwY1NuYOepJpnw_U5GHrlWIy8p6prXQY_gI9T5hkwurtB4YqMPyOJZK1cg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"key\": \"49738ca0-883f-11ed-bbe7-9b63af9aacc6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/pets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get pet type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/pets/types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pets",
+						"types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create pet type",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY1ODM1MjExOSwiZXhwIjoxNjU4NDM4NTE5fQ.gbCCMp71GuebPkVqOjxc6hsipX2AfwY1NuYOepJpnw_U5GHrlWIy8p6prXQY_gI9T5hkwurtB4YqMPyOJZK1cg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pet0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/typePets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"typePets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update pet type",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY1ODM1MjExOSwiZXhwIjoxNjU4NDM4NTE5fQ.gbCCMp71GuebPkVqOjxc6hsipX2AfwY1NuYOepJpnw_U5GHrlWIy8p6prXQY_gI9T5hkwurtB4YqMPyOJZK1cg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pet0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/typePets/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"typePets",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete pet type",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY1ODM1MjExOSwiZXhwIjoxNjU4NDM4NTE5fQ.gbCCMp71GuebPkVqOjxc6hsipX2AfwY1NuYOepJpnw_U5GHrlWIy8p6prXQY_gI9T5hkwurtB4YqMPyOJZK1cg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/typePets/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"typePets",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get shelter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY1ODM1MjExOSwiZXhwIjoxNjU4NDM4NTE5fQ.gbCCMp71GuebPkVqOjxc6hsipX2AfwY1NuYOepJpnw_U5GHrlWIy8p6prXQY_gI9T5hkwurtB4YqMPyOJZK1cg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "name",
+						"value": "Pet4",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/shelters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"shelters"
+					],
+					"query": [
+						{
+							"key": "petTypeKey",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Pet4",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create shelter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4YXZpUG9zdG1hbiIsImlhdCI6MTY2OTczODYzMywiZXhwIjoxNjY5ODI1MDMzfQ.0TEE9hk0wbvsLqdJCB1_Vm-kpTcQridJj_iVc9dZ-z6-0Y-V7ZvqU2hmHmnis5HmdPgfW8_52kl6Xef9_WSU6w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pet5\",\n    \"description\": \"description\",\n    \"color\": \"test\",\n    \"behaviour\": \"good\",\n    \"sex\": \"M\",\n    \"petTypeKey\": \"1\",\n    \"age\": 1,\n    \"adopted\": false,\n    \"urgentAdoption\": false,\n    \"sterilized\": true,\n    \"shelterKey\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/shelters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"shelters"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

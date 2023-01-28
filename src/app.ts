@@ -1,25 +1,62 @@
 import express, { Express } from "express";
-import { Controllers } from "./controllers";
+import { Controllers } from "./controllers/index";
+import { Helpers } from "./helpers/index";
 import { Infrastructure } from "./infrastructure";
-import { Services } from "./services";
+import { Services } from "./services/index"
+import { Deserializer } from "./middlewares/deserializer";
+import { services as S } from "./entities/services";
+import { helpers as H } from "./entities/helpers";
+import { infrastructure as I } from "./entities/infrastructure"
+import { Authorized } from "./middlewares/authorized";
 
 // Init env
 require('dotenv').config();
 
-const App: Express = express();
+export let infrastructure: I;
+export let services: S;
+export let helpers: H;
 
-// Init infrastructure and globalize it
-export let infrastructure = (new Infrastructure()).getInfrastructure();
+export default (async () => {
 
-// Init controllers
-new Controllers(App);
+    const App: Express = express();
+    // Init middlewares
+ 
+    App.use((req, res, next) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Origin, Accept, X-Requested-With");
+        res.setHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET");
+        next();
+    });
 
-// Init services and globalize it
-export const services = (new Services()).getServices();
+    App.use(Deserializer);
 
-App.listen(process.env.LISTEN_PORT);
+    App.use("*/admin/*", Authorized);
 
-console.log(`Listening port ${process.env.LISTEN_PORT}`);
+    // Init infrastructure and globalize it
+    const toInitInfra = new Infrastructure() as any;
+    await toInitInfra.initInfrastructure();
+    infrastructure = toInitInfra.getInfrastructure();
+
+    // Init controllers
+    new Controllers(App);
+
+    // Init services and globalize it
+    services = (new Services()).getServices();
+
+    // Init helpers and globalize it
+    helpers = (new Helpers(infrastructure.databases)).getHelpers();
+
+    console.log(`Listening port ${process.env.LISTEN_PORT}`);
+
+    App.listen(process.env.LISTEN_PORT).on("error", () => {
+        console.log("Application in test mode");
+    })
+
+
+
+})().catch((e) => {
+    console.log(e);
+})
 
 
 
