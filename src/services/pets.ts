@@ -97,6 +97,23 @@ export class PetsServices {
                 message: "Shelter doesn't exist or it's deleted"
             }
 
+        const adoptedWith = await helpers.pets.getPets({
+            filters: {
+                key: data.adoptedWith,
+                adopted: false,
+                deletedAt: null
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+        if(adoptedWith[1] === 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet adopted with dosen't exists or has been adopted"
+            }
+
         return await helpers.pets.createPet({
             name: data.name,
             description: data.description,
