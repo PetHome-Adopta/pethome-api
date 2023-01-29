@@ -2,10 +2,12 @@ import { baseModel } from "./baseModel";
 import { generalOptions } from "../entities/mongodb";
 
 type gender = "male" | "female";
+type contactAction = "adopt" | "foster" | "sponsor";
 
 export interface Pet extends baseModel{
     _id: any;
     key: string;
+    //TODO: picture
     name: string;
     description: string;
     color: string;
@@ -13,6 +15,7 @@ export interface Pet extends baseModel{
     breed: string;
     gender: gender;
     behaviour: string;
+    weight: number;
 
     sterilized: boolean;
     vaccinated: boolean;
@@ -23,11 +26,16 @@ export interface Pet extends baseModel{
 
     adopted: boolean;
     urgentAdoption: boolean;
+    adoptionPrice: number;
+    deliveryPlace: string;
 
     contactedBy?: [{
         name: string;
         email: string;
         phoneNumber: string;
+        interestedIn: contactAction;
+        message: string;
+        at: Date;
     }];
 
     statusOnShelter: string;
@@ -43,19 +51,27 @@ export interface RequestGetPets {
     breed?: string;
     gender?: gender;
     behaviour?: string;
+    weight?: number;
+
     sterilized?: boolean;
     vaccinated?: boolean;
     dewormed?: boolean;
     healthy?: boolean;
     identified?: boolean;
     microchipped?: boolean;
+
     adopted?: boolean;
     urgentAdoption?: boolean;
-    
+    adoptionPrice: number;
+    deliveryPlace: string;
+
     contactedBy?: [{
         name: string;
         email: string;
         phoneNumber: string;
+        interestedIn: contactAction;
+        message: string;
+        at: Date;
     }];
 
     statusOnShelter?: string;
@@ -71,13 +87,18 @@ export interface RequestCreatePet {
     breed?: string;
     gender?: gender;
     behaviour?: string;
+    weight?: number;
+
     sterilized?: boolean;
     vaccinated?: boolean;
     dewormed?: boolean;
     healthy?: boolean;
     identified?: boolean;
     microchipped?: boolean;
-    urgentAdoption: boolean;
+
+    urgentAdoption?: boolean;
+    adoptionPrice?: number;
+    deliveryPlace?: string; 
 
     statusOnShelter: string;
     shelterKey: string;
@@ -93,19 +114,26 @@ export interface RequestUpdatePet {
     breed?: string;
     gender?: gender;
     behaviour?: string;
+    weight?: number;
+
     sterilized?: boolean;
     vaccinated?: boolean;
     dewormed?: boolean;
     healthy?: boolean;
     identified?: boolean;
     microchipped?: boolean;
+
     adopted?: boolean;
     urgentAdoption?: boolean;
-    
+    adoptionPrice?: number;
+    deliveryPlace?: string;
+
     contactedBy?: [{
         name: string;
         email: string;
         phoneNumber: string;
+        interestedIn: contactAction;
+        message: string;
     }];
 
     statusOnShelter?: string;
@@ -126,6 +154,8 @@ export interface GetPetsHelper extends generalOptions {
         breed?: string;
         gender?: gender;
         behaviour?: string;
+        weight?: number;
+        
         sterilized?: boolean;
         vaccinated?: boolean;
         dewormed?: boolean;
@@ -135,11 +165,16 @@ export interface GetPetsHelper extends generalOptions {
 
         adopted?: boolean;
         urgentAdoption?: boolean;
+        adoptionPrice?: number;
+        deliveryPlace?: string;
 
         contactedBy?: [{
             name: string;
             email: string;
             phoneNumber: string;
+            interestedIn: contactAction;
+            message: string;
+            at: Date;
         }];
 
         statusOnShelter?: string;
@@ -157,6 +192,8 @@ export interface CreatePetHelper {
     breed?: string;
     gender?: gender;
     behaviour?: string;
+    weight?: number;
+    
     sterilized?: boolean;
     vaccinated?: boolean;
     dewormed?: boolean;
@@ -165,7 +202,9 @@ export interface CreatePetHelper {
     microchipped?: boolean;
     
     adopted: boolean;
-    urgentAdoption: boolean;
+    urgentAdoption?: boolean;
+    adoptionPrice?: number;
+    deliveryPlace?: string;
 
     statusOnShelter: string;
     shelterKey: string;

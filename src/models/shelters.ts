@@ -8,6 +8,9 @@ export interface RequestGetShelters {
     phoneNumber?: string;
     email?: string;
     address?: string;
+    //TODO: add google coords to add google map on shelter description 
+    //TODO: picture
+    preferedCoin?: string;
 }
 
 export interface RequestCreateShelter {
