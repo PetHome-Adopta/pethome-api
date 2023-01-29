@@ -8,6 +8,7 @@ export interface Pet extends baseModel{
     _id: any;
     key: string;
     //TODO: picture
+    //TODO: hace falta un boolean de camada??
     name: string;
     description: string;
     color: string;
