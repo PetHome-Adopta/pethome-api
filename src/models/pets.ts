@@ -8,7 +8,7 @@ export interface Pet extends baseModel{
     _id: any;
     key: string;
     //TODO: picture
-    //TODO: hace falta un boolean de camada??
+    litter: boolean;
     name: string;
     description: string;
     color: string;
@@ -40,9 +40,11 @@ export interface Pet extends baseModel{
     }];
 
     statusOnShelter: string;
+    adoptedWith: [{
+        key: string;
+    }];
     shelterKey: string;
     petTypeKey: string;
-    adoptedWith: string;
 }
 
 export interface RequestGetPets {
@@ -105,7 +107,9 @@ export interface RequestCreatePet {
     statusOnShelter: string;
     shelterKey: string;
     petTypeKey: string;
-    adoptedWith: string;
+    adoptedWith: [{
+        key: string;
+    }];
 }
 
 export interface RequestUpdatePet {
@@ -142,6 +146,9 @@ export interface RequestUpdatePet {
     statusOnShelter?: string;
     shelterKey?: string;
     petTypeKey?: string;
+    adoptedWith: [{
+        key: string;
+    }];
 }
 
 export interface RequestDeletePet {

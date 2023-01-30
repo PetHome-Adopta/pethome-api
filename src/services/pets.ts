@@ -97,22 +97,25 @@ export class PetsServices {
                 message: "Shelter doesn't exist or it's deleted"
             }
 
-        const adoptedWith = await helpers.pets.getPets({
-            filters: {
-                key: data.adoptedWith,
-                adopted: false,
-                deletedAt: null
-            },
-            options: {
-                sort: { _id: -1 }
-            }
-        });
-        if(adoptedWith[1] === 0)
-            throw {
-                ok: false,
-                status: 400,
-                message: "Pet adopted with dosen't exists or has been adopted"
-            }
+        for (let adoptedWithKey of data.adoptedWith) {
+            const petsAdoptedWith = await helpers.pets.getPets({
+                filters: {
+                    key: String(adoptedWithKey),
+                    adopted: false,
+                    deletedAt: null
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+
+            if(petsAdoptedWith[1] === 0)
+                throw {
+                    ok: false,
+                    status: 400,
+                    message: "Pet adopted with dosen't exists or has been adopted"
+                }
+        }
 
         return await helpers.pets.createPet({
             name: data.name,
@@ -206,7 +209,27 @@ export class PetsServices {
                     message: "Shelter doesn't exist or it's deleted"
                 }    
         }
-        
+
+        for (let adoptedWithKey of data.adoptedWith) {
+            const petsAdoptedWith = await helpers.pets.getPets({
+                filters: {
+                    key: String(adoptedWithKey),
+                    adopted: false,
+                    deletedAt: null
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+
+            if(petsAdoptedWith[1] === 0)
+                throw {
+                    ok: false,
+                    status: 400,
+                    message: `Pet ${adoptedWithKey} adopted with dosen't exists or has been adopted`
+                }
+        }
+
         return await helpers.pets.updatePet({
             filters: {
                 key: data.key,
