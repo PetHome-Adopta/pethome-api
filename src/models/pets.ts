@@ -1,9 +1,9 @@
 import { baseModel } from "./baseModel";
 import { generalOptions } from "../entities/mongodb";
 
-type gender = "male" | "female";
-type contactAction = "adopt" | "foster" | "sponsor";
-type deliveryPlace = "Consult" | "On shelter" | "Same city" | "Same area" | "Same country"
+export type gender = "male" | "female";
+export type contactAction = "adopt" | "foster" | "sponsor";
+export type deliveryPlace = "Consult" | "On shelter" | "Same city" | "Same area" | "Same country"
 
 export interface Pet extends baseModel{
     _id: any;

@@ -1,8 +1,9 @@
 import { baseModel } from "./baseModel";
 import { generalOptions } from "../entities/mongodb";
 
-export const roles = {user: "USER", admin: "ADMIN"};
-type roles = "USER" | "SHELTER" | "ADMIN"
+//TODO: 1- Mejorar esto si se puece unificar
+export const roles = {user: "USER", shelter: "SHELTER", admin: "ADMIN"};
+export type roles = "USER" | "SHELTER" | "ADMIN";
 
 export interface Shelter extends baseModel{
     _id: any;
