@@ -3,11 +3,12 @@ import { generalOptions } from "../entities/mongodb";
 
 type gender = "male" | "female";
 type contactAction = "adopt" | "foster" | "sponsor";
+type deliveryPlace = "Consult" | "On shelter" | "Same city" | "Same area" | "Same country"
 
 export interface Pet extends baseModel{
     _id: any;
     key: string;
-    //TODO: picture
+    imageURL: string;
     litter: boolean;
     name: string;
     description: string;
@@ -28,7 +29,7 @@ export interface Pet extends baseModel{
     adopted: boolean;
     urgentAdoption: boolean;
     adoptionPrice: number;
-    deliveryPlace: string;
+    deliveryPlace: deliveryPlace;
 
     contactedBy?: [{
         name: string;

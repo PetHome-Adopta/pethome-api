@@ -61,7 +61,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "SHelter alredy created or it's deleted"
+                message: "Shelter alredy created or it's deleted"
             }
 
         const salt = await bcrypt.genSalt(10);

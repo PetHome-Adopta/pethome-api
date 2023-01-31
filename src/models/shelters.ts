@@ -2,15 +2,28 @@ import { baseModel } from "./baseModel";
 import { generalOptions } from "../entities/mongodb";
 
 export const roles = {user: "USER", admin: "ADMIN"};
+type roles = "USER" | "SHELTER" | "ADMIN"
+
+export interface Shelter extends baseModel{
+    _id: any;
+    key: string;
+    name: string;
+    phoneNumber: string;
+    email: string;
+    password: string;
+    address: string;
+    description: string;
+    imageURL: string;
+    location: string;
+    preferedCoin: string;
+    role: roles;
+}
 
 export interface RequestGetShelters {
     key?: string;
     phoneNumber?: string;
     email?: string;
     address?: string;
-    //TODO: add google coords to add google map on shelter description 
-    //TODO: picture
-    preferedCoin?: string;
 }
 
 export interface RequestCreateShelter {
@@ -47,19 +60,6 @@ export interface GetSheltersHelper extends generalOptions {
         address?: string;
         deletedAt?: Date;
     }
-}
-
-export interface Shelter extends baseModel{
-    _id: any;
-    key: string;
-    name: string;
-    phoneNumber: string;
-    email: string;
-    password: string;
-    address: string;
-    description?: string;
-    imageURL?: string;
-    role: string;
 }
 
 export interface CreateShelterHelper {
