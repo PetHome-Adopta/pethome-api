@@ -8,7 +8,7 @@ export class PetsController {
 
     constructor(app: Express) {
         this.#router = Router();
-        this.#router.get(PATHS.V1 + PATHS.PETS, this.handleGetPets.bind(this));
+        this.#router.get(PATHS.V1 + PATHS.ADMIN + PATHS.PETS, this.handleGetPets.bind(this));
         this.#router.post(PATHS.V1 + PATHS.ADMIN + PATHS.PETS, this.handleCreatePet.bind(this));
         this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.PETS, this.handleUpdatePet.bind(this));
         this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.PETS, this.handleDeletePet.bind(this));

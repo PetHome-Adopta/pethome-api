@@ -20,11 +20,11 @@ export class JWTInfrastructure {
         }
     }
 
-    async codeToken(sub: CodeToken) {
+    async codeToken(sub: CodeToken, role: string) {
 
         try {
 
-            const token = await JWT.sign(sub, process.env.ENV === "PROD" ? fs.readFileSync(process.env.OAUTH) : "OAUTH", {
+            const token = await JWT.sign({sub, role}, process.env.ENV === "PROD" ? fs.readFileSync(process.env.OAUTH) : "OAUTH", {
                 algorithm: "HS256"
             })
 
