@@ -1,52 +1,46 @@
 import { baseModel } from "./baseModel";
 import { generalOptions } from "../entities/mongodb";
 
-//TODO: 1- Mejorar esto si se puece unificar
-export const roles = {user: "USER", shelter: "SHELTER", admin: "ADMIN"};
-export type roles = "USER" | "SHELTER" | "ADMIN";
-
 export interface Shelter extends baseModel{
     _id: any;
     key: string;
     name: string;
-    phoneNumber: string;
     email: string;
-    password: string;
+    phoneNumber: string;
     address: string;
     description: string;
     imageURL: string;
-    location: string;
-    preferedCoin: string;
-    role: roles;
 }
 
 export interface RequestGetShelters {
     key?: string;
-    phoneNumber?: string;
+    name?: string;
     email?: string;
+    phoneNumber?: string;
     address?: string;
+    description?: string;
+    imageURL?: string;
 }
 
 export interface RequestCreateShelter {
     name: string;
-    phoneNumber?: string;
     email: string;
-    password: string;
+    phoneNumber: string;
     address: string;
-    description?: string;
+    description: string;
     imageURL?: string;
-    role: string; // roles
 }
 
 export interface RequestUpdateShelter {
+    password: any;
+    role: any;
     key: string;
-    password?: string;
-    phoneNumber?: string;
+    name?: string;
     email?: string;
+    phoneNumber?: string;
     address?: string;
     description?: string;
     imageURL?: string;
-    role?: string;
 }
 
 export interface RequestDeleteShelter {
@@ -56,21 +50,23 @@ export interface RequestDeleteShelter {
 export interface GetSheltersHelper extends generalOptions {
     filters: {
         key?: string;
-        phoneNumber?: string;
+        name?: string;
         email?: string;
+        phoneNumber?: string;
         address?: string;
+        description?: string;
+        imageURL?: string;
         deletedAt?: Date;
     }
 }
 
 export interface CreateShelterHelper {
-    phoneNumber: string;
+    name: string;
     email: string;
-    password: string;
+    phoneNumber: string;
     address: string;
-    description?: string;
+    description: string;
     imageURL?: string;
-    role: string;
 }
 
 export interface UpdateShelterHelper {

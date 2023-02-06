@@ -1,4 +1,4 @@
-import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter, roles } from '../models/shelters';
+import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../models/shelters';
 import { helpers } from "../app";
 import bcrypt from "bcryptjs";
 
@@ -27,7 +27,6 @@ export class SheltersServices {
             data.name == null ||
             data.phoneNumber == null ||
             data.email == null ||
-            data.password == null ||
             data.address == null)
             throw {
                 ok: false,
@@ -37,7 +36,6 @@ export class SheltersServices {
 
         if (typeof (data.phoneNumber) !== "string" ||
             typeof (data.email) !== "string" ||
-            typeof (data.password) !== "string" ||
             typeof (data.address) !== "string"
         ) {
             throw {
@@ -64,17 +62,13 @@ export class SheltersServices {
                 message: "Shelter alredy created or it's deleted"
             }
 
-        const salt = await bcrypt.genSalt(10);
-        data.password = await bcrypt.hash(data.password, salt);
-
         return await helpers.shelters.createShelter({
+            name: data.name,
             phoneNumber: data.phoneNumber,
             email: data.email,
-            password: data.password,
             address: data.address,
             description: data.description,
-            imageURL: data.imageURL,
-            role: data.role || roles.admin,
+            imageURL: data.imageURL
         });
     }
 
@@ -113,13 +107,12 @@ export class SheltersServices {
                 key: data.key,
             },
             data: {
+                name: data.name,
                 phoneNumber: data.phoneNumber,
                 email: data.email,
-                password: data.password,
                 address: data.address,
                 description: data.description,
                 imageURL: data.imageURL,
-                role: data.role,
             }
         });
     }
