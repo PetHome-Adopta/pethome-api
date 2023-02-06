@@ -41,35 +41,33 @@ export interface Pet extends baseModel{
     }];
 
     statusOnShelter: string;
-    adoptedWith: [{
-        key: string;
-    }];
+    adoptedWith: string[];
     shelterKey: string;
     petTypeKey: string;
 }
 
 export interface RequestGetPets {
     key?: string;
+    imageURL?: string;
+    litter?: boolean;
     name?: string;
+    description?: string;
     color?: string;
     age?: string;
     breed?: string;
     gender?: gender;
     behaviour?: string;
     weight?: number;
-
     sterilized?: boolean;
     vaccinated?: boolean;
     dewormed?: boolean;
     healthy?: boolean;
     identified?: boolean;
     microchipped?: boolean;
-
     adopted?: boolean;
     urgentAdoption?: boolean;
-    adoptionPrice: number;
-    deliveryPlace: string;
-
+    adoptionPrice?: number;
+    deliveryPlace?: deliveryPlace;
     contactedBy?: [{
         name: string;
         email: string;
@@ -78,13 +76,15 @@ export interface RequestGetPets {
         message: string;
         at: Date;
     }];
-
     statusOnShelter?: string;
+    adoptedWith?: string[];
     shelterKey?: string;
     petTypeKey?: string;
 }
 
-export interface RequestCreatePet {
+export interface RequestCreatePet { 
+    imageURL?: string;
+    litter: boolean;
     name: string;
     description: string;
     color?: string;
@@ -103,18 +103,18 @@ export interface RequestCreatePet {
 
     urgentAdoption?: boolean;
     adoptionPrice?: number;
-    deliveryPlace?: string; 
+    deliveryPlace?: deliveryPlace;
 
     statusOnShelter: string;
+    adoptedWith?: string[];
     shelterKey: string;
     petTypeKey: string;
-    adoptedWith: [{
-        key: string;
-    }];
 }
 
 export interface RequestUpdatePet {
     key: string;
+    imageURL?: string;
+    litter?: boolean;
     name?: string;
     description?: string;
     color?: string;
@@ -134,7 +134,7 @@ export interface RequestUpdatePet {
     adopted?: boolean;
     urgentAdoption?: boolean;
     adoptionPrice?: number;
-    deliveryPlace?: string;
+    deliveryPlace?: deliveryPlace;
 
     contactedBy?: [{
         name: string;
@@ -142,14 +142,13 @@ export interface RequestUpdatePet {
         phoneNumber: string;
         interestedIn: contactAction;
         message: string;
+        at: Date;
     }];
 
     statusOnShelter?: string;
+    adoptedWith?: string[];
     shelterKey?: string;
     petTypeKey?: string;
-    adoptedWith: [{
-        key: string;
-    }];
 }
 
 export interface RequestDeletePet {
@@ -159,7 +158,9 @@ export interface RequestDeletePet {
 export interface GetPetsHelper extends generalOptions {
     filters: {
         key?: string;
+        litter?: boolean;
         name?: string;
+        description?: string;
         color?: string;
         age?: string;
         breed?: string;
@@ -177,7 +178,7 @@ export interface GetPetsHelper extends generalOptions {
         adopted?: boolean;
         urgentAdoption?: boolean;
         adoptionPrice?: number;
-        deliveryPlace?: string;
+        deliveryPlace?: deliveryPlace;
 
         contactedBy?: [{
             name: string;
@@ -189,6 +190,7 @@ export interface GetPetsHelper extends generalOptions {
         }];
 
         statusOnShelter?: string;
+        adoptedWith?: string[];
         shelterKey?: string;
         petTypeKey?: string;
         deletedAt?: Date;
@@ -196,6 +198,8 @@ export interface GetPetsHelper extends generalOptions {
 }
 
 export interface CreatePetHelper {
+    imageURL?: string;
+    litter: boolean;
     name: string;
     description: string;
     color?: string;
@@ -204,20 +208,21 @@ export interface CreatePetHelper {
     gender?: gender;
     behaviour?: string;
     weight?: number;
-    
+
     sterilized?: boolean;
     vaccinated?: boolean;
     dewormed?: boolean;
     healthy?: boolean;
     identified?: boolean;
     microchipped?: boolean;
-    
+
     adopted: boolean;
     urgentAdoption?: boolean;
     adoptionPrice?: number;
-    deliveryPlace?: string;
+    deliveryPlace?: deliveryPlace;
 
     statusOnShelter: string;
+    adoptedWith?: string[];
     shelterKey: string;
     petTypeKey: string;
 }

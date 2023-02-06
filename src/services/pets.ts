@@ -138,6 +138,7 @@ export class PetsServices {
             statusOnShelter: data.statusOnShelter,
             shelterKey: data.shelterKey,
             petTypeKey: data.petTypeKey,
+            litter: false
         });
     }
 
@@ -248,7 +249,7 @@ export class PetsServices {
                 healthy: data.healthy,
                 identified: data.identified,
                 microchipped: data.microchipped,
-
+                litter: data.litter,
                 adopted: data.adopted,
                 urgentAdoption: data.urgentAdoption,
 
