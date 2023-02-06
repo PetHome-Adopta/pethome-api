@@ -39,7 +39,7 @@ export class AuthServices {
                 };
             
             if (userData?.key != null) {
-                const userLogged = await helpers.shelters.getShelters({
+                const userLogged = await helpers.users.getUsers({
                     filters: {
                         key: userData.key,
                         deletedAt: null

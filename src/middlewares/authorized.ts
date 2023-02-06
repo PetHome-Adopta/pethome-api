@@ -1,7 +1,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { roles } from "../models/shelters";
+import { roles } from "../models/users";
 
 export async function Authorized(req: Request, res: Response, next: NextFunction) {
 
