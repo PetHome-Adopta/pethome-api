@@ -23,25 +23,18 @@ export async function Authorized(req: Request, res: Response, next: NextFunction
             return;
         }
 
-        //TODO: 1- Mejorar esto si se puece unificar - roles.admin
+        //TODO: 1- Mejorar esto si se puece unificar - roles.admin --> Unificado para hacerlo generico
         const url = req.baseUrl;
-        if(url.includes(roles.admin) && decoded.role !== roles.admin){
-            res.sendStatus(403);
-            return;
-        }
-
-        if(url.includes(roles.shelter) && decoded.role !== roles.shelter){
-            res.sendStatus(403);
-            return;
-        }
-
-        if(url.includes(roles.user) && decoded.role !== roles.user){
-            res.sendStatus(403);
-            return;
+        for(let row of Object.values(roles)) {
+            if(url.includes(row) && decoded.role !== row) {
+                res.sendStatus(403);
+                return;
+            }
         }
 
         //TODO: porque pones esto si luego no lo usas en ningun punto de la API ->
             //Si declaro req.body.userKey en algun otro lugar podre obtener el valor?, es como un bean generico que almacena cosas?
+            // Esto esta añadido para saber el rol del usuario y el userKey en los siguientes pasos.
         req.body.userKey = decoded.sub;
         req.body.role = decoded.role;
         next();
