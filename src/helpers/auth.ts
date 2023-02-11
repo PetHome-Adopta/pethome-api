@@ -6,7 +6,7 @@ import { LoginHelper } from "../models/auth";
 export class AuthHelper {
 
     private databases: Databases;
-    private collectionName: string = "shelters";
+    private collectionName: string = "users";
 
     constructor(databases: Databases) {
         this.databases = databases;

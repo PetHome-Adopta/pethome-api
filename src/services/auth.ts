@@ -39,11 +39,23 @@ export class AuthServices {
                 };
             
             if (userData?.key != null) {
-                // Login
-                return await infrastructure.jwt.codeToken({
-                    sub: userData.key
+                const userLogged = await helpers.users.getUsers({
+                    filters: {
+                        key: userData.key,
+                        deletedAt: null
+                    },
+                    options: {
+                        sort: { _id: -1 }
+                    }
                 });
 
+                // Login
+                const token = await infrastructure.jwt.codeToken(
+                    //TODO: Porque he de hacer el userLogged[0][0]? porque es una promise
+                    userData.key, userLogged[0][0].role
+                );
+
+                return {token, userLogged};
             } else {
                 throw new Error(JSON.stringify({
                     ok: false,

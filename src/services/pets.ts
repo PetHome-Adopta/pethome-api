@@ -13,8 +13,16 @@ export class PetsServices {
                 gender: data.gender,
                 behaviour: data.behaviour,
                 sterilized: data.sterilized,
-                adopted: data.adopted,
+                vaccinated: data.vaccinated,
+                dewormed: data.dewormed,
+                healthy: data.healthy,
+                identified: data.identified,
+                microchipped: data.microchipped,
 
+                adopted: data.adopted,
+                urgentAdoption: data.urgentAdoption,
+
+                statusOnShelter: data.statusOnShelter,
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey,
                 deletedAt: null
@@ -27,7 +35,7 @@ export class PetsServices {
         //TODO: refactor into utils static method?
         for(let element of response[0])
             delete element._id;
-            
+
         return response;
     }
 
@@ -89,6 +97,26 @@ export class PetsServices {
                 message: "Shelter doesn't exist or it's deleted"
             }
 
+        for (let adoptedWithKey of data.adoptedWith) {
+            const petsAdoptedWith = await helpers.pets.getPets({
+                filters: {
+                    key: String(adoptedWithKey),
+                    adopted: false,
+                    deletedAt: null
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+
+            if(petsAdoptedWith[1] === 0)
+                throw {
+                    ok: false,
+                    status: 400,
+                    message: "Pet adopted with dosen't exists or has been adopted"
+                }
+        }
+
         return await helpers.pets.createPet({
             name: data.name,
             description: data.description,
@@ -98,11 +126,19 @@ export class PetsServices {
             gender: data.gender,
             behaviour: data.behaviour,
             sterilized: data.sterilized,
+            vaccinated: data.vaccinated,
+            dewormed: data.dewormed,
+            healthy: data.healthy,
+            identified: data.identified,
+            microchipped: data.microchipped,
+
             adopted: false,
             urgentAdoption: data.urgentAdoption,
 
+            statusOnShelter: data.statusOnShelter,
             shelterKey: data.shelterKey,
             petTypeKey: data.petTypeKey,
+            litter: false
         });
     }
 
@@ -174,7 +210,27 @@ export class PetsServices {
                     message: "Shelter doesn't exist or it's deleted"
                 }    
         }
-        
+
+        for (let adoptedWithKey of data.adoptedWith) {
+            const petsAdoptedWith = await helpers.pets.getPets({
+                filters: {
+                    key: String(adoptedWithKey),
+                    adopted: false,
+                    deletedAt: null
+                },
+                options: {
+                    sort: { _id: -1 }
+                }
+            });
+
+            if(petsAdoptedWith[1] === 0)
+                throw {
+                    ok: false,
+                    status: 400,
+                    message: `Pet ${adoptedWithKey} adopted with dosen't exists or has been adopted`
+                }
+        }
+
         return await helpers.pets.updatePet({
             filters: {
                 key: data.key,
@@ -188,9 +244,16 @@ export class PetsServices {
                 gender: data.gender,
                 behaviour: data.behaviour,
                 sterilized: data.sterilized,
+                vaccinated: data.vaccinated,
+                dewormed: data.dewormed,
+                healthy: data.healthy,
+                identified: data.identified,
+                microchipped: data.microchipped,
+                litter: data.litter,
                 adopted: data.adopted,
                 urgentAdoption: data.urgentAdoption,
 
+                statusOnShelter: data.statusOnShelter,
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey
             }

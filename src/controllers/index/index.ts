@@ -3,6 +3,8 @@ import { PetsController } from "../pets";
 import { PetTypesController } from "../petsTypes";
 import { AuthController } from '../auth';
 import { SheltersController } from '../shelters';
+import { UsersController } from '../users';
+
 export class Controllers {
 
     constructor (app: Express) {
@@ -10,5 +12,6 @@ export class Controllers {
         new PetTypesController(app);
         new AuthController(app);
         new SheltersController(app);
+        new UsersController(app);
     }
 }

@@ -4,6 +4,7 @@ import { AuthHelper } from "../auth";
 import { PetsHelper } from "../pets";
 import { PetsTypesHelper } from "../petsTypes";
 import { SheltersHelper } from "../shelters";
+import { UsersHelper } from "../users";
 
 export class Helpers {
 
@@ -11,9 +12,11 @@ export class Helpers {
 
     constructor (databases: Databases) {
         this.helpers = {
+            auth: new AuthHelper(databases),
+            users: new UsersHelper(databases),
             pets: new PetsHelper(databases),
             petsTypes: new PetsTypesHelper(databases),
-            auth: new AuthHelper(databases),
+            
             shelters: new SheltersHelper(databases),
         };
     }

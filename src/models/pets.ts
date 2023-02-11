@@ -1,63 +1,55 @@
 import { baseModel } from "./baseModel";
 import { generalOptions } from "../entities/mongodb";
 
-type gender = "male" | "female";
+export type gender = "male" | "female";
+export type contactAction = "adopt" | "foster" | "sponsor";
+export type deliveryPlace = "Consult" | "On shelter" | "Same city" | "Same area" | "Same country"
 
 export interface Pet extends baseModel{
     _id: any;
     key: string;
+    imageURL: string;
+    litter: boolean;
     name: string;
     description: string;
-    color?: string;
-    age?: string;
-    breed?: string;
-    gender?: gender;
-    behaviour?: string;
-    sterilized?: boolean;
+    color: string;
+    age: string;
+    breed: string;
+    gender: gender;
+    behaviour: string;
+    weight: number;
+
+    sterilized: boolean;
+    vaccinated: boolean;
+    dewormed: boolean;
+    healthy: boolean;
+    identified: boolean;
+    microchipped: boolean;
+
     adopted: boolean;
     urgentAdoption: boolean;
+    adoptionPrice: number;
+    deliveryPlace: deliveryPlace;
+
     contactedBy?: [{
         name: string;
         email: string;
-        phoneNumber?: string;
+        phoneNumber: string;
+        interestedIn: contactAction;
+        message: string;
+        at: Date;
     }];
 
+    statusOnShelter: string;
+    adoptedWith: string[];
     shelterKey: string;
     petTypeKey: string;
 }
 
 export interface RequestGetPets {
     key?: string;
-    name?: string;
-    color?: string;
-    age?: string;
-    breed?: string;
-    gender?: gender;
-    behaviour?: string;
-    sterilized?: boolean;
-    adopted?: boolean;
-
-    shelterKey?: string;
-    petTypeKey?: string;
-}
-
-export interface RequestCreatePet {
-    name: string;
-    description: string;
-    color?: string;
-    age?: string;
-    breed?: string;
-    gender?: gender;
-    behaviour?: string;
-    sterilized?: boolean;
-    urgentAdoption: boolean;
-
-    shelterKey: string;
-    petTypeKey: string;
-}
-
-export interface RequestUpdatePet {
-    key: string;
+    imageURL?: string;
+    litter?: boolean;
     name?: string;
     description?: string;
     color?: string;
@@ -65,10 +57,96 @@ export interface RequestUpdatePet {
     breed?: string;
     gender?: gender;
     behaviour?: string;
+    weight?: number;
     sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
     adopted?: boolean;
     urgentAdoption?: boolean;
+    adoptionPrice?: number;
+    deliveryPlace?: deliveryPlace;
+    contactedBy?: [{
+        name: string;
+        email: string;
+        phoneNumber: string;
+        interestedIn: contactAction;
+        message: string;
+        at: Date;
+    }];
+    statusOnShelter?: string;
+    adoptedWith?: string[];
+    shelterKey?: string;
+    petTypeKey?: string;
+}
 
+export interface RequestCreatePet { 
+    imageURL?: string;
+    litter: boolean;
+    name: string;
+    description: string;
+    color?: string;
+    age?: string;
+    breed?: string;
+    gender?: gender;
+    behaviour?: string;
+    weight?: number;
+
+    sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
+
+    urgentAdoption?: boolean;
+    adoptionPrice?: number;
+    deliveryPlace?: deliveryPlace;
+
+    statusOnShelter: string;
+    adoptedWith?: string[];
+    shelterKey: string;
+    petTypeKey: string;
+}
+
+export interface RequestUpdatePet {
+    key: string;
+    imageURL?: string;
+    litter?: boolean;
+    name?: string;
+    description?: string;
+    color?: string;
+    age?: string;
+    breed?: string;
+    gender?: gender;
+    behaviour?: string;
+    weight?: number;
+
+    sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
+
+    adopted?: boolean;
+    urgentAdoption?: boolean;
+    adoptionPrice?: number;
+    deliveryPlace?: deliveryPlace;
+
+    contactedBy?: [{
+        name: string;
+        email: string;
+        phoneNumber: string;
+        interestedIn: contactAction;
+        message: string;
+        at: Date;
+    }];
+
+    statusOnShelter?: string;
+    adoptedWith?: string[];
     shelterKey?: string;
     petTypeKey?: string;
 }
@@ -80,15 +158,39 @@ export interface RequestDeletePet {
 export interface GetPetsHelper extends generalOptions {
     filters: {
         key?: string;
+        litter?: boolean;
         name?: string;
+        description?: string;
         color?: string;
         age?: string;
         breed?: string;
         gender?: gender;
         behaviour?: string;
-        sterilized?: boolean;
-        adopted?: boolean;
+        weight?: number;
 
+        sterilized?: boolean;
+        vaccinated?: boolean;
+        dewormed?: boolean;
+        healthy?: boolean;
+        identified?: boolean;
+        microchipped?: boolean;
+
+        adopted?: boolean;
+        urgentAdoption?: boolean;
+        adoptionPrice?: number;
+        deliveryPlace?: deliveryPlace;
+
+        contactedBy?: [{
+            name: string;
+            email: string;
+            phoneNumber: string;
+            interestedIn: contactAction;
+            message: string;
+            at: Date;
+        }];
+
+        statusOnShelter?: string;
+        adoptedWith?: string[];
         shelterKey?: string;
         petTypeKey?: string;
         deletedAt?: Date;
@@ -96,6 +198,8 @@ export interface GetPetsHelper extends generalOptions {
 }
 
 export interface CreatePetHelper {
+    imageURL?: string;
+    litter: boolean;
     name: string;
     description: string;
     color?: string;
@@ -103,10 +207,22 @@ export interface CreatePetHelper {
     breed?: string;
     gender?: gender;
     behaviour?: string;
-    sterilized?: boolean;
-    adopted: boolean;
-    urgentAdoption: boolean;
+    weight?: number;
 
+    sterilized?: boolean;
+    vaccinated?: boolean;
+    dewormed?: boolean;
+    healthy?: boolean;
+    identified?: boolean;
+    microchipped?: boolean;
+
+    adopted: boolean;
+    urgentAdoption?: boolean;
+    adoptionPrice?: number;
+    deliveryPlace?: deliveryPlace;
+
+    statusOnShelter: string;
+    adoptedWith?: string[];
     shelterKey: string;
     petTypeKey: string;
 }

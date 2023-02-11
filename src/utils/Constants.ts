@@ -5,6 +5,7 @@ export const enum PATHS {
     PETS = '/pets',
     TYPES = '/types',
     SHELTERS = '/shelters',
+    USERS = '/users',
 
     V1 = '/api/v1',
 
