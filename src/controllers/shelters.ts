@@ -21,7 +21,8 @@ export class SheltersController {
             const data = await services.shelters.getShelters(body);
             
             res.json({
-                data,
+                data: data[0],
+                count: data[1],
                 OK: true
             })
         }

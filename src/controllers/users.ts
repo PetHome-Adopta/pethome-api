@@ -21,7 +21,8 @@ export class UsersController {
             const data = await services.users.getUsers(body);
             
             res.json({
-                data,
+                data: data[0],
+                count: data[1],
                 OK: true
             })
         }
