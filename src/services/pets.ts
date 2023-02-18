@@ -1,9 +1,9 @@
-import { RequestGetPets, RequestCreatePet, RequestUpdatePet, RequestDeletePet } from '../models/pets';
+import { RequestGetPets, RequestCreatePet, RequestUpdatePet, RequestDeletePet, Pet } from '../models/pets';
 import { helpers } from "../app";
 
 export class PetsServices {
-    async getPets(data: RequestGetPets) {
-        const response = await helpers.pets.getPets({
+    async getPets(data: RequestGetPets): Promise<[Pet[], number]>{
+        const response: [Pet[], number] = await helpers.pets.getPets({
             filters: {
                 key: data.key,
                 name: data.name,

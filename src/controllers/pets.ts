@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../models/pets";
+import { Pet, RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../models/pets";
 import { PATHS } from "../utils/Constants";
 
 export class PetsController {
@@ -15,11 +15,11 @@ export class PetsController {
         app.use(this.#router);
     }
 
-    async handleGetPets(req: Request, res: Response) {
+    async handleGetPets(req: Request, res: Response): Promise<any> {
         try {
             
             const body: RequestGetPets = req.body;
-            const data = await services.pets.getPets(body);
+            const data: [Pet[], number] = await services.pets.getPets(body);
 
             res.json({
                 data: data[0],
