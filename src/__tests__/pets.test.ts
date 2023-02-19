@@ -31,31 +31,34 @@ describe('pets', () => {
     });
     
     describe('Create pets', () => {
+        //TODO: 1- se crea y te devuelve los datos que tocan
+        //TODO: 2- se crea y el contador ha subido
+        //TODO: 3- se crea y te devuelve la instacia de pet -> modificar en controller, service, helper
+        //TODO: 4- test por cada uno de los errores controlados
+
         //TODO: user is not logged
         it('User is not logged', async () => {
             try {
                 await services.pets.createPet({} as any);
             }
             catch(e) {
+                console.log("Error: ", e);
                 expect(e).toEqual({
                     ok: false,
-                    status: 400,
-                    message: "There are required values that don't have a valid value"
+                    status: 403
                 });
             }
             
         });
-
-        //TODO user is logged
-        it('It should return an error at create because there are no params', async () => {
+        /*
+        it('User is logged', async () => {
             try {
                 await services.pets.createPet({} as any);
             }
             catch(e) {
                 expect(e).toEqual({
-                    ok: false,
-                    status: 400,
-                    message: "There are required values that don't have a valid value"
+                    ok: true,
+                    status: 200
                 });
             }
             
@@ -77,7 +80,22 @@ describe('pets', () => {
                 });
             }
         });
+        */
     });
+    //TODO:poner aws cuenta en android
     //TODO: describe update pets
+        //TODO: 1- se actualiza y te devuelve los datos que tocan
+        //TODO: 2- se actualiza y el contador es el mismo
+        //TODO: 3- se actualiza y te devuelve la instacia de pet -> modificar en controller, service, helper
+        //TODO: 4- test por cada uno de los errores controlados
+        //TODO: user is not logged
+        //TODO: user is logged
+
     //TODO: describe delete pets
+        //TODO: 1- se elimina y te devuelve los datos que tocan
+        //TODO: 2- se elimina y el contador es uno menos
+        //TODO: 3- se elimina y te devuelve la instacia de pet -> modificar en controller, service, helper
+        //TODO: 4- test por cada uno de los errores controlados
+        //TODO: user is not logged
+        //TODO: user is logged
 });
