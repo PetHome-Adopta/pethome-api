@@ -8,6 +8,8 @@ beforeAll(async () => {
   });
 
 describe('users', () => {
+    //TODO: user is not logged
+    //TODO: user is logged
     describe('Create users', () => {
         it('It should return an error at create because there are no params', async () => {
             try {
