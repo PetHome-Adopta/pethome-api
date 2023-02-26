@@ -1,5 +1,5 @@
 import { baseModel } from "./baseModel";
-import { generalOptions } from "../mongodb";
+import { generalOptions } from "../entities/mongodb";
 
 export interface RequestGetPetsTypes {
     key?: string;
@@ -7,16 +7,16 @@ export interface RequestGetPetsTypes {
 }
 
 export interface RequestUpdatePetsTypes {
-    name?: string;
-    key?: string;
+    name: string;
+    key: string;
 }
 
 export interface RequestDeletePetsTypes {
-    key?: string;
+    key: string;
 }
 
 export interface RequesCreatePetsTypes {
-    name?: string;
+    name: string;
 }
 
 export interface GetPetsTypesHelper extends generalOptions {
@@ -28,6 +28,7 @@ export interface GetPetsTypesHelper extends generalOptions {
 }
 
 export interface PetType extends baseModel{
+    _id: any;
     key: string;
     name: string;
 
@@ -45,7 +46,5 @@ export interface UpdatePetTypeHelper {
 }
 
 export interface DeletePetTypeHelper {
-    key?: string;
-    name?: string;
-    _id?: string;
+    key: string;
 }

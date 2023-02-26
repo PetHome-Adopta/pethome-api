@@ -1,7 +1,7 @@
-import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../entities/models/pets';
+import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../models/pets';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
-import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, PetType, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../entities/models/petsTypes';
+import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, PetType, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../models/petsTypes';
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 
 
@@ -17,11 +17,17 @@ export class PetsTypesHelper {
     async getPetsTypes(options: GetPetsTypesHelper): Promise<[PetType[], number]> {
         options.filters = await DeserializerForMongoOptions(options.filters);
         
-        const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
-        const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
+        try {
+            const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
+            const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
-        return [data as any, rCount];
-
+            return [data as any, rCount];    
+        } catch (e) {
+            throw {
+                ok: false,
+                message: (e.message || "Database error"),
+            };
+        }
     }
 
     async createPetType(options: CreatePetTypeHelper) {
@@ -32,36 +38,51 @@ export class PetsTypesHelper {
             createdAt: new Date(),
             updatedAt: new Date()
         }
-
-        await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-
-        return toAdd;
-
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
+            return toAdd;
+        } catch (e) {
+            throw {
+                ok: false,
+                message: (e.message || "Database error"),
+            };
+        }
     }
 
     async updatePetType(options: UpdatePetTypeHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
-        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
-            $set: {
-                ...options.data,
-                updatedAt: new Date(),
-            }
-        });
+        
+        try{
+            await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
+                $set: {
+                    ...options.data,
+                    updatedAt: new Date(),
+                }
+            });
 
-        return options;
-
+            return options;    
+        } catch (e) {
+            throw {
+                ok: false,
+                message: (e.message || "Database error"),
+            };
+        }
     }
 
     async deletePetType(options: DeletePetTypeHelper) {
+        try {
+            await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
+                $set: {
+                    deletedAt: new Date(),
+                }
+            });
 
-        await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
-            $set: {
-                deletedAt: new Date(),
-            }
-        });
-
-        return options;
-
+            return options;
+        } catch (e) {
+            throw {
+                ok: false,
+                message: (e.message || "Database error"),
+            };
+        }
     }
-
 }

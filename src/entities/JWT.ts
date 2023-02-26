@@ -1,5 +1,5 @@
 
 
 export interface CodeToken {
-    key: string;
+    sub: string;
 }

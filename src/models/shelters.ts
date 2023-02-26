@@ -1,34 +1,46 @@
 import { baseModel } from "./baseModel";
-import { generalOptions } from "../mongodb";
+import { generalOptions } from "../entities/mongodb";
 
-type roles = "USER" | "ADMIN"; // TODO: Differences?
+export interface Shelter extends baseModel{
+    _id: any;
+    key: string;
+    name: string;
+    email: string;
+    phoneNumber: string;
+    address: string;
+    description: string;
+    imageURL: string;
+}
 
 export interface RequestGetShelters {
     key?: string;
-    phoneNumber?: string;
+    name?: string;
     email?: string;
+    phoneNumber?: string;
     address?: string;
+    description?: string;
+    imageURL?: string;
 }
 
 export interface RequestCreateShelter {
-    phoneNumber?: string;
+    name: string;
     email: string;
-    password?: string;
+    phoneNumber: string;
     address: string;
-    description?: string;
+    description: string;
     imageURL?: string;
-    role: roles;
 }
 
 export interface RequestUpdateShelter {
-    key?: string;
-    password?: string;
-    phoneNumber?: string;
+    password: any;
+    role: any;
+    key: string;
+    name?: string;
     email?: string;
+    phoneNumber?: string;
     address?: string;
     description?: string;
     imageURL?: string;
-    role?: roles;
 }
 
 export interface RequestDeleteShelter {
@@ -38,31 +50,23 @@ export interface RequestDeleteShelter {
 export interface GetSheltersHelper extends generalOptions {
     filters: {
         key?: string;
-        phoneNumber?: string;
+        name?: string;
         email?: string;
+        phoneNumber?: string;
         address?: string;
+        description?: string;
+        imageURL?: string;
+        deletedAt?: Date;
     }
 }
 
-export interface Shelter extends baseModel{
-    key: string;
-    phoneNumber: string;
-    email: string;
-    password?: string;
-    address: string;
-    description?: string;
-    imageURL?: string;
-    role: roles;
-}
-
 export interface CreateShelterHelper {
-    phoneNumber: string;
+    name: string;
     email: string;
-    password: string;
+    phoneNumber: string;
     address: string;
-    description?: string;
+    description: string;
     imageURL?: string;
-    role?: roles;
 }
 
 export interface UpdateShelterHelper {
@@ -71,6 +75,5 @@ export interface UpdateShelterHelper {
 }
 
 export interface DeleteShelterHelper {
-    key?: string;
-    _id?: string;
+    key: string;
 }

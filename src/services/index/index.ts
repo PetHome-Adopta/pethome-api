@@ -2,7 +2,8 @@ import { services } from "../../entities/services";
 import { PetsServices } from "../pets";
 import { PetsTypesServices } from "../petsTypes";
 import { AuthServices } from '../auth';
-import { SheltersServices } from '../shelters'
+import { SheltersServices } from '../shelters';
+import { UsersServices } from '../users';
 
 export class Services {
 
@@ -14,6 +15,7 @@ export class Services {
             petsTypes: new PetsTypesServices(),
             auth: new AuthServices(),
             shelters: new SheltersServices(),
+            users: new UsersServices(),
         }
     }
 

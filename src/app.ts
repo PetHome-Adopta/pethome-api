@@ -7,6 +7,7 @@ import { Deserializer } from "./middlewares/deserializer";
 import { services as S } from "./entities/services";
 import { helpers as H } from "./entities/helpers";
 import { infrastructure as I } from "./entities/infrastructure";
+import { Authorized } from "./middlewares/authorized";
 import swaggerDocs from "./utils/swagger";
 
 // Init env
@@ -20,8 +21,17 @@ export default (async () => {
 
     const App: Express = express();
     // Init middlewares
+ 
+    App.use((req, res, next) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Origin, Accept, X-Requested-With");
+        res.setHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET");
+        next();
+    });
 
     App.use(Deserializer);
+
+    App.use("*/admin/*", Authorized);
 
     // Init infrastructure and globalize it
     const toInitInfra = new Infrastructure() as any;

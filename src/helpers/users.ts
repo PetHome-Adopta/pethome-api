@@ -1,19 +1,19 @@
-import { CreateShelterHelper, DeleteShelterHelper, GetSheltersHelper, Shelter, UpdateShelterHelper } from '../models/shelters';
+import { CreateUserHelper, DeleteUserHelper, GetUsersHelper, User, UpdateUserHelper } from '../models/users';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 
 
-export class SheltersHelper {
+export class UsersHelper {
 
     private databases: Databases;
-    private collectionName: string = "shelters";
+    private collectionName: string = "users";
 
     constructor(databases: Databases) {
         this.databases = databases;
     }
 
-    async getShelters(options: GetSheltersHelper): Promise<[Shelter[], number]> {
+    async getUsers(options: GetUsersHelper): Promise<[User[], number]> {
         options.filters = await DeserializerForMongoOptions(options.filters);
 
         try {
@@ -29,7 +29,7 @@ export class SheltersHelper {
         }
     }
 
-    async createShelter(options: CreateShelterHelper) {
+    async createUser(options: CreateUserHelper) {
         const toAdd = {
             key: v1(),
             ...options,
@@ -48,7 +48,7 @@ export class SheltersHelper {
         }
     }
 
-    async updateShelter(options: UpdateShelterHelper) {
+    async updateUser(options: UpdateUserHelper) {
         options.filters = await DeserializerForMongoOptions(options.filters);
         try {
             await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options.filters, {
@@ -67,7 +67,7 @@ export class SheltersHelper {
         }
     }
 
-    async deleteShelter(options: DeleteShelterHelper) {
+    async deleteUser(options: DeleteUserHelper) {
         try {
             await this.databases.getClients().mongo.collection(this.collectionName).updateOne(options, {
                 $set: {

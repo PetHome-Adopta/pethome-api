@@ -4,14 +4,16 @@ import App, { services } from "../app";
 let server;
 
 beforeAll(async () => {
-    server = await App;
-  })
+    server = await App
+  });
 
-describe('pets', () => {
-    describe('Create pets', () => {
+describe('users', () => {
+    describe('Create users', () => {
         it('It should return an error at create because there are no params', async () => {
             try {
-                await services.pets.createPet({} as any);
+
+                await services.users.createUser({} as any);
+            
             }catch(e) {
                 expect(e).toEqual({
                     ok: false,
@@ -24,10 +26,13 @@ describe('pets', () => {
         it('It should return the created object', async () => {
             try {
 
-                await services.pets.createPet({
-                    name: "Test name",
-                    shalterKey: "",
-                    petTypeKey: ""
+                await services.users.createUser({
+                    phoneNumber: "test",
+                    email: "test",
+                    password: "test",
+                    address: "test",
+                    description: "test",
+                    imageURL: "test",
                 } as any);
             
             }catch(e) {
@@ -40,16 +45,16 @@ describe('pets', () => {
             
         });
     });
-    describe('Create pets', () => {
+    describe('Create users', () => {
         it('It should return data as array', async () => {
-            const pet = await services.pets.getPets({});
-            expect(pet).toBeInstanceOf(Array)
+            const user = await services.users.getUsers({});
+            expect(user).toBeInstanceOf(Array)
             
         });
 
         it('It should return that the returned data is larger than 0', async () => {
-            const pet = await services.pets.getPets({});
-            expect(pet?.[0]?.length > 0).toBe(true)
+            const user = await services.users.getUsers({});
+            expect(user?.[0]?.length > 0).toBe(true)
             
         });
     });

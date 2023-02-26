@@ -1,10 +1,10 @@
-import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../models/shelters';
+import { RequestGetUsers, RequestCreateUser, RequestUpdateUser, RequestDeleteUser, roles } from '../models/users';
 import { helpers } from "../app";
 import bcrypt from "bcryptjs";
 
-export class SheltersServices {
-    async getShelters(data: RequestGetShelters) {
-        const response = await helpers.shelters.getShelters({
+export class UsersServices {
+    async getUsers(data: RequestGetUsers) {
+        const response = await helpers.users.getUsers({
                 filters: {
                     key: data.key,
                     phoneNumber: data.phoneNumber,
@@ -22,12 +22,12 @@ export class SheltersServices {
         return response;
     }
 
-    async createShelter(data: RequestCreateShelter) {
+    async createUser(data: RequestCreateUser) {
         if (
             data.name == null ||
             data.phoneNumber == null ||
             data.email == null ||
-            data.address == null)
+            data.password == null)
             throw {
                 ok: false,
                 status: 400,
@@ -36,8 +36,8 @@ export class SheltersServices {
 
         if (typeof (data.phoneNumber) !== "string" ||
             typeof (data.email) !== "string" ||
-            typeof (data.address) !== "string"
-        ) {
+            typeof (data.password) !== "string"
+            ) {
             throw {
                 ok: false,
                 status: 400,
@@ -45,7 +45,7 @@ export class SheltersServices {
             }
         }
 
-        const shelter = await helpers.shelters.getShelters({
+        const user = await helpers.users.getUsers({
             filters: {
                 phoneNumber: data.phoneNumber,
                 email: data.email,
@@ -55,24 +55,28 @@ export class SheltersServices {
                 sort: { _id: -1 }
             }
         });
-        if (shelter[1] > 0)
+        if (user[1] > 0)
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter alredy created or it's deleted"
+                message: "User alredy created or it's deleted"
             }
 
-        return await helpers.shelters.createShelter({
+        const salt = await bcrypt.genSalt(10);
+        data.password = await bcrypt.hash(data.password, salt);
+
+        return await helpers.users.createUser({
             name: data.name,
+            password: data.password,
             phoneNumber: data.phoneNumber,
             email: data.email,
-            address: data.address,
             description: data.description,
-            imageURL: data.imageURL
+            imageURL: data.imageURL,
+            role: data.role
         });
     }
 
-    async updateShelter(data: RequestUpdateShelter) {
+    async updateUser(data: RequestUpdateUser) {
         if (data.key == null)
             throw {
                 ok: false,
@@ -87,7 +91,7 @@ export class SheltersServices {
                 message: "Invalid key type"
             };
 
-        const shelter = await helpers.shelters.getShelters({
+        const user = await helpers.users.getUsers({
             filters: {
                 key: data.key,
             },
@@ -95,14 +99,14 @@ export class SheltersServices {
                 sort: { _id: -1 }
             }
         });
-        if (shelter[1] === 0)
+        if (user[1] === 0)
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist or it's deleted"
+                message: "User doesn't exist or it's deleted"
             }
 
-        return await helpers.shelters.updateShelter({
+        return await helpers.users.updateUser({
             filters: {
                 key: data.key,
             },
@@ -110,14 +114,15 @@ export class SheltersServices {
                 name: data.name,
                 phoneNumber: data.phoneNumber,
                 email: data.email,
-                address: data.address,
+                password: data.password,
                 description: data.description,
                 imageURL: data.imageURL,
+                role: data.role,
             }
         });
     }
 
-    async deleteShelter(data: RequestDeleteShelter) {
+    async deleteUser(data: RequestDeleteUser) {
         if (data.key == null)
             throw {
                 ok: false,
@@ -132,7 +137,7 @@ export class SheltersServices {
                 message: "Invalid key type"
             }
 
-        const shelter = await helpers.shelters.getShelters({
+        const user = await helpers.users.getUsers({
             filters: {
                 key: data.key,
                 deletedAt: null
@@ -141,31 +146,14 @@ export class SheltersServices {
                 sort: { _id: -1 }
             }
         });
-        if (shelter[1] === 0)
+        if (user[1] === 0)
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist"
+                message: "User doesn't exist"
             }
 
-        const pets = await helpers.pets.getPets({
-            filters: {
-                shelterKey: data.key,
-                deletedAt: null
-            },
-            options: {
-                sort: { _id: -1 }
-            }
-        });
-
-        for (let pet of pets[0]) {
-            console.log('Deleting pet: ', pet.key);
-            await helpers.pets.deletePet({
-                key: pet.key
-            });
-        }
-
-        return await helpers.shelters.deleteShelter({
+        return await helpers.users.deleteUser({
             key: data.key
         });
     

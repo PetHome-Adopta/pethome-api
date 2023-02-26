@@ -1,24 +1,24 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreateShelter, RequestDeleteShelter, RequestGetShelters, RequestUpdateShelter } from "../models/shelters";
+import { RequestCreateUser, RequestDeleteUser, RequestGetUsers, RequestUpdateUser } from "../models/users";
 import { PATHS } from "../utils/Constants";
-
-export class SheltersController {
+//TODO: refactor shelter controller into user controller if necessary
+export class UsersController {
     #router: Router;
 
     constructor (app : Express){
         this.#router = Router();
-        this.#router.get(PATHS.V1 + PATHS.SHELTERS, this.handleGetShelters.bind(this));
-        this.#router.post(PATHS.V1 + PATHS.SHELTERS, this.handleCreateShelter.bind(this));
-        this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.SHELTERS, this.handleUpdateShelter.bind(this));
-        this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.SHELTERS, this.handleDeleteShelter.bind(this));
+        this.#router.get(PATHS.V1 + PATHS.USERS, this.handleGetUsers.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.USERS, this.handleCreateUser.bind(this));
+        this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.USERS, this.handleUpdateUser.bind(this));
+        this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.USERS, this.handleDeleteUser.bind(this));
         app.use(this.#router);
     }
 
-    async handleGetShelters(req: Request, res: Response){
+    async handleGetUsers(req: Request, res: Response){
         try{
-            const body: RequestGetShelters = req.body;
-            const data = await services.shelters.getShelters(body);
+            const body: RequestGetUsers = req.body;
+            const data = await services.users.getUsers(body);
             
             res.json({
                 data: data[0],
@@ -32,10 +32,10 @@ export class SheltersController {
         }
     }
 
-    async handleCreateShelter(req: Request, res: Response){
+    async handleCreateUser(req: Request, res: Response){
         try{
-            const body: RequestCreateShelter = req.body;
-            const data = await services.shelters.createShelter(body);
+            const body: RequestCreateUser = req.body;
+            const data = await services.users.createUser(body);
             
             res.status(201).json({
                 data,
@@ -48,10 +48,10 @@ export class SheltersController {
         }
     }
 
-    async handleUpdateShelter(req: Request, res: Response){
+    async handleUpdateUser(req: Request, res: Response){
         try{
-            const body: RequestUpdateShelter = req.body;
-            const data = await services.shelters.updateShelter(body);
+            const body: RequestUpdateUser = req.body;
+            const data = await services.users.updateUser(body);
             
             res.status(200).json({
                 data,
@@ -64,10 +64,10 @@ export class SheltersController {
         }
     }
 
-    async handleDeleteShelter(req: Request, res: Response){
+    async handleDeleteUser(req: Request, res: Response){
         try{
-            const body: RequestDeleteShelter = req.body;
-            const data = await services.shelters.deleteShelter(body);
+            const body: RequestDeleteUser = req.body;
+            const data = await services.users.deleteUser(body);
             
             res.status(204).json({
                 data,

@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../entities/models/pets";
+import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../models/pets";
 import { PATHS } from "../utils/Constants";
 
 export class PetsController {
@@ -9,19 +9,21 @@ export class PetsController {
     constructor(app: Express) {
         this.#router = Router();
         this.#router.get(PATHS.V1 + PATHS.PETS, this.handleGetPets.bind(this));
-        this.#router.post(PATHS.V1 + PATHS.PETS, this.handleCreatePet.bind(this));
-        this.#router.put(PATHS.V1 + PATHS.PETS, this.handleUpdatePet.bind(this));
-        this.#router.delete(PATHS.V1 + PATHS.PETS, this.handleDeletePet.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.ADMIN + PATHS.PETS, this.handleCreatePet.bind(this));
+        this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.PETS, this.handleUpdatePet.bind(this));
+        this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.PETS, this.handleDeletePet.bind(this));
         app.use(this.#router);
     }
 
     async handleGetPets(req: Request, res: Response) {
         try {
+            
             const body: RequestGetPets = req.body;
             const data = await services.pets.getPets(body);
 
             res.json({
-                data,
+                data: data[0],
+                count: data[1],
                 OK: true
             })
         }
