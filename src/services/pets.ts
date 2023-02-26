@@ -43,7 +43,8 @@ export class PetsServices {
         if (data.name == null ||
             data.petTypeKey == null ||
             data.shelterKey == null ||
-            data.description == null)
+            data.description == null ||
+            data.litter == null)
             throw {
                 ok: false,
                 status: 400,

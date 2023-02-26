@@ -31,45 +31,19 @@ describe('pets', () => {
     });
     
     describe('Create pets', () => {
-        //TODO: 1- se crea y te devuelve los datos que tocan
+        //TODO: x 1- se crea y te devuelve los datos que tocan
         //TODO: 2- se crea y el contador ha subido
         //TODO: 3- se crea y te devuelve la instacia de pet -> modificar en controller, service, helper
         //TODO: 4- test por cada uno de los errores controlados
 
-        //TODO: user is not logged
-        it('User is not logged', async () => {
-            try {
-                await services.pets.createPet({} as any);
-            }
-            catch(e) {
-                console.log("Error: ", e);
-                expect(e).toEqual({
-                    ok: false,
-                    status: 403
-                });
-            }
-            
-        });
-        /*
-        it('User is logged', async () => {
-            try {
-                await services.pets.createPet({} as any);
-            }
-            catch(e) {
-                expect(e).toEqual({
-                    ok: true,
-                    status: 200
-                });
-            }
-            
-        });
+        //TODO: DUDA - el shelterKey y el petTypeKey iran variando para cada una de las personas que tengans la bbdd en local -> uuid, como podemos unificarlo?
         it('It should return the created object', async () => {
             try {
-
                 await services.pets.createPet({
                     name: "Test name",
-                    shalterKey: "",
-                    petTypeKey: ""
+                    shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
+                    petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
+                    litter: true
                 } as any);
             
             }catch(e) {
@@ -80,16 +54,30 @@ describe('pets', () => {
                 });
             }
         });
-        */
+
+        it('It should error on not sending required value', async () => {
+            try {
+                await services.pets.createPet({
+                    name: "Test name"
+                } as any);
+            
+            }catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "There are required values that don't have a valid value"
+                });
+            }
+        });
+        
     });
-    //TODO:poner aws cuenta en android
+    
     //TODO: describe update pets
         //TODO: 1- se actualiza y te devuelve los datos que tocan
         //TODO: 2- se actualiza y el contador es el mismo
         //TODO: 3- se actualiza y te devuelve la instacia de pet -> modificar en controller, service, helper
         //TODO: 4- test por cada uno de los errores controlados
-        //TODO: user is not logged
-        //TODO: user is logged
+        
 
     //TODO: describe delete pets
         //TODO: 1- se elimina y te devuelve los datos que tocan

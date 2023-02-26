@@ -28,7 +28,7 @@ export class PetsHelper {
         }
     }
 
-    async createPet(options: CreatePetHelper) {
+    async createPet(options: CreatePetHelper): Promise<Pet> {
 
         const toAdd = {
             key: v1(),
@@ -39,7 +39,7 @@ export class PetsHelper {
 
         try {
             await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-            return toAdd;
+            return toAdd as Pet;
         } catch (e) {
             throw {
                 ok: false,
