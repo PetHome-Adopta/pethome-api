@@ -8,6 +8,7 @@ import { services as S } from "./entities/services";
 import { helpers as H } from "./entities/helpers";
 import { infrastructure as I } from "./entities/infrastructure"
 import { Authorized } from "./middlewares/authorized";
+import setupSwagger from "./docs/swagger";
 
 // Init env
 require('dotenv').config();
@@ -36,6 +37,9 @@ export default (async () => {
     const toInitInfra = new Infrastructure() as any;
     await toInitInfra.initInfrastructure();
     infrastructure = toInitInfra.getInfrastructure();
+
+    //Swagger
+    setupSwagger(App);
 
     // Init controllers
     new Controllers(App);
