@@ -39,7 +39,7 @@ export default (async () => {
     infrastructure = toInitInfra.getInfrastructure();
 
     //Swagger
-    setupSwagger(App);
+    //setupSwagger(App);
 
     // Init controllers
     new Controllers(App);
