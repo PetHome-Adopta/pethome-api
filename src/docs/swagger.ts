@@ -1,5 +1,5 @@
-import * as swaggerUi from "swagger-ui-express";
-import * as swaggerDocument from "./swagger.json";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json";
 import { Express } from "express";
 
 const setupSwagger = (App: Express) => {

@@ -22,6 +22,7 @@ export default (async () => {
     const App: Express = express();
     // Init middlewares
  
+    // Middleware to allow CORS
     App.use((req, res, next) => {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Origin, Accept, X-Requested-With");
@@ -39,7 +40,7 @@ export default (async () => {
     infrastructure = toInitInfra.getInfrastructure();
 
     //Swagger
-    //setupSwagger(App);
+    setupSwagger(App);
 
     // Init controllers
     new Controllers(App);
@@ -55,8 +56,6 @@ export default (async () => {
     App.listen(process.env.LISTEN_PORT).on("error", () => {
         console.log("Application in test mode");
     })
-
-
 
 })().catch((e) => {
     console.log(e);
