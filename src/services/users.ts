@@ -73,6 +73,7 @@ export class UsersServices {
             description: data.description,
             imageURL: data.imageURL,
             role: data.role
+            //TODO: refactor -> role: data.role || roles.user
         });
     }
 

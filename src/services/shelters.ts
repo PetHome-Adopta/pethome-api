@@ -1,6 +1,5 @@
 import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../models/shelters';
 import { helpers } from "../app";
-import bcrypt from "bcryptjs";
 
 export class SheltersServices {
     async getShelters(data: RequestGetShelters) {
