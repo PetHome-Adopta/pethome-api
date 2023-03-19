@@ -9,7 +9,7 @@
     "dev": "nodemon src/app.ts",
     "collections": "node scripts/initCollections.js",
     "test:unit": "ENV_FILE=./.env.test jest",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [
     "api"
