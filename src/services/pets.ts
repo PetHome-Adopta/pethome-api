@@ -39,7 +39,7 @@ export class PetsServices {
         return response;
     }
 
-    async createPet(data: RequestCreatePet) {
+    async createPet(data: RequestCreatePet): Promise<Pet> {
         if (data.name == null ||
             data.petTypeKey == null ||
             data.shelterKey == null ||
@@ -97,28 +97,28 @@ export class PetsServices {
                 status: 400,
                 message: "Shelter doesn't exist or it's deleted"
             }
+        if(data.adoptedWith)
+            for (let adoptedWithKey of data.adoptedWith) {
+                const petsAdoptedWith = await helpers.pets.getPets({
+                    filters: {
+                        key: String(adoptedWithKey),
+                        adopted: false,
+                        deletedAt: null
+                    },
+                    options: {
+                        sort: { _id: -1 }
+                    }
+                });
 
-        for (let adoptedWithKey of data.adoptedWith) {
-            const petsAdoptedWith = await helpers.pets.getPets({
-                filters: {
-                    key: String(adoptedWithKey),
-                    adopted: false,
-                    deletedAt: null
-                },
-                options: {
-                    sort: { _id: -1 }
-                }
-            });
+                if(petsAdoptedWith[1] === 0)
+                    throw {
+                        ok: false,
+                        status: 400,
+                        message: "Pet adopted with dosen't exists or has been adopted"
+                    }
+            }
 
-            if(petsAdoptedWith[1] === 0)
-                throw {
-                    ok: false,
-                    status: 400,
-                    message: "Pet adopted with dosen't exists or has been adopted"
-                }
-        }
-
-        return await helpers.pets.createPet({
+        const response: Pet = await helpers.pets.createPet({
             name: data.name,
             description: data.description,
             age: data.age,
@@ -141,6 +141,10 @@ export class PetsServices {
             petTypeKey: data.petTypeKey,
             litter: false
         });
+
+        delete response._id;
+        
+        return response;
     }
 
     async updatePet(data: RequestUpdatePet) {
