@@ -33,7 +33,7 @@ export class PetsController {
         }
     }
 
-    async handleCreatePet(req: Request, res: Response) {
+    async handleCreatePet(req: Request, res: Response): Promise<any> {
         try {
             const body: RequestCreatePet = req.body;
             const data = await services.pets.createPet(body);

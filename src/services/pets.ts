@@ -64,6 +64,27 @@ export class PetsServices {
             }
         }
 
+        const pet = await await helpers.pets.getPets({
+            filters: {
+                name: data.name,
+                petTypeKey: data.petTypeKey,
+                shelterKey: data.shelterKey,
+                description: data.description,
+                litter: data.litter,
+                deletedAt: null
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+
+        if(pet[1] > 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet alredy created"
+            }
+            
         //TODO: refactor into utils.ts static method
         const petType = await helpers.petsTypes.getPetsTypes({
             filters: {
@@ -98,6 +119,7 @@ export class PetsServices {
                 status: 400,
                 message: "Shelter doesn't exist or it's deleted"
             }
+
         if(data.adoptedWith)
             for (let adoptedWithKey of data.adoptedWith) {
                 const petsAdoptedWith = await helpers.pets.getPets({
@@ -175,7 +197,7 @@ export class PetsServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet doesn't exist"
+                message: "Pet doesn't exist or it's deleted"
             }
 
         //TODO: refactor into utils.ts static method
@@ -217,25 +239,26 @@ export class PetsServices {
                 }    
         }
 
-        for (let adoptedWithKey of data.adoptedWith) {
-            const petsAdoptedWith = await helpers.pets.getPets({
-                filters: {
-                    key: String(adoptedWithKey),
-                    adopted: false,
-                    deletedAt: null
-                },
-                options: {
-                    sort: { _id: -1 }
-                }
-            });
+        if(data.adoptedWith)
+            for (let adoptedWithKey of data.adoptedWith) {
+                const petsAdoptedWith = await helpers.pets.getPets({
+                    filters: {
+                        key: String(adoptedWithKey),
+                        adopted: false,
+                        deletedAt: null
+                    },
+                    options: {
+                        sort: { _id: -1 }
+                    }
+                });
 
-            if(petsAdoptedWith[1] === 0)
-                throw {
-                    ok: false,
-                    status: 400,
-                    message: `Pet ${adoptedWithKey} adopted with dosen't exists or has been adopted`
-                }
-        }
+                if(petsAdoptedWith[1] === 0)
+                    throw {
+                        ok: false,
+                        status: 400,
+                        message: `Pet ${adoptedWithKey} adopted with dosen't exists or has been adopted`
+                    }
+            }
 
         return await helpers.pets.updatePet({
             filters: {

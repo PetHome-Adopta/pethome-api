@@ -29,7 +29,6 @@ export class PetsHelper {
     }
 
     async createPet(options: CreatePetHelper): Promise<Pet> {
-
         const toAdd = {
             key: v1(),
             ...options,
