@@ -89,7 +89,7 @@ describe('pets', () => {
             } as Pet);
             const dataCountAfter = await services.pets.getPets({});
 
-            expect(dataCountBefore[1] == dataCountAfter[1] + 1).toBe(true);
+            expect(dataCountAfter[1] == dataCountBefore[1] + 1).toBe(true);
         });
 
         //TODO: Este test tampoco pasa con ninguno de los expects -> Pet es una interfaz
@@ -219,9 +219,6 @@ describe('pets', () => {
         });
     });
     
-        //TODO: 3- se actualiza y te devuelve la instacia de pet -> modificar en controller, service, helper
-        //TODO: 4- test por cada uno de los errores controlados
-        
     describe('Update pets', () => {
         it('It should return the updated object fields', async () => {
             const data = await services.pets.updatePet({
@@ -345,11 +342,70 @@ describe('pets', () => {
         });
     });
 
-    //TODO: describe delete pets
-        //TODO: 1- se elimina y te devuelve los datos que tocan
-        //TODO: 2- se elimina y el contador es uno menos
-        //TODO: 3- se elimina y te devuelve la instacia de pet -> modificar en controller, service, helper
-        //TODO: 4- test por cada uno de los errores controlados
-        //TODO: user is not logged
-        //TODO: user is logged
+    describe('Delete pets', () => {
+        it('It should return the deleted object fields', async () => {
+            const data = await services.pets.deletePet({
+                key: "c492a720-85df-11ed-8c30-2f09c5023b10"
+            } as Pet);
+
+            expect(data.key == "c492a720-85df-11ed-8c30-2f09c5023b10").toBe(true);
+        });
+
+        it('The total count should be less than before', async () => {
+            const dataCountBefore = await services.pets.getPets({});
+
+            await services.pets.deletePet({
+                key: "c492a720-85df-11ed-8c30-2f09c5023b10"
+            } as Pet);
+
+            const dataCountAfter = await services.pets.getPets({});
+
+            expect(dataCountAfter[1] == dataCountBefore[1] - 1).toBe(true);
+        });
+
+        it('It should return error on not sending required value', async () => {
+            try {
+                await services.pets.deletePet({
+                    name: "Test name"
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "There are required values that don't have a valid value"
+                });
+            }
+        });
+
+        it('It should return error on sending invalid key type', async () => {
+            try {
+                await services.pets.deletePet({
+                    key: 12345
+                } as any);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Invalid key type"
+                });
+            }
+        });
+
+        it('It should return error on sending pet dosent exist or its alredy deleted', async () => {
+            try {
+                await services.pets.deletePet({
+                    key: "abcdefg"
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Pet doesn't exist or it's deleted"
+                });
+            }
+        });
+    });
 });
