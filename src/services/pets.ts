@@ -84,7 +84,7 @@ export class PetsServices {
                 status: 400,
                 message: "Pet alredy created"
             }
-            
+
         //TODO: refactor into utils.ts static method
         const petType = await helpers.petsTypes.getPetsTypes({
             filters: {
@@ -256,7 +256,7 @@ export class PetsServices {
                     throw {
                         ok: false,
                         status: 400,
-                        message: `Pet ${adoptedWithKey} adopted with dosen't exists or has been adopted`
+                        message: `Pet adopted with dosen't exists or has been adopted`
                     }
             }
 
@@ -294,7 +294,7 @@ export class PetsServices {
             throw {
                 ok: false,
                 status: 400,
-                message: 'Key type invalid'
+                message: "There are required values that don't have a valid value"
             };
 
         if (typeof (data.key) !== 'string')
