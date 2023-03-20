@@ -54,7 +54,8 @@ export class PetsServices {
         if (typeof (data.name) !== "string" ||
             typeof (data.petTypeKey) !== "string" ||
             typeof (data.shelterKey) !== "string" ||
-            typeof (data.description) !== "string"
+            typeof (data.description) !== "string" ||
+            typeof (data.litter) !== "boolean"
         ) {
             throw {
                 ok: false,
@@ -143,7 +144,7 @@ export class PetsServices {
         });
 
         delete response._id;
-        
+
         return response;
     }
 
