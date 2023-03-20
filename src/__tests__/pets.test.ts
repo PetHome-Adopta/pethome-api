@@ -122,6 +122,25 @@ describe('pets', () => {
             }
         });
 
+        it('It should return error that pet is alredy created', async () => {
+            try {
+                await services.pets.createPet({
+                    name: "Test name",
+                    shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
+                    petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
+                    description: "Test description",
+                    litter: true
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "There are required values that don't have a valid value"
+                });
+            }
+        });
+
         it('It should return error on sending invalid data type', async () => {
             try {
                 await services.pets.createPet({
@@ -200,12 +219,131 @@ describe('pets', () => {
         });
     });
     
-    //TODO: describe update pets
-        //TODO: 1- se actualiza y te devuelve los datos que tocan
-        //TODO: 2- se actualiza y el contador es el mismo
         //TODO: 3- se actualiza y te devuelve la instacia de pet -> modificar en controller, service, helper
         //TODO: 4- test por cada uno de los errores controlados
         
+    describe('Update pets', () => {
+        it('It should return the updated object fields', async () => {
+            const data = await services.pets.updatePet({
+                key: "c492a720-85df-11ed-8c30-2f09c5023b10",
+                name: "Test name update"
+            } as Pet);
+
+            expect(data.filters.key == "c492a720-85df-11ed-8c30-2f09c5023b10").toBe(true);
+            expect(data.data.name == "Test name update").toBe(true);
+        });
+
+        it('The total count should be the same', async () => {
+            const dataCountBefore = await services.pets.getPets({});
+
+            await services.pets.updatePet({
+                key: "c492a720-85df-11ed-8c30-2f09c5023b10",
+                name: "Test name update"
+            } as Pet);
+
+            const dataCountAfter = await services.pets.getPets({});
+
+            expect(dataCountBefore[1] == dataCountAfter[1]).toBe(true);
+        });
+
+        it('It should return error on not sending required value', async () => {
+            try {
+                await services.pets.updatePet({
+                    name: "Test name"
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "There are required values that don't have a valid value"
+                });
+            }
+        });
+
+        it('It should return error on sending invalid key type', async () => {
+            try {
+                await services.pets.updatePet({
+                    key: 12345,
+                    name: "Test name update"
+                } as any);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Invalid key type"
+                });
+            }
+        });
+
+        it('It should return error on sending pet doesnt exist or its deleted', async () => {
+            try {
+                await services.pets.updatePet({
+                    key: "abcdefg",
+                    name: "Test name update"
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Pet doesn't exist or it's deleted"
+                });
+            }
+        });
+
+        it('It should return error on sending Pet type doesnt exist or its deleted', async () => {
+            try {
+                await services.pets.updatePet({
+                    key: "c492a720-85df-11ed-8c30-2f09c5023b10",
+                    name: "Test name updated",
+                    petTypeKey: "abcdef"
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Pet type doesn't exist or it's deleted"
+                });
+            }
+        });
+
+        it('It should return error on sending Shelter doesnt exist or its deleted', async () => {
+            try {
+                await services.pets.updatePet({
+                    key: "c492a720-85df-11ed-8c30-2f09c5023b10",
+                    name: "Test name updated",
+                    shelterKey: "abcdef",
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Shelter doesn't exist or it's deleted"
+                });
+            }
+        });
+
+        it('It should return error on sending Pet adopted with dosent exists or has been adopted', async () => {
+            try {
+                await services.pets.updatePet({
+                    key: "c492a720-85df-11ed-8c30-2f09c5023b10",
+                    name: "Test name updated",
+                    adoptedWith: "abcdef"
+                } as any);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Pet adopted with dosen't exists or has been adopted"
+                });
+            }
+        });
+    });
 
     //TODO: describe delete pets
         //TODO: 1- se elimina y te devuelve los datos que tocan
