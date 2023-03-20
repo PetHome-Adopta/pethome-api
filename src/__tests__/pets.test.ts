@@ -43,11 +43,6 @@ describe('pets', () => {
     });
     
     describe('Create pets', () => {
-        //TODO: x 1- se crea y te devuelve los datos que tocan
-        //TODO: 2- se crea y el contador ha subido
-        //TODO: 3- se crea y te devuelve la instacia de pet -> modificar en controller, service, helper
-        //TODO: 4- test por cada uno de los errores controlados
-
         //TODO: DUDA - el shelterKey y el petTypeKey iran variando para cada una de las personas que tengans la bbdd en local -> uuid, como podemos unificarlo?
         //recuperar el valor con service.shelter.getShelters({}) ?????
         it('It should return the created object', async () => {
@@ -57,7 +52,7 @@ describe('pets', () => {
                 petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
                 description: "Test description",
                 litter: true
-            } as any);
+            } as Pet);
 
             expect(
                 data.name == "Test name" &&
@@ -69,6 +64,18 @@ describe('pets', () => {
             ).toBe(true);
         });
 
+        it('It should return the created object without "_id"', async () => {
+            const data = await services.pets.createPet({
+                name: "Test name",
+                shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
+                petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
+                description: "Test description",
+                litter: true
+            } as Pet);
+
+            expect(data?._id == null).toBe(true);
+        });
+        
         //TODO: Problema aqui, jest realmente no crea la entidad por tanto no le suma +1, 
         //este test nunca se cumplira
         it('It should add +1 to the total count', async () => {
@@ -79,24 +86,115 @@ describe('pets', () => {
                 petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
                 description: "Test description",
                 litter: true
-            } as any);
+            } as Pet);
             const dataCountAfter = await services.pets.getPets({});
 
-            
             expect(dataCountBefore[1] == dataCountAfter[1] + 1).toBe(true);
         });
 
-        it('It should error on not sending required value', async () => {
+        //TODO: Este test tampoco pasa con ninguno de los expects -> Pet es una interfaz
+        //https://stackoverflow.com/questions/46703364/why-does-instanceof-in-typescript-give-me-the-error-foo-only-refers-to-a-ty
+        it('It should return an instance of Pet', async () => {
+            const data: Pet = await services.pets.createPet({
+                name: "Test name",
+                shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
+                petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
+                description: "Test description",
+                litter: true
+            } as Pet);
+        
+            expect(data as Pet).toBe(true);
+            //expect(data).toBeInstanceOf(Pet);
+        });
+
+        it('It should return error on not sending required value', async () => {
             try {
                 await services.pets.createPet({
                     name: "Test name"
-                } as any);
+                } as Pet);
             }
             catch(e) {
                 expect(e).toEqual({
                     ok: false,
                     status: 400,
                     message: "There are required values that don't have a valid value"
+                });
+            }
+        });
+
+        it('It should return error on sending invalid data type', async () => {
+            try {
+                await services.pets.createPet({
+                    name: 123,
+                    shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
+                    petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
+                    description: "Test description",
+                    litter: true
+                } as any);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Invalid data type"
+                });
+            }
+        });
+
+        it('It should return error on sending Pet type doesnt exist or its deleted', async () => {
+            try {
+                await services.pets.createPet({
+                    name: "Test name",
+                    shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
+                    petTypeKey: "abcdef",
+                    description: "Test description",
+                    litter: true
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Pet type doesn't exist or it's deleted"
+                });
+            }
+        });
+
+        it('It should return error on sending Shelter doesnt exist or its deleted', async () => {
+            try {
+                await services.pets.createPet({
+                    name: "Test name",
+                    shelterKey: "abcdef",
+                    petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
+                    description: "Test description",
+                    litter: true
+                } as Pet);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Shelter doesn't exist or it's deleted"
+                });
+            }
+        });
+
+        it('It should return error on sending Pet adopted with dosent exists or has been adopted', async () => {
+            try {
+                await services.pets.createPet({
+                    name: "Test name",
+                    shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
+                    petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
+                    description: "Test description",
+                    litter: true,
+                    adoptedWith: "abcd",
+                } as any);
+            }
+            catch(e) {
+                expect(e).toEqual({
+                    ok: false,
+                    status: 400,
+                    message: "Pet adopted with dosen't exists or has been adopted"
                 });
             }
         });
