@@ -39,6 +39,7 @@ export class PetsServices {
         return response;
     }
 
+    //TODO: en la creacion de cualquier entidad de dominio, como mantenemos la integridad del formato de los datos?
     async createPet(data: RequestCreatePet): Promise<Pet> {
         if (data.name == null ||
             data.petTypeKey == null ||
@@ -142,27 +143,30 @@ export class PetsServices {
             }
 
         const response: Pet = await helpers.pets.createPet({
+            imageURL: data.imageURL,
+            litter: data.litter,
             name: data.name,
             description: data.description,
-            age: data.age,
             color: data.color,
+            age: data.age,
             breed: data.breed,
             gender: data.gender,
             behaviour: data.behaviour,
+            weight: data.weight,
             sterilized: data.sterilized,
             vaccinated: data.vaccinated,
             dewormed: data.dewormed,
             healthy: data.healthy,
             identified: data.identified,
             microchipped: data.microchipped,
-
             adopted: false,
             urgentAdoption: data.urgentAdoption,
-
+            adoptionPrice: data.adoptionPrice,
+            deliveryPlace: data.deliveryPlace,
             statusOnShelter: data.statusOnShelter,
+            adoptedWith: data.adoptedWith,
             shelterKey: data.shelterKey,
-            petTypeKey: data.petTypeKey,
-            litter: false
+            petTypeKey: data.petTypeKey
         });
 
         delete response._id;
@@ -265,24 +269,28 @@ export class PetsServices {
                 key: data.key,
             },
             data: {
+                imageURL: data.imageURL,
+                litter: data.litter,
                 name: data.name,
                 description: data.description,
-                age: data.age,
                 color: data.color,
+                age: data.age,
                 breed: data.breed,
                 gender: data.gender,
                 behaviour: data.behaviour,
+                weight: data.weight,
                 sterilized: data.sterilized,
                 vaccinated: data.vaccinated,
                 dewormed: data.dewormed,
                 healthy: data.healthy,
                 identified: data.identified,
                 microchipped: data.microchipped,
-                litter: data.litter,
-                adopted: data.adopted,
+                adopted: false,
                 urgentAdoption: data.urgentAdoption,
-
+                adoptionPrice: data.adoptionPrice,
+                deliveryPlace: data.deliveryPlace,
                 statusOnShelter: data.statusOnShelter,
+                adoptedWith: data.adoptedWith,
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey
             }

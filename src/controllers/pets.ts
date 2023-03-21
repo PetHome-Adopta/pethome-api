@@ -49,7 +49,7 @@ export class PetsController {
         }
     }
 
-    async handleUpdatePet(req: Request, res: Response) {
+    async handleUpdatePet(req: Request, res: Response): Promise<any> {
         try {
             const body: RequestUpdatePet = req.body;
             const data = await services.pets.updatePet(body);
@@ -65,7 +65,7 @@ export class PetsController {
         }
     }
 
-    async handleDeletePet(req: Request, res: Response) {
+    async handleDeletePet(req: Request, res: Response): Promise<any> {
         try {
             const body: RequestDeletePet = req.body;
             const data = await services.pets.deletePet(body);
