@@ -47,7 +47,7 @@ describe('pets', () => {
         //recuperar el valor con service.shelter.getShelters({}) ?????
         it('It should return the created object', async () => {
             const data = await services.pets.createPet({
-                name: "Test name",
+                name: "Test name 3",
                 shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
                 petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
                 description: "Test description",
@@ -55,7 +55,7 @@ describe('pets', () => {
             } as Pet);
 
             expect(
-                data.name == "Test name" &&
+                data.name == "Test name 3" &&
                 data.shelterKey == "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd" &&
                 data.petTypeKey == "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd" &&
                 data.description == "Test description"
@@ -66,7 +66,7 @@ describe('pets', () => {
 
         it('It should return the created object without "_id"', async () => {
             const data = await services.pets.createPet({
-                name: "Test name",
+                name: "Test name 4",
                 shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
                 petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
                 description: "Test description",
@@ -81,7 +81,7 @@ describe('pets', () => {
         it('It should add +1 to the total count', async () => {
             const dataCountBefore = await services.pets.getPets({});
             await services.pets.createPet({
-                name: "Test name",
+                name: "Test name 5",
                 shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
                 petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
                 description: "Test description",
@@ -96,7 +96,7 @@ describe('pets', () => {
         //https://stackoverflow.com/questions/46703364/why-does-instanceof-in-typescript-give-me-the-error-foo-only-refers-to-a-ty
         it('It should return an instance of Pet', async () => {
             const data: Pet = await services.pets.createPet({
-                name: "Test name",
+                name: "Test name2",
                 shelterKey: "3a9f4b10-9500-11ed-9c4e-c1dfd48b86fd",
                 petTypeKey: "ba14fe30-9500-11ed-9c4e-c1dfd48b86fd",
                 description: "Test description",
@@ -110,7 +110,7 @@ describe('pets', () => {
         it('It should return error on not sending required value', async () => {
             try {
                 await services.pets.createPet({
-                    name: "Test name"
+                    name: "Test name2"
                 } as Pet);
             }
             catch(e) {
@@ -136,7 +136,7 @@ describe('pets', () => {
                 expect(e).toEqual({
                     ok: false,
                     status: 400,
-                    message: "There are required values that don't have a valid value"
+                    message: "Pet alredy created"
                 });
             }
         });
