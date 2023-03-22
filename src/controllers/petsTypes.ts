@@ -16,7 +16,7 @@ export class PetTypesController {
         app.use(this.#router);
     }
 
-    async handleGetPetsTypes(req: Request, res: Response){
+    async handleGetPetsTypes(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestGetPetsTypes = req.body;
             const data = await services.petsTypes.getPetsType(body);
@@ -33,7 +33,7 @@ export class PetTypesController {
         }
     }
 
-    async handleCreatePetType(req: Request, res: Response){
+    async handleCreatePetType(req: Request, res: Response): Promise<any>{
         try{
             const body: RequesCreatePetsTypes = req.body;
             const data = await services.petsTypes.createPetType(body);
@@ -49,7 +49,7 @@ export class PetTypesController {
         }
     }
 
-    async handleUpdatePetType(req: Request, res: Response){
+    async handleUpdatePetType(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestUpdatePetsTypes = req.body;
             const data = await services.petsTypes.updatePetType(body);
@@ -65,7 +65,7 @@ export class PetTypesController {
         }
     }
 
-    async handleDeletePetType(req: Request, res: Response){
+    async handleDeletePetType(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestDeletePetsTypes = req.body;
             const data = await services.petsTypes.deletePetType(body);

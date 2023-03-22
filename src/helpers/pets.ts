@@ -3,7 +3,6 @@ import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 
-
 export class PetsHelper {
 
     private databases: Databases;
