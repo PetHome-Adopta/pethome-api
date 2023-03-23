@@ -113,7 +113,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Invalid key type"
+                message: "Invalid data type"
             }
 
         const petType = await helpers.petsTypes.getPetsTypes({
@@ -129,7 +129,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type doesn't exist or it's deleted"
+                message: "Pet type doesn't exists"
             }
 
         return await helpers.petsTypes.deletePetType({
