@@ -1,8 +1,8 @@
-import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../models/shelters';
+import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter, Shelter } from '../models/shelters';
 import { helpers } from "../app";
 
 export class SheltersServices {
-    async getShelters(data: RequestGetShelters) {
+    async getShelters(data: RequestGetShelters): Promise<[Shelter[], number]> {
         const response = await helpers.shelters.getShelters({
                 filters: {
                     key: data.key,
@@ -21,7 +21,7 @@ export class SheltersServices {
         return response;
     }
 
-    async createShelter(data: RequestCreateShelter) {
+    async createShelter(data: RequestCreateShelter): Promise<Shelter> {
         if (
             data.name == null ||
             data.phoneNumber == null ||
