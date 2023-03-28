@@ -6,8 +6,10 @@ export class SheltersServices {
         const response = await helpers.shelters.getShelters({
                 filters: {
                     key: data.key,
+                    name: data.name,
                     phoneNumber: data.phoneNumber,
                     email: data.email,
+                    address: data.address,
                     deletedAt: null
                 },
                 options: {
@@ -26,7 +28,8 @@ export class SheltersServices {
             data.name == null ||
             data.phoneNumber == null ||
             data.email == null ||
-            data.address == null)
+            data.address == null ||
+            data.description == null)
             throw {
                 ok: false,
                 status: 400,
@@ -35,7 +38,9 @@ export class SheltersServices {
 
         if (typeof (data.phoneNumber) !== "string" ||
             typeof (data.email) !== "string" ||
-            typeof (data.address) !== "string"
+            typeof (data.address) !== "string" ||
+            typeof (data.phoneNumber) !== "string" ||
+            typeof (data.description) !== "string"
         ) {
             throw {
                 ok: false,
@@ -58,7 +63,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter alredy created or it's deleted"
+                message: "Shelter alredy created"
             }
 
         return await helpers.shelters.createShelter({
@@ -144,7 +149,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist"
+                message: "Shelter doesn't exists"
             }
 
         const pets = await helpers.pets.getPets({
@@ -167,6 +172,5 @@ export class SheltersServices {
         return await helpers.shelters.deleteShelter({
             key: data.key
         });
-    
     }
 }
