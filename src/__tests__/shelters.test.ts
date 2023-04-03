@@ -43,15 +43,25 @@ describe('shelters', () => {
     describe('Create shelter', () => {
         it('It should return the created object', async () => {
             const data = await services.shelters.createShelter({
-                name: "Test name 3",
+                name: "testName",
+                phoneNumber: "1234",
+                email: "test1@test.com",
+                address: "carrer1",
+                description: "description",
+                imageURL: "imageTest"
             } as Shelter);
 
-            expect(data.name == "Test name 3").toBe(true);
+            expect(data.name == "Test name").toBe(true);
         });
 
         it('It should return the created object without "_id"', async () => {
             const data = await services.shelters.createShelter({
-                name: "Test name 4"
+                name: "testName",
+                phoneNumber: "1234",
+                email: "test2@test.com",
+                address: "carrer1",
+                description: "description",
+                imageURL: "imageTest"
             } as Shelter);
 
             expect(data?._id == null).toBe(true);
@@ -62,7 +72,12 @@ describe('shelters', () => {
         it('It should add +1 to the total count', async () => {
             const dataCountBefore = await services.shelters.getShelters({});
             await services.shelters.createShelter({
-                name: "Test name 5"
+                name: "testName",
+                phoneNumber: "1234",
+                email: "test3@test.com",
+                address: "carrer1",
+                description: "description",
+                imageURL: "imageTest"
             } as Shelter);
             const dataCountAfter = await services.shelters.getShelters({});
 
@@ -73,7 +88,12 @@ describe('shelters', () => {
         //https://stackoverflow.com/questions/46703364/why-does-instanceof-in-typescript-give-me-the-error-foo-only-refers-to-a-ty
         it('It should return an instance of shelter', async () => {
             const data: Shelter = await services.shelters.createShelter({
-                name: "Test name2"
+                name: "testName",
+                phoneNumber: "1234",
+                email: "test4@test.com",
+                address: "carrer1",
+                description: "description",
+                imageURL: "imageTest"
             } as Shelter);
         
             expect(data as Shelter).toBe(true);
@@ -83,7 +103,11 @@ describe('shelters', () => {
         it('It should return error on not sending required value', async () => {
             try {
                 await services.shelters.createShelter({
-                    name: null
+                    phoneNumber: "1234",
+                    email: "test3@test.com",
+                    address: "carrer1",
+                    description: "description",
+                    imageURL: "imageTest"
                 } as Shelter);
             }
             catch(e) {
@@ -98,14 +122,19 @@ describe('shelters', () => {
         it('It should return error that shelter is alredy created', async () => {
             try {
                 await services.shelters.createShelter({
-                    name: "Test name"
+                    name: "testName",
+                    phoneNumber: "1234",
+                    email: "test@test.com",
+                    address: "carrer1",
+                    description: "description",
+                    imageURL: "imageTest"
                 } as Shelter);
             }
             catch(e) {
                 expect(e).toEqual({
                     ok: false,
                     status: 400,
-                    message: "Pet type alredy created"
+                    message: "Shelter alredy created"
                 });
             }
         });
@@ -113,7 +142,12 @@ describe('shelters', () => {
         it('It should return error on sending invalid data type', async () => {
             try {
                 await services.shelters.createShelter({
-                    name: 123
+                    name: 12345,
+                    phoneNumber: "1234",
+                    email: "test3@test.com",
+                    address: "carrer1",
+                    description: "description",
+                    imageURL: "imageTest"
                 } as any);
             }
             catch(e) {
