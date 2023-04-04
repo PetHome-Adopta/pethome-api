@@ -94,6 +94,7 @@ export class SheltersServices {
         const shelter = await helpers.shelters.getShelters({
             filters: {
                 key: data.key,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -103,7 +104,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist or it's deleted"
+                message: "Shelter doesn't exist"
             }
 
         return await helpers.shelters.updateShelter({
@@ -133,7 +134,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Invalid key type"
+                message: "Invalid data type"
             }
 
         const shelter = await helpers.shelters.getShelters({
@@ -163,7 +164,6 @@ export class SheltersServices {
         });
 
         for (let pet of pets[0]) {
-            console.log('Deleting pet: ', pet.key);
             await helpers.pets.deletePet({
                 key: pet.key
             });

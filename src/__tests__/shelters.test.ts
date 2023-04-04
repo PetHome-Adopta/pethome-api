@@ -163,12 +163,12 @@ describe('shelters', () => {
     describe('Update shelter', () => {
         it('It should return the updated object', async () => {
             const data = await services.shelters.updateShelter({
-                key: "c4f09ef0-ae4a-11ed-87c7-63a3ebd227b3",
+                key: "03059fe0-d26a-11ed-ab22-cf06f4bbc2cd",
                 name: "Test name 3",
             } as Shelter);
 
             expect(data.data.name == "Test name 3").toBe(true);
-            expect(data.filters.key == "c4f09ef0-ae4a-11ed-87c7-63a3ebd227b3").toBe(true);
+            expect(data.filters.key == "03059fe0-d26a-11ed-ab22-cf06f4bbc2cd").toBe(true);
         });
         
         //TODO: Problema aqui, jest realmente no crea la entidad por tanto no le suma +1, 
@@ -176,7 +176,7 @@ describe('shelters', () => {
         it('It should be the same total count', async () => {
             const dataCountBefore = await services.shelters.getShelters({});
             await services.shelters.updateShelter({
-                key: "c4f09ef0-ae4a-11ed-87c7-63a3ebd227b3",
+                key: "03059fe0-d26a-11ed-ab22-cf06f4bbc2cd",
                 name: "Test name 5"
             } as Shelter);
             const dataCountAfter = await services.shelters.getShelters({});
@@ -188,8 +188,7 @@ describe('shelters', () => {
         it('It should return error on not sending required value', async () => {
             try {
                 await services.shelters.updateShelter({
-                    key: null,
-                    name: null
+                    key: null
                 } as Shelter);
             }
             catch(e) {
@@ -204,15 +203,14 @@ describe('shelters', () => {
         it('It should return error that shelter doesnt exists', async () => {
             try {
                 await services.shelters.updateShelter({
-                    key: "12345",
-                    name: "Test name 5"
+                    key: "12345"
                 } as Shelter);
             }
             catch(e) {
                 expect(e).toEqual({
                     ok: false,
                     status: 400,
-                    message: "Pet type doesn't exists"
+                    message: "Shelter doesn't exists"
                 });
             }
         });
@@ -220,8 +218,7 @@ describe('shelters', () => {
         it('It should return error on sending invalid data type', async () => {
             try {
                 await services.shelters.updateShelter({
-                    key: 1234,
-                    name: 123
+                    key: 1234
                 } as any);
             }
             catch(e) {
@@ -237,10 +234,10 @@ describe('shelters', () => {
     describe('Delete shelter', () => {
         it('It should return the deleted object', async () => {
             const data = await services.shelters.deleteShelter({
-                key: "c4f09ef0-ae4a-11ed-87c7-63a3ebd227b3"
+                key: "03059fe0-d26a-11ed-ab22-cf06f4bbc2cd"
             } as Shelter);
 
-            expect(data.key == "c4f09ef0-ae4a-11ed-87c7-63a3ebd227b3").toBe(true);
+            expect(data.key == "03059fe0-d26a-11ed-ab22-cf06f4bbc2cd").toBe(true);
         });
         
         //TODO: Problema aqui, jest realmente no crea la entidad por tanto no le suma +1, 
@@ -281,7 +278,7 @@ describe('shelters', () => {
                 expect(e).toEqual({
                     ok: false,
                     status: 400,
-                    message: "Pet type doesn't exists"
+                    message: "Shelter doesn't exists"
                 });
             }
         });

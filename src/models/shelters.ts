@@ -32,8 +32,6 @@ export interface RequestCreateShelter {
 }
 
 export interface RequestUpdateShelter {
-    password: any;
-    role: any;
     key: string;
     name?: string;
     email?: string;
