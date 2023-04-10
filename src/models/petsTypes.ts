@@ -31,8 +31,6 @@ export interface PetType extends baseModel{
     _id: any;
     key: string;
     name: string;
-
-    pet: string;
 }
 
 export interface CreatePetTypeHelper {

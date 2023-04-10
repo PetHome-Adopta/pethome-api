@@ -1,6 +1,6 @@
 import { Express, Request, Response, Router } from "express";
 import { services } from "../app";
-import { RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../models/pets";
+import { Pet, RequestCreatePet, RequestDeletePet, RequestGetPets, RequestUpdatePet } from "../models/pets";
 import { PATHS } from "../utils/Constants";
 
 export class PetsController {
@@ -15,11 +15,11 @@ export class PetsController {
         app.use(this.#router);
     }
 
-    async handleGetPets(req: Request, res: Response) {
+    async handleGetPets(req: Request, res: Response): Promise<any> {
         try {
             
             const body: RequestGetPets = req.body;
-            const data = await services.pets.getPets(body);
+            const data: [Pet[], number] = await services.pets.getPets(body);
 
             res.json({
                 data: data[0],
@@ -33,7 +33,7 @@ export class PetsController {
         }
     }
 
-    async handleCreatePet(req: Request, res: Response) {
+    async handleCreatePet(req: Request, res: Response): Promise<any> {
         try {
             const body: RequestCreatePet = req.body;
             const data = await services.pets.createPet(body);
@@ -49,7 +49,7 @@ export class PetsController {
         }
     }
 
-    async handleUpdatePet(req: Request, res: Response) {
+    async handleUpdatePet(req: Request, res: Response): Promise<any> {
         try {
             const body: RequestUpdatePet = req.body;
             const data = await services.pets.updatePet(body);
@@ -65,7 +65,7 @@ export class PetsController {
         }
     }
 
-    async handleDeletePet(req: Request, res: Response) {
+    async handleDeletePet(req: Request, res: Response): Promise<any> {
         try {
             const body: RequestDeletePet = req.body;
             const data = await services.pets.deletePet(body);

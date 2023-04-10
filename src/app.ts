@@ -28,6 +28,7 @@ export default (async () => {
         next();
     });
 
+    //TODO:poner aws cuenta en android
     App.use(Deserializer);
 
     App.use("*/admin/*", Authorized);

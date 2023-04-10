@@ -9,14 +9,14 @@ export class PetTypesController {
 
     constructor (app : Express){
         this.#router = Router();
-        this.#router.get(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleGetPets.bind(this));
-        this.#router.post(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleCreatePet.bind(this));
-        this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleUpdatePet.bind(this));
-        this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleDeletePet.bind(this));
+        this.#router.get(PATHS.V1 + PATHS.PETS + PATHS.TYPES, this.handleGetPetsTypes.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleCreatePetType.bind(this));
+        this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleUpdatePetType.bind(this));
+        this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.PETS + PATHS.TYPES, this.handleDeletePetType.bind(this));
         app.use(this.#router);
     }
 
-    async handleGetPets(req: Request, res: Response){
+    async handleGetPetsTypes(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestGetPetsTypes = req.body;
             const data = await services.petsTypes.getPetsType(body);
@@ -33,7 +33,7 @@ export class PetTypesController {
         }
     }
 
-    async handleCreatePet(req: Request, res: Response){
+    async handleCreatePetType(req: Request, res: Response): Promise<any>{
         try{
             const body: RequesCreatePetsTypes = req.body;
             const data = await services.petsTypes.createPetType(body);
@@ -49,7 +49,7 @@ export class PetTypesController {
         }
     }
 
-    async handleUpdatePet(req: Request, res: Response){
+    async handleUpdatePetType(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestUpdatePetsTypes = req.body;
             const data = await services.petsTypes.updatePetType(body);
@@ -65,7 +65,7 @@ export class PetTypesController {
         }
     }
 
-    async handleDeletePet(req: Request, res: Response){
+    async handleDeletePetType(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestDeletePetsTypes = req.body;
             const data = await services.petsTypes.deletePetType(body);

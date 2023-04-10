@@ -1,8 +1,8 @@
 import { helpers } from "../app";
-import { RequestGetPetsTypes, RequesCreatePetsTypes, RequestUpdatePetsTypes, RequestDeletePetsTypes } from "../models/petsTypes";
+import { RequestGetPetsTypes, RequesCreatePetsTypes, RequestUpdatePetsTypes, RequestDeletePetsTypes, PetType } from "../models/petsTypes";
 
 export class PetsTypesServices {
-    async getPetsType(data: RequestGetPetsTypes) {
+    async getPetsType(data: RequestGetPetsTypes): Promise<[PetType[], number]> {
         const response = await helpers.petsTypes.getPetsTypes({
                 filters: {
                     key: data.key,
@@ -21,7 +21,7 @@ export class PetsTypesServices {
         return response;
     }
 
-    async createPetType(data: RequesCreatePetsTypes) {
+    async createPetType(data: RequesCreatePetsTypes): Promise<PetType> {
         if (data.name == null)
             throw {
                 ok: false,
@@ -33,7 +33,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Invalid key type"
+                message: "Invalid data type"
             }
 
         const petType = await helpers.petsTypes.getPetsTypes({
@@ -49,12 +49,16 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type alredy created or it's deleted"
+                message: "Pet type alredy created"
             }
 
-        return await helpers.petsTypes.createPetType({
+        const response: PetType = await helpers.petsTypes.createPetType({
             name: data.name
         });
+
+        delete response._id;
+
+        return response;
     }
 
     async updatePetType(data: RequestUpdatePetsTypes) {
@@ -69,7 +73,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Invalid key type"
+                message: "Invalid data type"
             }
 
         const petType = await helpers.petsTypes.getPetsTypes({
@@ -84,7 +88,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type doesn't exist"
+                message: "Pet type doesn't exists"
             }
 
         return await helpers.petsTypes.updatePetType({
@@ -109,7 +113,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Invalid key type"
+                message: "Invalid data type"
             }
 
         const petType = await helpers.petsTypes.getPetsTypes({
@@ -125,7 +129,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type doesn't exist or it's deleted"
+                message: "Pet type doesn't exists or it's deleted"
             }
 
         return await helpers.petsTypes.deletePetType({

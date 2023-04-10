@@ -9,13 +9,13 @@ export class SheltersController {
     constructor (app : Express){
         this.#router = Router();
         this.#router.get(PATHS.V1 + PATHS.SHELTERS, this.handleGetShelters.bind(this));
-        this.#router.post(PATHS.V1 + PATHS.SHELTERS, this.handleCreateShelter.bind(this));
+        this.#router.post(PATHS.V1 + PATHS.ADMIN + PATHS.SHELTERS, this.handleCreateShelter.bind(this));
         this.#router.put(PATHS.V1 + PATHS.ADMIN + PATHS.SHELTERS, this.handleUpdateShelter.bind(this));
         this.#router.delete(PATHS.V1 + PATHS.ADMIN + PATHS.SHELTERS, this.handleDeleteShelter.bind(this));
         app.use(this.#router);
     }
 
-    async handleGetShelters(req: Request, res: Response){
+    async handleGetShelters(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestGetShelters = req.body;
             const data = await services.shelters.getShelters(body);
@@ -32,7 +32,7 @@ export class SheltersController {
         }
     }
 
-    async handleCreateShelter(req: Request, res: Response){
+    async handleCreateShelter(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestCreateShelter = req.body;
             const data = await services.shelters.createShelter(body);
@@ -48,7 +48,7 @@ export class SheltersController {
         }
     }
 
-    async handleUpdateShelter(req: Request, res: Response){
+    async handleUpdateShelter(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestUpdateShelter = req.body;
             const data = await services.shelters.updateShelter(body);
@@ -64,7 +64,7 @@ export class SheltersController {
         }
     }
 
-    async handleDeleteShelter(req: Request, res: Response){
+    async handleDeleteShelter(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestDeleteShelter = req.body;
             const data = await services.shelters.deleteShelter(body);

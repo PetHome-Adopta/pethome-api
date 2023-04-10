@@ -3,7 +3,6 @@ import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { DeserializerForMongoOptions } from '../utils/DeserializerForMongoHelper';
 
-
 export class PetsHelper {
 
     private databases: Databases;
@@ -19,8 +18,7 @@ export class PetsHelper {
             const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
             const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
-            return [data as any, rCount];
-
+            return [data as Pet[], rCount];
         } catch (e) {
             throw {
                 ok: false,
@@ -29,8 +27,7 @@ export class PetsHelper {
         }
     }
 
-    async createPet(options: CreatePetHelper) {
-
+    async createPet(options: CreatePetHelper): Promise<Pet> {
         const toAdd = {
             key: v1(),
             ...options,
@@ -40,7 +37,7 @@ export class PetsHelper {
 
         try {
             await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-            return toAdd;
+            return toAdd as Pet;
         } catch (e) {
             throw {
                 ok: false,

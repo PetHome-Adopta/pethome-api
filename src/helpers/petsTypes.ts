@@ -1,4 +1,3 @@
-import { CreatePetHelper, DeletePetHelper, GetPetsHelper, UpdatePetHelper } from '../models/pets';
 import { Databases } from "../infrastructure/databases/databases";
 import { v1 } from "uuid";
 import { CreatePetTypeHelper, DeletePetTypeHelper, GetPetsTypesHelper, PetType, RequesCreatePetsTypes, UpdatePetTypeHelper } from '../models/petsTypes';
@@ -30,8 +29,7 @@ export class PetsTypesHelper {
         }
     }
 
-    async createPetType(options: CreatePetTypeHelper) {
-
+    async createPetType(options: CreatePetTypeHelper): Promise<PetType> {
         const toAdd = {
             key: v1(),
             ...options,
@@ -40,7 +38,7 @@ export class PetsTypesHelper {
         }
         try {
             await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-            return toAdd;
+            return toAdd as PetType;
         } catch (e) {
             throw {
                 ok: false,

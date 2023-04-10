@@ -1,9 +1,9 @@
-import { RequestGetPets, RequestCreatePet, RequestUpdatePet, RequestDeletePet } from '../models/pets';
+import { RequestGetPets, RequestCreatePet, RequestUpdatePet, RequestDeletePet, Pet } from '../models/pets';
 import { helpers } from "../app";
 
 export class PetsServices {
-    async getPets(data: RequestGetPets) {
-        const response = await helpers.pets.getPets({
+    async getPets(data: RequestGetPets): Promise<[Pet[], number]>{
+        const response: [Pet[], number] = await helpers.pets.getPets({
             filters: {
                 key: data.key,
                 name: data.name,
@@ -39,11 +39,13 @@ export class PetsServices {
         return response;
     }
 
-    async createPet(data: RequestCreatePet) {
+    //TODO: en la creacion de cualquier entidad de dominio, como mantenemos la integridad del formato de los datos?
+    async createPet(data: RequestCreatePet): Promise<Pet> {
         if (data.name == null ||
             data.petTypeKey == null ||
             data.shelterKey == null ||
-            data.description == null)
+            data.description == null ||
+            data.litter == null)
             throw {
                 ok: false,
                 status: 400,
@@ -53,7 +55,8 @@ export class PetsServices {
         if (typeof (data.name) !== "string" ||
             typeof (data.petTypeKey) !== "string" ||
             typeof (data.shelterKey) !== "string" ||
-            typeof (data.description) !== "string"
+            typeof (data.description) !== "string" ||
+            typeof (data.litter) !== "boolean"
         ) {
             throw {
                 ok: false,
@@ -61,6 +64,27 @@ export class PetsServices {
                 message: "Invalid data type"
             }
         }
+
+        const pet = await await helpers.pets.getPets({
+            filters: {
+                name: data.name,
+                petTypeKey: data.petTypeKey,
+                shelterKey: data.shelterKey,
+                description: data.description,
+                litter: data.litter,
+                deletedAt: null
+            },
+            options: {
+                sort: { _id: -1 }
+            }
+        });
+
+        if(pet[1] > 0)
+            throw {
+                ok: false,
+                status: 400,
+                message: "Pet alredy created"
+            }
 
         //TODO: refactor into utils.ts static method
         const petType = await helpers.petsTypes.getPetsTypes({
@@ -97,49 +121,57 @@ export class PetsServices {
                 message: "Shelter doesn't exist or it's deleted"
             }
 
-        for (let adoptedWithKey of data.adoptedWith) {
-            const petsAdoptedWith = await helpers.pets.getPets({
-                filters: {
-                    key: String(adoptedWithKey),
-                    adopted: false,
-                    deletedAt: null
-                },
-                options: {
-                    sort: { _id: -1 }
-                }
-            });
+        if(data.adoptedWith)
+            for (let adoptedWithKey of data.adoptedWith) {
+                const petsAdoptedWith = await helpers.pets.getPets({
+                    filters: {
+                        key: String(adoptedWithKey),
+                        adopted: false,
+                        deletedAt: null
+                    },
+                    options: {
+                        sort: { _id: -1 }
+                    }
+                });
 
-            if(petsAdoptedWith[1] === 0)
-                throw {
-                    ok: false,
-                    status: 400,
-                    message: "Pet adopted with dosen't exists or has been adopted"
-                }
-        }
+                if(petsAdoptedWith[1] === 0)
+                    throw {
+                        ok: false,
+                        status: 400,
+                        message: "Pet adopted with dosen't exists or has been adopted"
+                    }
+            }
 
-        return await helpers.pets.createPet({
+        const response: Pet = await helpers.pets.createPet({
+            imageURL: data.imageURL,
+            litter: data.litter,
             name: data.name,
             description: data.description,
-            age: data.age,
             color: data.color,
+            age: data.age,
             breed: data.breed,
             gender: data.gender,
             behaviour: data.behaviour,
+            weight: data.weight,
             sterilized: data.sterilized,
             vaccinated: data.vaccinated,
             dewormed: data.dewormed,
             healthy: data.healthy,
             identified: data.identified,
             microchipped: data.microchipped,
-
             adopted: false,
             urgentAdoption: data.urgentAdoption,
-
+            adoptionPrice: data.adoptionPrice,
+            deliveryPlace: data.deliveryPlace,
             statusOnShelter: data.statusOnShelter,
+            adoptedWith: data.adoptedWith,
             shelterKey: data.shelterKey,
-            petTypeKey: data.petTypeKey,
-            litter: false
+            petTypeKey: data.petTypeKey
         });
+
+        delete response._id;
+
+        return response;
     }
 
     async updatePet(data: RequestUpdatePet) {
@@ -169,7 +201,7 @@ export class PetsServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet doesn't exist"
+                message: "Pet doesn't exist or it's deleted"
             }
 
         //TODO: refactor into utils.ts static method
@@ -211,49 +243,54 @@ export class PetsServices {
                 }    
         }
 
-        for (let adoptedWithKey of data.adoptedWith) {
-            const petsAdoptedWith = await helpers.pets.getPets({
-                filters: {
-                    key: String(adoptedWithKey),
-                    adopted: false,
-                    deletedAt: null
-                },
-                options: {
-                    sort: { _id: -1 }
-                }
-            });
+        if(data.adoptedWith)
+            for (let adoptedWithKey of data.adoptedWith) {
+                const petsAdoptedWith = await helpers.pets.getPets({
+                    filters: {
+                        key: String(adoptedWithKey),
+                        adopted: false,
+                        deletedAt: null
+                    },
+                    options: {
+                        sort: { _id: -1 }
+                    }
+                });
 
-            if(petsAdoptedWith[1] === 0)
-                throw {
-                    ok: false,
-                    status: 400,
-                    message: `Pet ${adoptedWithKey} adopted with dosen't exists or has been adopted`
-                }
-        }
+                if(petsAdoptedWith[1] === 0)
+                    throw {
+                        ok: false,
+                        status: 400,
+                        message: `Pet adopted with dosen't exists or has been adopted`
+                    }
+            }
 
         return await helpers.pets.updatePet({
             filters: {
                 key: data.key,
             },
             data: {
+                imageURL: data.imageURL,
+                litter: data.litter,
                 name: data.name,
                 description: data.description,
-                age: data.age,
                 color: data.color,
+                age: data.age,
                 breed: data.breed,
                 gender: data.gender,
                 behaviour: data.behaviour,
+                weight: data.weight,
                 sterilized: data.sterilized,
                 vaccinated: data.vaccinated,
                 dewormed: data.dewormed,
                 healthy: data.healthy,
                 identified: data.identified,
                 microchipped: data.microchipped,
-                litter: data.litter,
-                adopted: data.adopted,
+                adopted: false,
                 urgentAdoption: data.urgentAdoption,
-
+                adoptionPrice: data.adoptionPrice,
+                deliveryPlace: data.deliveryPlace,
                 statusOnShelter: data.statusOnShelter,
+                adoptedWith: data.adoptedWith,
                 shelterKey: data.shelterKey,
                 petTypeKey: data.petTypeKey
             }
@@ -265,7 +302,7 @@ export class PetsServices {
             throw {
                 ok: false,
                 status: 400,
-                message: 'Key type invalid'
+                message: "There are required values that don't have a valid value"
             };
 
         if (typeof (data.key) !== 'string')

@@ -29,7 +29,7 @@ export class SheltersHelper {
         }
     }
 
-    async createShelter(options: CreateShelterHelper) {
+    async createShelter(options: CreateShelterHelper): Promise<Shelter> {
         const toAdd = {
             key: v1(),
             ...options,
@@ -39,7 +39,7 @@ export class SheltersHelper {
 
         try {
             await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-            return toAdd;
+            return toAdd as Shelter;
         } catch (e) {
             throw {
                 ok: false,

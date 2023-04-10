@@ -1,14 +1,15 @@
-import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter } from '../models/shelters';
+import { RequestGetShelters, RequestCreateShelter, RequestUpdateShelter, RequestDeleteShelter, Shelter } from '../models/shelters';
 import { helpers } from "../app";
-import bcrypt from "bcryptjs";
 
 export class SheltersServices {
-    async getShelters(data: RequestGetShelters) {
+    async getShelters(data: RequestGetShelters): Promise<[Shelter[], number]> {
         const response = await helpers.shelters.getShelters({
                 filters: {
                     key: data.key,
+                    name: data.name,
                     phoneNumber: data.phoneNumber,
                     email: data.email,
+                    address: data.address,
                     deletedAt: null
                 },
                 options: {
@@ -22,12 +23,13 @@ export class SheltersServices {
         return response;
     }
 
-    async createShelter(data: RequestCreateShelter) {
+    async createShelter(data: RequestCreateShelter): Promise<Shelter> {
         if (
             data.name == null ||
             data.phoneNumber == null ||
             data.email == null ||
-            data.address == null)
+            data.address == null ||
+            data.description == null)
             throw {
                 ok: false,
                 status: 400,
@@ -36,7 +38,9 @@ export class SheltersServices {
 
         if (typeof (data.phoneNumber) !== "string" ||
             typeof (data.email) !== "string" ||
-            typeof (data.address) !== "string"
+            typeof (data.address) !== "string" ||
+            typeof (data.phoneNumber) !== "string" ||
+            typeof (data.description) !== "string"
         ) {
             throw {
                 ok: false,
@@ -59,7 +63,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter alredy created or it's deleted"
+                message: "Shelter alredy created"
             }
 
         return await helpers.shelters.createShelter({
@@ -90,6 +94,7 @@ export class SheltersServices {
         const shelter = await helpers.shelters.getShelters({
             filters: {
                 key: data.key,
+                deletedAt: null
             },
             options: {
                 sort: { _id: -1 }
@@ -99,7 +104,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist or it's deleted"
+                message: "Shelter doesn't exist"
             }
 
         return await helpers.shelters.updateShelter({
@@ -129,7 +134,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Invalid key type"
+                message: "Invalid data type"
             }
 
         const shelter = await helpers.shelters.getShelters({
@@ -145,7 +150,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exist"
+                message: "Shelter doesn't exists or it's deleted"
             }
 
         const pets = await helpers.pets.getPets({
@@ -159,7 +164,6 @@ export class SheltersServices {
         });
 
         for (let pet of pets[0]) {
-            console.log('Deleting pet: ', pet.key);
             await helpers.pets.deletePet({
                 key: pet.key
             });
@@ -168,6 +172,5 @@ export class SheltersServices {
         return await helpers.shelters.deleteShelter({
             key: data.key
         });
-    
     }
 }
