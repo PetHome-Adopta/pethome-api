@@ -20,7 +20,7 @@ export class UsersHelper {
             const data = await this.databases.getClients().mongo.collection(this.collectionName).find(options.filters, options.options).toArray();
             const rCount = await this.databases.getClients().mongo.collection(this.collectionName).countDocuments(options.filters);
 
-            return [data as any, rCount];
+            return [data as User[], rCount];
         } catch (e) {
             throw {
                 ok: false,
@@ -29,7 +29,7 @@ export class UsersHelper {
         }
     }
 
-    async createUser(options: CreateUserHelper) {
+    async createUser(options: CreateUserHelper): Promise<User> {
         const toAdd = {
             key: v1(),
             ...options,
@@ -39,7 +39,7 @@ export class UsersHelper {
 
         try {
             await this.databases.getClients().mongo.collection(this.collectionName).insertOne(toAdd);
-            return toAdd;
+            return toAdd as User;
         } catch (e) {
             throw {
                 ok: false,

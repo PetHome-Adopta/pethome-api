@@ -15,7 +15,7 @@ export class UsersController {
         app.use(this.#router);
     }
 
-    async handleGetUsers(req: Request, res: Response){
+    async handleGetUsers(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestGetUsers = req.body;
             const data = await services.users.getUsers(body);
@@ -32,7 +32,7 @@ export class UsersController {
         }
     }
 
-    async handleCreateUser(req: Request, res: Response){
+    async handleCreateUser(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestCreateUser = req.body;
             const data = await services.users.createUser(body);
@@ -48,7 +48,7 @@ export class UsersController {
         }
     }
 
-    async handleUpdateUser(req: Request, res: Response){
+    async handleUpdateUser(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestUpdateUser = req.body;
             const data = await services.users.updateUser(body);
@@ -64,7 +64,7 @@ export class UsersController {
         }
     }
 
-    async handleDeleteUser(req: Request, res: Response){
+    async handleDeleteUser(req: Request, res: Response): Promise<any>{
         try{
             const body: RequestDeleteUser = req.body;
             const data = await services.users.deleteUser(body);

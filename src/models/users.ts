@@ -16,7 +16,7 @@ export interface User extends baseModel{
     imageURL: string;
     preferedCoin: string;
     role: roles;
-    shelterKey: string[];
+    shelterKey: string;
 }
 
 export interface RequestGetUsers {
@@ -29,7 +29,7 @@ export interface RequestGetUsers {
     imageURL?: string;
     preferedCoin?: string;
     role?: roles;
-    shelterKey?: string[];
+    shelterKey?: string;
 }
 
 export interface RequestCreateUser {
@@ -41,11 +41,10 @@ export interface RequestCreateUser {
     imageURL?: string;
     preferedCoin?: string;
     role: roles;
-    shelterKey?: string[];
+    shelterKey?: string;
 }
 
 export interface RequestUpdateUser {
-    address: any;
     key: string;
     name?: string;
     phoneNumber?: string;
@@ -55,7 +54,7 @@ export interface RequestUpdateUser {
     imageURL?: string;
     preferedCoin?: string;
     role?: roles;
-    shelterKey?: string[];
+    shelterKey?: string;
 }
 
 export interface RequestDeleteUser {
@@ -73,7 +72,7 @@ export interface GetUsersHelper extends generalOptions {
         imageURL?: string;
         preferedCoin?: string;
         role?: roles;
-        shelterKey?: string[];
+        shelterKey?: string;
         deletedAt?: Date;
     }
 }
@@ -87,7 +86,7 @@ export interface CreateUserHelper {
     imageURL?: string;
     preferedCoin?: string;
     role: roles;
-    shelterKey?: string[];
+    shelterKey?: string;
 }
 
 export interface UpdateUserHelper {
