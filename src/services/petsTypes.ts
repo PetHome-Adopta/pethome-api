@@ -129,7 +129,7 @@ export class PetsTypesServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Pet type doesn't exists"
+                message: "Pet type doesn't exists or it's deleted"
             }
 
         return await helpers.petsTypes.deletePetType({

@@ -150,7 +150,7 @@ export class SheltersServices {
             throw {
                 ok: false,
                 status: 400,
-                message: "Shelter doesn't exists"
+                message: "Shelter doesn't exists or it's deleted"
             }
 
         const pets = await helpers.pets.getPets({
